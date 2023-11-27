@@ -53,7 +53,7 @@
                         <!--Menu Buttons-->
 
                         <StackPanel DockPanel.Dock="Top">
-                            <Button x:Name="NavigationToBookKeepingBtn" Style="{StaticResource menuButton}" Click="NavigationToBookKeepingBtn_Click">
+                            <Button x:Name="NavigationToBookKeepingBtn" Style="{StaticResource menuButtonClicked}" Click="NavigationToBookKeepingBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Księgowość"/>
