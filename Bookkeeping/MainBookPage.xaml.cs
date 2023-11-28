@@ -32,7 +32,7 @@ namespace dksApp.Bookkeeping
             invoices.Add(new Invoice { Id = 1, SellerName = "DARKAS", BuyerName = "Ja", Payment = "Przelew", Price = 1290, Type = "WŁASNA" });
             invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
 
-            InvoicesDataGrid.ItemsSource = invoices;
+            BookKeepingDataGrid.ItemsSource = invoices;
         }
     }
 }

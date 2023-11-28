@@ -13,7 +13,7 @@
     </Page.Resources>
 
     
-        <Grid x:Name="Invoices" Grid.Row="1" Visibility="Visible">
+        <Grid x:Name="BookKeeping" Grid.Row="1" Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -70,9 +70,9 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                 <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
             </Grid>
 
-            <!--Invoices DataGrid-->
+            <!--BookKeeping DataGrid-->
 
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" x:Name="InvoicesDataGrid">
+            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" x:Name="BookKeepingDataGrid">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
                         <DataGridCheckBoxColumn.HeaderTemplate>

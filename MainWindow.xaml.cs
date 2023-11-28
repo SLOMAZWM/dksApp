@@ -21,7 +21,7 @@ namespace dksApp
         //#region navigate
         private void Navigate(Page page)
         {
-            MainContentFrame.NavigationService.Navigate(page);
+            //MainContentFrame.NavigationService.Navigate(page);
         }
 
         private void NavigationToBookKeepingBtn_Click(object sender, RoutedEventArgs e)
