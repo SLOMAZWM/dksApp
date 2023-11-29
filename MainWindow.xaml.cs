@@ -4,6 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using dksApp.Bookkeeping;
+using dksApp.Orders;
+using dksApp.Contractors;
+using dksApp.Magazine;
+using dksApp.Calendar;
+using dksApp.Allegro;
 
 namespace dksApp
 {
@@ -15,18 +20,42 @@ namespace dksApp
         public MainWindow()
         {
             InitializeComponent();
-            Navigate(new MainBookPage());
+            Navigate(new AllegroPage());
         }
 
         //#region navigate
         private void Navigate(Page page)
         {
-            //MainContentFrame.NavigationService.Navigate(page);
+            MainContentFrame.NavigationService.Navigate(page);
         }
 
         private void NavigationToBookKeepingBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(new MainBookPage());
+        }
+
+        private void NavigationToOrdersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new OrdersPage());
+        }
+
+        private void NavigationToContractorsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new ContractorsPage());
+        }
+        private void NavigationToMagazineBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new MagazinePage());
+        }
+
+        private void NavigationToCalendarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new CalendarPage());
+        }
+
+        private void NavigationToAllegroBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Navigate(new AllegroPage());
         }
 
         //#settingsfrontend
