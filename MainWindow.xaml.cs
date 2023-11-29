@@ -18,10 +18,43 @@ namespace dksApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        Page MainBook = new MainBookPage();
+        Page Allegro = new AllegroPage();
+        Page Calendar = new CalendarPage();
+        Page Contractors = new CalendarPage();
+        Page Magazine = new MagazinePage();
+        Page Orders = new OrdersPage();
+
+        List<Page> PageList = new List<Page>();
+
         public MainWindow()
         {
             InitializeComponent();
-            Navigate(new AllegroPage());
+            PageList = InitializePageList();
+            Navigate(MainBook);
+        }
+
+        private void ChangeColor()
+        {
+            SolidColorBrush buttonForegroundBrush = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+
+            foreach (var page in PageList)
+            {
+                page.Foreground = buttonForegroundBrush;
+            }
+        }
+        private List<Page> InitializePageList()
+        {
+            List<Page> pageListCreate = new List<Page>
+    {
+        MainBook,
+        Allegro,
+        Calendar,
+        Contractors,
+        Magazine,
+        Orders
+    };
+            return pageListCreate;
         }
 
         //#region navigate
@@ -32,48 +65,51 @@ namespace dksApp
 
         private void NavigationToBookKeepingBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new MainBookPage());
+            Navigate(MainBook);
+
+            ChangeColor();
+            NavigationToBookKeepingBtn.Foreground = Brushes.White;
         }
 
         private void NavigationToOrdersBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new OrdersPage());
+            Navigate(Orders);
         }
 
         private void NavigationToContractorsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new ContractorsPage());
+            Navigate(Contractors);
         }
         private void NavigationToMagazineBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new MagazinePage());
+            Navigate(Magazine);
         }
 
         private void NavigationToCalendarBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new CalendarPage());
+            Navigate(Calendar);
         }
 
         private void NavigationToAllegroBtn_Click(object sender, RoutedEventArgs e)
         {
-            Navigate(new AllegroPage());
+            Navigate(Allegro);
         }
 
         //#settingsfrontend
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left) 
+            if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
         }
 
         private bool IsMaximized = false;
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) 
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ClickCount == 2)
+            if (e.ClickCount == 2)
             {
-                if(IsMaximized) 
+                if (IsMaximized)
                 {
                     this.WindowState = WindowState.Normal;
                     this.Width = 1080;
@@ -85,7 +121,7 @@ namespace dksApp
                 {
                     this.WindowState = WindowState.Maximized;
 
-                    IsMaximized= true;
+                    IsMaximized = true;
                 }
             }
         }
