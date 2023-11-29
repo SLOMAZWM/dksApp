@@ -25,6 +25,8 @@ namespace dksApp
         Page Magazine = new MagazinePage();
         Page Orders = new OrdersPage();
 
+        //NAPRAW KOLORY DLA BUTTONOW
+
         List<Page> PageList = new List<Page>();
 
         public MainWindow()
