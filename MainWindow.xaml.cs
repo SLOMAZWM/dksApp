@@ -74,25 +74,40 @@ namespace dksApp
         private void NavigationToOrdersBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Orders);
+
+            ChangeColor();
+            NavigationToOrdersBtn.Foreground = Brushes.White;
         }
 
         private void NavigationToContractorsBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Contractors);
+
+            ChangeColor();
+            NavigationToContractorsBtn.Foreground = Brushes.White;
         }
         private void NavigationToMagazineBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Magazine);
+
+            ChangeColor();
+            NavigationToMagazineBtn.Foreground = Brushes.White;
         }
 
         private void NavigationToCalendarBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Calendar);
+
+            ChangeColor();
+            NavigationToCalendarBtn.Foreground = Brushes.White;
         }
 
         private void NavigationToAllegroBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Allegro);
+
+            ChangeColor();
+            NavigationToAllegroBtn.Foreground = Brushes.White;
         }
 
         //#settingsfrontend
