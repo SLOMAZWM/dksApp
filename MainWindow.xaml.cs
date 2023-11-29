@@ -9,6 +9,7 @@ using dksApp.Contractors;
 using dksApp.Magazine;
 using dksApp.Calendar;
 using dksApp.Allegro;
+using System.Xml;
 
 namespace dksApp
 {
