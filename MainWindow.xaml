@@ -53,42 +53,42 @@
                         <!--Menu Buttons-->
 
                         <StackPanel DockPanel.Dock="Top">
-                            <Button x:Name="NavigationToBookKeepingBtn" Style="{StaticResource menuButton}" Click="NavigationToBookKeepingBtn_Click">
+                            <Button x:Name="NavigationToBookKeepingBtn" Tag="MainBook" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Księgowość"/>
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToOrdersBtn" Style="{StaticResource menuButton}" Click="NavigationToOrdersBtn_Click">
+                            <Button x:Name="NavigationToOrdersBtn" Tag="Orders" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Shopping"  Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Zamówienia"/>
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToContractorsBtn" Style="{StaticResource menuButton}" Click="NavigationToContractorsBtn_Click">
+                            <Button x:Name="NavigationToContractorsBtn" Tag="Contractors" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="AccountMultipleOutline"  Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Kontrahenci"/>
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToMagazineBtn" Style="{StaticResource menuButton}" Click="NavigationToMagazineBtn_Click">
+                            <Button x:Name="NavigationToMagazineBtn" Tag="Magazine" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Warehouse"  Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Magazyn"/>
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToCalendarBtn" Style="{StaticResource menuButton}" Click="NavigationToCalendarBtn_Click">
+                            <Button x:Name="NavigationToCalendarBtn" Tag="Calendar" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CalendarClock"  Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Kalendarz"/>
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToAllegroBtn" Style="{StaticResource menuButton}" Click="NavigationToAllegroBtn_Click">
+                            <Button x:Name="NavigationToAllegroBtn" Tag="Allegro" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="AccountSettings"  Style="{StaticResource menubuttonIcon}"/>
                                     <TextBlock Text="Allegro"/>

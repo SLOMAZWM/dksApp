@@ -18,38 +18,20 @@ namespace dksApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        Page MainBook = new MainBookPage();
-        Page Allegro = new AllegroPage();
-        Page Calendar = new CalendarPage();
-        Page Contractors = new CalendarPage();
-        Page Magazine = new MagazinePage();
-        Page Orders = new OrdersPage();
 
-        //NAPRAW KOLORY DLA BUTTONOW
+        //Stwórz dla buttonow na Page podkreslenie!
+        //Zaimplementuj SQL'a dla faktur, klienta (bez allegro Api)
 
-        List<Button> ButtonList = new List<Button>();
+        private NavigatorManager navigator;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            ButtonList = InitializeButtonList();
-            Navigate(MainBook);
+            navigator = new NavigatorManager(MainContentFrame, InitializeButtonList());
         }
 
-        private void ChangeColor(Button clickedButton)
-        {
-            SolidColorBrush buttonForegroundBrush = new SolidColorBrush(Color.FromRgb(208, 192, 255));
-            SolidColorBrush whiteForegroundBrush = Brushes.White;
-
-            foreach (var Button in ButtonList)
-            {
-                Button.Foreground = buttonForegroundBrush;
-            }
-
-            clickedButton.Foreground = whiteForegroundBrush;
-        }
-
-        private List<Button> InitializeButtonList()
+private List<Button> InitializeButtonList()
         {
             List<Button> newButtonList = new List<Button>
             {
@@ -66,51 +48,14 @@ namespace dksApp
 
 
 
-        //#region navigate
-        private void Navigate(Page page)
+        //#Navigation
+        private void NavigationButton_Click(object sender, RoutedEventArgs e) 
         {
-            MainContentFrame.NavigationService.Navigate(page);
-        }
-
-        private void NavigationToBookKeepingBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(MainBook);
-
-            ChangeColor((Button)sender);
-        }
-
-        private void NavigationToOrdersBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(Orders);
-
-            ChangeColor((Button)sender);
-        }
-
-        private void NavigationToContractorsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(Contractors);
-
-            ChangeColor((Button)sender);
-        }
-        private void NavigationToMagazineBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(Magazine);
-
-            ChangeColor((Button)sender);
-        }
-
-        private void NavigationToCalendarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(Calendar);
-
-            ChangeColor((Button)sender);
-        }
-
-        private void NavigationToAllegroBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Navigate(Allegro);
-
-            ChangeColor((Button)sender);
+            if (sender is Button button && button.Tag is string pageName)
+            {
+                navigator.ChangeButtonColor(button);
+                navigator.NavigateToPage(pageName);
+            }
         }
 
         //#settingsfrontend
