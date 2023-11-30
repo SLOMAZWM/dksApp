@@ -27,37 +27,44 @@ namespace dksApp
 
         //NAPRAW KOLORY DLA BUTTONOW
 
-        List<Page> PageList = new List<Page>();
+        List<Button> ButtonList = new List<Button>();
 
         public MainWindow()
         {
             InitializeComponent();
-            PageList = InitializePageList();
+            ButtonList = InitializeButtonList();
             Navigate(MainBook);
         }
 
-        private void ChangeColor()
+        private void ChangeColor(Button clickedButton)
         {
             SolidColorBrush buttonForegroundBrush = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            SolidColorBrush whiteForegroundBrush = Brushes.White;
 
-            foreach (var page in PageList)
+            foreach (var Button in ButtonList)
             {
-                page.Foreground = buttonForegroundBrush;
+                Button.Foreground = buttonForegroundBrush;
             }
+
+            clickedButton.Foreground = whiteForegroundBrush;
         }
-        private List<Page> InitializePageList()
+
+        private List<Button> InitializeButtonList()
         {
-            List<Page> pageListCreate = new List<Page>
-    {
-        MainBook,
-        Allegro,
-        Calendar,
-        Contractors,
-        Magazine,
-        Orders
-    };
-            return pageListCreate;
+            List<Button> newButtonList = new List<Button>
+            {
+                NavigationToBookKeepingBtn,
+                NavigationToAllegroBtn,
+                NavigationToOrdersBtn,
+                NavigationToCalendarBtn,
+                NavigationToContractorsBtn,
+                NavigationToMagazineBtn
+            };
+            
+            return newButtonList;
         }
+
+
 
         //#region navigate
         private void Navigate(Page page)
@@ -69,47 +76,41 @@ namespace dksApp
         {
             Navigate(MainBook);
 
-            ChangeColor();
-            NavigationToBookKeepingBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
 
         private void NavigationToOrdersBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Orders);
 
-            ChangeColor();
-            NavigationToOrdersBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
 
         private void NavigationToContractorsBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Contractors);
 
-            ChangeColor();
-            NavigationToContractorsBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
         private void NavigationToMagazineBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Magazine);
 
-            ChangeColor();
-            NavigationToMagazineBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
 
         private void NavigationToCalendarBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Calendar);
 
-            ChangeColor();
-            NavigationToCalendarBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
 
         private void NavigationToAllegroBtn_Click(object sender, RoutedEventArgs e)
         {
             Navigate(Allegro);
 
-            ChangeColor();
-            NavigationToAllegroBtn.Foreground = Brushes.White;
+            ChangeColor((Button)sender);
         }
 
         //#settingsfrontend
