@@ -19,7 +19,8 @@ namespace dksApp
     public partial class MainWindow : Window
     {
 
-        //Stwórz dla buttonow na Page podkreslenie!
+        //Podkreslenie dla kazdego tabButton w Page
+        //Nawigacja dla DataGrid
         //Zaimplementuj SQL'a dla faktur, klienta (bez allegro Api)
 
         private NavigatorManager navigator;
@@ -47,13 +48,12 @@ private List<Button> InitializeButtonList()
         }
 
 
-
         //#Navigation
         private void NavigationButton_Click(object sender, RoutedEventArgs e) 
         {
             if (sender is Button button && button.Tag is string pageName)
             {
-                navigator.ChangeButtonColor(button);
+                navigator.ChangeMenuButtonColor(button);
                 navigator.NavigateToPage(pageName);
             }
         }

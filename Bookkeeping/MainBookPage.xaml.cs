@@ -21,6 +21,9 @@ namespace dksApp.Bookkeeping
     /// </summary>
     public partial class MainBookPage : Page
     {
+
+        private NavigatorManager navigator;
+
         public MainBookPage()
         {
             InitializeComponent();
@@ -33,6 +36,17 @@ namespace dksApp.Bookkeeping
             invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
 
             BookKeepingDataGrid.ItemsSource = invoices;
+
+            navigator = new NavigatorManager(tabButtonSP);
+        }
+
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                navigator.ChangeTabButton(button);
+                //navigator.NavigateToPage(DataGridName); // Dodaj nawigacje - przemysl system SQL/APLIKACJA sortowanie
+            }
         }
     }
 }

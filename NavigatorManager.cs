@@ -20,6 +20,7 @@ namespace dksApp
         private Dictionary<string, Page> Pages = new Dictionary<string, Page>();
         private Frame ActuallyContentFrame;
         List<Button> ButtonList = new List<Button>();
+        private StackPanel tabButtonStackPanel;
 
         public NavigatorManager(Frame frame, List<Button> ListOfButtons)
         {
@@ -27,6 +28,13 @@ namespace dksApp
             ActuallyContentFrame = frame;
             ButtonList = ListOfButtons;
         }
+
+        public NavigatorManager(StackPanel SP)
+        {
+            tabButtonStackPanel = SP;
+        }
+
+
 
         private Dictionary<string, Page> InitializePages()
         {
@@ -55,7 +63,7 @@ namespace dksApp
             }
         }
 
-        public void ChangeButtonColor(Button clickedButton)
+        public void ChangeMenuButtonColor(Button clickedButton)
         {
             SolidColorBrush buttonForegroundBrush = new SolidColorBrush(Color.FromRgb(208, 192, 255));
             SolidColorBrush whiteForegroundBrush = Brushes.White;
@@ -66,6 +74,22 @@ namespace dksApp
             }
 
             clickedButton.Foreground = whiteForegroundBrush;
+        }
+
+        public void ChangeTabButton(Button clickedButton)
+        {
+            SolidColorBrush buttonBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x78, 0x4F, 0xF2));
+            SolidColorBrush blackForegroundBrush = new SolidColorBrush(Color.FromRgb(0x12, 0x15, 0x18));
+            SolidColorBrush transparentBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
+
+            foreach (var child in tabButtonStackPanel.Children)
+            {
+                if (child is Button button)
+                {
+                    button.Foreground = (button == clickedButton) ? buttonBrush : blackForegroundBrush;
+                    button.BorderBrush = (button == clickedButton) ? buttonBrush : transparentBrush;
+                }
+            }
         }
 
     }
