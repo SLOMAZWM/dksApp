@@ -34,7 +34,7 @@
             </StackPanel>
         </Button>
 
-        <Button Style="{StaticResource AllegroAddButton}" Grid.Row="1" Margin="0,20,220,0">
+        <Button Style="{StaticResource AllegroAddButton}" Grid.Row="1" Margin="0,20,210,0">
             <StackPanel Orientation="Horizontal">
                 <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                 <TextBlock Text="Wystaw bez szablonu"/>
