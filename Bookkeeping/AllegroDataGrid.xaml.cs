@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dksApp.Magazine
+namespace dksApp.Bookkeeping
 {
     /// <summary>
-    /// Interaction logic for MagazinePage.xaml
+    /// Interaction logic for AllegroDataGrid.xaml
     /// </summary>
-    public partial class MagazinePage : Page
+    public partial class AllegroDataGrid : Page
     {
-        public MagazinePage()
+        public AllegroDataGrid()
         {
             InitializeComponent();
         }

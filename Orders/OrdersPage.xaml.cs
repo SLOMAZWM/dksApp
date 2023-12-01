@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dksApp.Bookkeeping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,36 @@ namespace dksApp.Orders
     /// </summary>
     public partial class OrdersPage : Page
     {
+        private NavigatorManager navigator;
+        private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
+
         public OrdersPage()
         {
             InitializeComponent();
+
+            DataGridPage = InitializeDataGridPages();
+            navigator = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
+        }
+
+        private Dictionary<string, Page> InitializeDataGridPages()
+        {
+            Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
+            {
+                { "Wszystkie", new AllDataGrid() },
+                {"Allegro", new AllegroDataGrid() },
+                {"Wlasne", new UserDataGrid() }
+            };
+
+            return NewDictionaryOfPages;
+        }
+
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string dataGridName)
+            {
+                navigator.ChangeTabButton(button);
+                navigator.NavigateToDataGrid(dataGridName);
+            }
         }
     }
 }

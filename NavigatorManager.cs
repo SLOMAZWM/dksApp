@@ -2,7 +2,6 @@
 using dksApp.Bookkeeping;
 using dksApp.Calendar;
 using dksApp.Contractors;
-using dksApp.Magazine;
 using dksApp.Orders;
 using System;
 using System.Collections.Generic;
@@ -18,23 +17,37 @@ namespace dksApp
     public class NavigatorManager
     {
         private Dictionary<string, Page> Pages = new Dictionary<string, Page>();
+        private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
         private Frame ActuallyContentFrame;
-        List<Button> ButtonList = new List<Button>();
+        private Frame ActuallyDataGridContentFrame;
+        List<Button> ButtonListMenu = new List<Button>();
         private StackPanel tabButtonStackPanel;
 
-        public NavigatorManager(Frame frame, List<Button> ListOfButtons)
+        public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu)
         {
             Pages = InitializePages();
             ActuallyContentFrame = frame;
-            ButtonList = ListOfButtons;
+            ButtonListMenu = ListOfButtonsMenu;
         }
 
-        public NavigatorManager(StackPanel SP)
+        public NavigatorManager(StackPanel SP, Frame frame, Dictionary<string, Page> DataGridPages)
         {
+            DataGridPage = DataGridPages;
             tabButtonStackPanel = SP;
+            ActuallyDataGridContentFrame = frame;
         }
 
-
+        public void NavigateToDataGrid(string dataGridName)
+        {
+            try
+            {
+                ActuallyDataGridContentFrame.NavigationService.Navigate(DataGridPage[dataGridName]);
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji tabeli, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private Dictionary<string, Page> InitializePages()
         {
@@ -44,7 +57,6 @@ namespace dksApp
                 {"Allegro", new AllegroPage() },
                 {"Calendar", new CalendarPage() },
                 {"Contractors", new ContractorsPage() },
-                {"Magazine", new MagazinePage() },
                 {"Orders", new OrdersPage() }
             };
 
@@ -59,7 +71,7 @@ namespace dksApp
             }
             catch
             {
-                MessageBox.Show("Błąd nawigacji, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Błąd nawigacji strony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -68,7 +80,7 @@ namespace dksApp
             SolidColorBrush buttonForegroundBrush = new SolidColorBrush(Color.FromRgb(208, 192, 255));
             SolidColorBrush whiteForegroundBrush = Brushes.White;
 
-            foreach (var button in ButtonList)
+            foreach (var button in ButtonListMenu)
             {
                 button.Foreground = buttonForegroundBrush;
             }

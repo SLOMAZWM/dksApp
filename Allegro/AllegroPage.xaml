@@ -21,10 +21,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!--Page Title-->
-        <!--<TextBlock Text="Allegro" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0,20,0,0"
-HorizontalAlignment="Left" Foreground="#121518"/>-->
-
+        <!--Title Label-->
+      
         <TextBlock Text="Allegro" Style="{StaticResource TitlePage}" Grid.Row="1"/>
 
         <!--Add Button-->
@@ -43,17 +41,19 @@ HorizontalAlignment="Left" Foreground="#121518"/>-->
             </StackPanel>
         </Button>
 
+        <!--Separator-->
+        <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0,-1,0,10"/>
+
         <!--Tab Buttons-->
 
         <StackPanel x:Name="tabButtonSP" Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button Content="Wystawianie" Style="{StaticResource tabButton}"/>
-            <Button Content="Usuwanie" Style="{StaticResource tabButton}"/>
-            <Button Content="Edytowanie" Style="{StaticResource tabButton}"/>
-            <Button Content="Szablony" Style="{StaticResource tabButton}"/>
+            <Button Content="Wystawianie" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Wystawianie"/>
+            <Button Content="Usuwanie" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Usuwanie"/>
+            <Button Content="Edytowanie" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Edytowanie"/>
+            <Button Content="Szablony" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Szablony"/>
         </StackPanel>
 
-        <!--Separator-->
-        <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0,-1,0,10"/>
+        <Frame x:Name="DataGridSelectedFrame" Grid.Row="5"/>
 
     </Grid>
 </Page>

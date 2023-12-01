@@ -6,7 +6,6 @@ using System.Windows.Media;
 using dksApp.Bookkeeping;
 using dksApp.Orders;
 using dksApp.Contractors;
-using dksApp.Magazine;
 using dksApp.Calendar;
 using dksApp.Allegro;
 using System.Xml;
@@ -19,7 +18,6 @@ namespace dksApp
     public partial class MainWindow : Window
     {
 
-        //Podkreslenie dla kazdego tabButton w Page
         //Nawigacja dla DataGrid
         //Zaimplementuj SQL'a dla faktur, klienta (bez allegro Api)
 
@@ -41,7 +39,6 @@ private List<Button> InitializeButtonList()
                 NavigationToOrdersBtn,
                 NavigationToCalendarBtn,
                 NavigationToContractorsBtn,
-                NavigationToMagazineBtn
             };
             
             return newButtonList;

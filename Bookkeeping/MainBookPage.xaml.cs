@@ -23,29 +23,34 @@ namespace dksApp.Bookkeeping
     {
 
         private NavigatorManager navigator;
+        private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 
         public MainBookPage()
         {
             InitializeComponent();
 
-            ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
+            DataGridPage = InitializeDataGridPages();
+            navigator = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
+        }
 
-            //przykładowa kolekcja
+        private Dictionary<string, Page> InitializeDataGridPages()
+        {
+            Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
+            {
+                { "Wszystkie", new MainDataGrid() },
+                {"Allegro", new AllegroDataGrid() },
+                {"Własne", new UserDataGrid() }
+            };
 
-            invoices.Add(new Invoice { Id = 1, SellerName = "DARKAS", BuyerName = "Ja", Payment = "Przelew", Price = 1290, Type = "WŁASNA" });
-            invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
-
-            BookKeepingDataGrid.ItemsSource = invoices;
-
-            navigator = new NavigatorManager(tabButtonSP);
+            return NewDictionaryOfPages;
         }
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button)
+            if (sender is Button button && button.Tag is string dataGridName)
             {
                 navigator.ChangeTabButton(button);
-                //navigator.NavigateToPage(DataGridName); // Dodaj nawigacje - przemysl system SQL/APLIKACJA sortowanie
+                navigator.NavigateToDataGrid(dataGridName);
             }
         }
     }

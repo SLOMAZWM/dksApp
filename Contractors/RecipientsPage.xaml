@@ -1,56 +1,29 @@
-﻿<Page x:Class="dksApp.Magazine.MagazinePage"
+﻿<Page x:Class="dksApp.Contractors.RecipientsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:dksApp.Magazine"
-      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:dksApp.Contractors"
+       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MagazinePage">
+      Title="RecipientsPage">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Page.Resources>
 
-    <Grid x:Name="MagazineGrid" Grid.Row="1" Visibility="Visible">
+    <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!--Page Title-->
-        <TextBlock Text="Magazyn" Style="{StaticResource TitlePage}" Grid.Row="1"/>
-
-        <!--Add Button-->
-
-        <Button Style="{StaticResource addButton}" Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                <TextBlock Text="Dodaj Produkt"/>
-            </StackPanel>
-        </Button>
-
-        <!--Separator-->
-        <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0,-1,0,10"/>
-
-        <!--Tab Buttons-->
-
-        <StackPanel x:Name="tabButtonSP" Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-            <Button Content="Wszystkie" Style="{StaticResource tabButton}"/>
-            <Button Content="Allegro" Style="{StaticResource tabButton}"/>
-            <Button Content="Własne" Style="{StaticResource tabButton}"/>
-        </StackPanel>
-
         <!--Counter Title-->
 
-        <TextBlock Text="Liczba produktów: 0" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left"
+        <TextBlock Text="Ilość Kontrahentów: 0" Grid.Row="0" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left"
                 VerticalAlignment="Center"/>
 
         <TextBlock Text="Filtruj:" Grid.Row="4" FontSize="14" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Right"
@@ -58,7 +31,7 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
 
         <!--Filter TextBox-->
 
-        <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
+        <Grid Width="200" HorizontalAlignment="Right" Grid.Row="0">
             <TextBlock Margin="15, 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
     Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
@@ -67,9 +40,7 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
             <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
         </Grid>
 
-        <!--Magazine DataGrid-->
-
-        <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" x:Name="MagazineDataGrid">
+        <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="ContractorsDataGrid">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
                     <DataGridCheckBoxColumn.HeaderTemplate>
@@ -81,15 +52,17 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
 
                 <DataGridTextColumn Header="Nr." IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Id}"/>
 
-                <DataGridTemplateColumn Header="Produktu:" IsReadOnly="True" Width="auto">
+                <DataGridTemplateColumn Header="Kontrahenta:" IsReadOnly="True" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <!--<Border Width="25" Height="25" CornerRadius="50" Margin="0,0,10,0" Background="Red">
-                                     -->
-                                <!--<TextBlock Text="{Binding Type}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0,0,0,1"/>-->
-                                <!--
-                                 </Border>-->
+
+                                <Border Width="25" Height="25" CornerRadius="50" Margin="0,0,10,0" Background="Red">
+
+                                    <TextBlock Text="{Binding Type}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0,0,0,1"/>
+
+                                </Border>
+
 
                                 <TextBlock Text="{Binding Type}" VerticalAlignment="Center"/>
                             </StackPanel>
@@ -97,10 +70,13 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Nazwa" IsReadOnly="True" Width="*" Binding="{Binding SellerName}"/>
-                <DataGridTextColumn Header="Typ" IsReadOnly="True" Width="*" Binding="{Binding BuyerName}"/>
-                <DataGridTextColumn Header="Ilość" IsReadOnly="True" Width="*" Binding="{Binding Payment}"/>
-                <DataGridTextColumn Header="Kwota (sztuka)" IsReadOnly="True" Width="*" Binding="{Binding Price}"/>
+
+                <DataGridTextColumn Header="Sprzedawca" IsReadOnly="True" Width="*" Binding="{Binding SellerName}"/>
+                <DataGridTextColumn Header="Nabywca" IsReadOnly="True" Width="*" Binding="{Binding BuyerName}"/>
+                <DataGridTextColumn Header="Płatność" IsReadOnly="True" Width="*" Binding="{Binding Payment}"/>
+                <DataGridTextColumn Header="Kwota" IsReadOnly="True" Width="*" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Rodzaj" IsReadOnly="True" Width="*" Binding="{Binding Type}"/>
+
 
                 <DataGridTemplateColumn Header="Operacje" IsReadOnly="True" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
@@ -123,8 +99,8 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
         </DataGrid>
 
         <!--Pagination Section-->
-        <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1" CornerRadius="5" Padding="5" 
-                 Background="White" Margin="0,10,10,10">
+        <Border Grid.Row="2" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1" CornerRadius="5" Padding="5" 
+         Background="White" Margin="0,10,10,10">
             <StackPanel Orientation="Horizontal">
                 <Button Style="{StaticResource pagingButton}">
                     <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
@@ -150,7 +126,5 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
 
             </StackPanel>
         </Border>
-
-
     </Grid>
 </Page>
