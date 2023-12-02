@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dksApp.Bookkeeping.Invoice;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -52,6 +53,12 @@ namespace dksApp.Bookkeeping
                 navigator.ChangeTabButton(button);
                 navigator.NavigateToDataGrid(dataGridName);
             }
+        }
+
+        private void AddBookKeepingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CreateInvoiceWindow CreateInvoice = new CreateInvoiceWindow();
+            CreateInvoice.ShowDialog();
         }
     }
 }

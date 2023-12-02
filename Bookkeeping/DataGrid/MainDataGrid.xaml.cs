@@ -25,14 +25,14 @@ namespace dksApp.Bookkeeping
         {
             InitializeComponent();
 
-            ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
+            //ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
 
-            //przykładowa kolekcja
+            ////przykładowa kolekcja
 
-            invoices.Add(new Invoice { Id = 1, SellerName = "DARKAS", BuyerName = "Ja", Payment = "Przelew", Price = 1290, Type = "WŁASNA" });
-            invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
+            //invoices.Add(new Invoice { Id = 1, SellerName = "DARKAS", BuyerName = "Ja", Payment = "Przelew", Price = 1290, Type = "WŁASNA" });
+            //invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
 
-            BookKeepingDataGrid.ItemsSource = invoices;
+            //BookKeepingDataGrid.ItemsSource = invoices;
         }
     }
 }

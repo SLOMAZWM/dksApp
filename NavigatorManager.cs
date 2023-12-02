@@ -1,5 +1,6 @@
 ﻿using dksApp.Allegro;
 using dksApp.Bookkeeping;
+using dksApp.Bookkeeping.Invoice;
 using dksApp.Calendar;
 using dksApp.Contractors;
 using dksApp.Orders;
@@ -18,11 +19,13 @@ namespace dksApp
     {
         private Dictionary<string, Page> Pages = new Dictionary<string, Page>();
         private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
+        private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
         private Frame ActuallyContentFrame;
-        private Frame ActuallyDataGridContentFrame;
         List<Button> ButtonListMenu = new List<Button>();
         private StackPanel tabButtonStackPanel;
+        private StackPanel invoiceTabButton;
 
+        //MainWindow Navigation
         public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu)
         {
             Pages = InitializePages();
@@ -30,22 +33,43 @@ namespace dksApp
             ButtonListMenu = ListOfButtonsMenu;
         }
 
-        public NavigatorManager(StackPanel SP, Frame frame, Dictionary<string, Page> DataGridPages)
+        //GridNavigation
+        public NavigatorManager(StackPanel SP, Frame frame, Dictionary<string, Page> GridPages)
         {
-            DataGridPage = DataGridPages;
+            DataGridPage = GridPages;
             tabButtonStackPanel = SP;
-            ActuallyDataGridContentFrame = frame;
+            ActuallyContentFrame = frame;
+        }
+
+        //CreateInvoiceNavigation
+        public NavigatorManager(Dictionary<string, Page> GridPages, StackPanel SP, Frame frame)
+        {
+            ActuallyContentFrame = frame;
+            invoiceTabButton = SP;
+            GridPage = GridPages;
         }
 
         public void NavigateToDataGrid(string dataGridName)
         {
             try
             {
-                ActuallyDataGridContentFrame.NavigationService.Navigate(DataGridPage[dataGridName]);
+                ActuallyContentFrame.NavigationService.Navigate(DataGridPage[dataGridName]);
             }
             catch
             {
                 MessageBox.Show("Błąd nawigacji tabeli, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void NavigateToGrid(string gridName)
+        {
+            try
+            {
+                ActuallyContentFrame.NavigationService.Navigate(GridPage[gridName]);
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -95,6 +119,22 @@ namespace dksApp
             SolidColorBrush transparentBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
 
             foreach (var child in tabButtonStackPanel.Children)
+            {
+                if (child is Button button)
+                {
+                    button.Foreground = (button == clickedButton) ? buttonBrush : blackForegroundBrush;
+                    button.BorderBrush = (button == clickedButton) ? buttonBrush : transparentBrush;
+                }
+            }
+        }
+
+        public void ChangeInvoiceTabButton(Button clickedButton)
+        {
+            SolidColorBrush buttonBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x78, 0x4F, 0xF2));
+            SolidColorBrush blackForegroundBrush = new SolidColorBrush(Color.FromRgb(0x12, 0x15, 0x18));
+            SolidColorBrush transparentBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
+
+            foreach (var child in invoiceTabButton.Children)
             {
                 if (child is Button button)
                 {
