@@ -1,4 +1,5 @@
-﻿using dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog;
+﻿using dksApp.Bookkeeping.Invoice.InvoicePages;
+using dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,19 +25,36 @@ namespace dksApp.Bookkeeping.Invoice
 
         private NavigatorManager navigator;
         private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
-        public ObservableCollection<Product> Products = new ObservableCollection<Product>();
-        public uint LP = 1;
+        private string selectedGrid;
+        private bool isSelected;
+        public string SelectedGrid 
+        {
+            get 
+            { 
+                return selectedGrid;
+            } 
+            set 
+            { 
+                selectedGrid = value; 
+            } 
+        }
+        public bool IsSelected { get { return isSelected; } set { isSelected = value; } }
+
+        public NavigatorManager Navigator 
+        { 
+            get 
+            { 
+                return navigator; 
+            }
+            set { navigator = value; }
+        }
+
 
         public CreateInvoiceWindow()
         {
             InitializeComponent();
             GridPage = InitializeGridPages();
             navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
-
-            Product first = new Product(){ Id = 1, NameItem = "Testowy" };
-            Products.Add(first);
-
-            ProductsDataGrid.ItemsSource = Products;
         }
 
         //Function's
@@ -50,22 +68,37 @@ namespace dksApp.Bookkeeping.Invoice
             }
         }
 
-        private void AddProductBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-            ProductDialogWindow dialog = new ProductDialogWindow();
-            dialog.Owner = this;
-            dialog.ShowDialog();
-        }
-
         private Dictionary<string, Page> InitializeGridPages()
         {
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
-                { "Sprzedawca", new SellerInvoicePage() }
+                { "Sprzedawca", new SellerInvoicePage() },
+                { "Produkty", new ProductsInvoicePage(this) },
+                { "NabywcaFirmowy", new CompanyBuyerPage() },
+                { "NabywcaPrywatny", new PrivateBuyerPage() }
             };
 
             return NewDictionaryOfPages;
+        }
+
+        private void WhichBuyer_Click(object sender, RoutedEventArgs e) 
+        {
+            if (isSelected == false)
+            {
+                if (sender is Button button)
+                {
+                    navigator.ChangeInvoiceTabButton(button);
+                    WhichBuyerDialog choiceBuyerType = new WhichBuyerDialog();
+                    choiceBuyerType.Owner = this;
+                    choiceBuyerType.Navigator = navigator;
+                    choiceBuyerType.ShowDialog();
+                }
+            }
+            else if(isSelected == true && sender is Button button)
+            {
+                navigator.ChangeInvoiceTabButton(button);
+                navigator.NavigateToGrid(SelectedGrid);
+            }
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)

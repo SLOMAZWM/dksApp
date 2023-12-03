@@ -19,12 +19,36 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
     /// </summary>
     public partial class ProductDialogWindow : Window
     {
+        public delegate void NewProductEventHandler();
+
+        public event NewProductEventHandler NewProductRequested;
 
         public ProductDialogWindow()
         {
             InitializeComponent();
         }
 
-       
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NewCheckBox.IsChecked == true)
+            {
+                NewProductRequested?.Invoke();
+            }
+
+            this.Close();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
