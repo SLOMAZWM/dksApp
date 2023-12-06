@@ -8,7 +8,7 @@ namespace dksApp
 {
     public class Product
     {
-        public uint Id { get; set; }
+        public uint IdProduct { get; set; }
         public uint NumberOfItems { get; set; }
         public string? NameItem { get; set; }
         public ulong Quantity { get; set; }

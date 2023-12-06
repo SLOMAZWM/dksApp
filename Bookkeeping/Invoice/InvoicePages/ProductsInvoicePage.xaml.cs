@@ -32,7 +32,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
             parentWindow = InvoiceWindow;
 
-            Product first = new Product() { NumberOfItems = 1, Id = 1, NameItem = "Testowy" };
+            Product first = new Product() { NumberOfItems = 1, IdProduct = 1, NameItem = "Testowy" };
             Products.Add(first);
 
             ProductsDataGrid.ItemsSource = Products;

@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace dksApp.Bookkeeping
 {
@@ -21,18 +23,21 @@ namespace dksApp.Bookkeeping
     /// </summary>
     public partial class MainDataGrid : Page
     {
+        private ObservableCollection<InvoiceClass> Invoices {get; set;}
+
         public MainDataGrid()
         {
             InitializeComponent();
+        }
 
-            //ObservableCollection<Invoice> invoices = new ObservableCollection<Invoice>();
+        private void InitializeAllInvoices()
+        {
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\frees\\Documents\\dksApp.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
 
-            ////przykładowa kolekcja
+            }
 
-            //invoices.Add(new Invoice { Id = 1, SellerName = "DARKAS", BuyerName = "Ja", Payment = "Przelew", Price = 1290, Type = "WŁASNA" });
-            //invoices.Add(new Invoice { Id = 2, SellerName = "DARKAS", BuyerName = "Ty", Payment = "Przelew", Price = 521, Type = "ALLEGRO" });
-
-            //BookKeepingDataGrid.ItemsSource = invoices;
         }
     }
 }
