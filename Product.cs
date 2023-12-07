@@ -19,7 +19,7 @@ namespace dksApp
         public string ? VATPercent { get; set; }
         public decimal VATValue { get; set; }
         public decimal BruttoValue { get; set; }
-
+        public bool ShowIt { get; set; }
 
     }
 }

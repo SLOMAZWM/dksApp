@@ -56,5 +56,18 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             Products.Add(newProduct);
             LP++;
         }
+
+        private void PreviousPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                parentWindow.WhichBuyer_Click(sender, e);
+                parentWindow.HighlightBuyerButton();
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

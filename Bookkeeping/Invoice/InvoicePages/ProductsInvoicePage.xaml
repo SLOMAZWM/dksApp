@@ -51,12 +51,20 @@
                     </DataGrid>
 
                     <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button x:Name="AddProductBtn" Click="AddProductBtn_Click" Style="{StaticResource InvoiceRememberButton}" Margin="10">
+                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        <TextBlock Text="Poprzednia strona"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="AddProductBtn" Click="AddProductBtn_Click" Style="{StaticResource InvoiceRememberButton}" Margin="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                                 <TextBlock Text="Dodaj Produkt"/>
                             </StackPanel>
                         </Button>
+                        
                         <Button x:Name="SaveInvoiceBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ContentSave" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>

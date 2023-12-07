@@ -49,9 +49,9 @@
                 <Separator Margin="0,10,0,0" VerticalAlignment="Bottom" Height="0.8" Grid.Column="0" Grid.ColumnSpan="2" Background="#7e5fdc"/>
 
                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="tabButtonSP" Grid.Row="0" Orientation="Horizontal" Margin="0,5,0,0" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Button Content="Sprzedawca" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Sprzedawca" Width="130"/>
+                    <Button x:Name="SellerBtn" Content="Sprzedawca" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Sprzedawca" Width="130"/>
                     <Button x:Name="BuyerBtn" Content="Nabywca" Style="{StaticResource tabButton}" Click="WhichBuyer_Click" Tag="Nabywca" Width="130"/>
-                    <Button Content="Produkty/Usługi" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Produkty" Width="130"/>
+                    <Button x:Name="ProductBtn" Content="Produkty/Usługi" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Produkty" Width="130"/>
                 </StackPanel>
 
                 <Frame x:Name="GridFrame" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>

@@ -60,13 +60,21 @@
             </StackPanel>
 
             <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        <TextBlock Text="Poprzednia strona"/>
+                    </StackPanel>
+                </Button>
+
                 <Button x:Name="SaveSellerBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                         <TextBlock Text="Zapisz Nabywcę"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="NextPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+                
+                <Button Click="NextPageBtn_Click" x:Name="NextPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Następna strona"/>
                         <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Width="11" Height="11" Margin="8,1,0,0"/>

@@ -20,9 +20,38 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     /// </summary>
     public partial class CompanyBuyerPage : Page
     {
-        public CompanyBuyerPage()
+        CreateInvoiceWindow createInvoice;
+
+        public CompanyBuyerPage(CreateInvoiceWindow createInvoiceW)
         {
             InitializeComponent();
+            createInvoice = createInvoiceW;
+        }
+
+        private void NextPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                createInvoice.Navigator.NavigateToGrid("Produkty");
+                createInvoice.HighlightProductButton();
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void PreviousPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                createInvoice.Navigator.NavigateToGrid("Sprzedawca");
+                createInvoice.HighlightSellerButton();
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

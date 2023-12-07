@@ -74,14 +74,24 @@ namespace dksApp.Bookkeeping.Invoice
             navigator.ChangeInvoiceTabButton(BuyerBtn);
         }
 
+        public void HighlightProductButton()
+        {
+            navigator.ChangeInvoiceTabButton(ProductBtn);
+        }
+
+        public void HighlightSellerButton()
+        {
+            navigator.ChangeInvoiceTabButton(SellerBtn);
+        }
+
         private Dictionary<string, Page> InitializeGridPages()
         {
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
                 { "Sprzedawca", new SellerInvoicePage(this) },
                 { "Produkty", new ProductsInvoicePage(this) },
-                { "NabywcaFirmowy", new CompanyBuyerPage() },
-                { "NabywcaPrywatny", new PrivateBuyerPage() }
+                { "NabywcaFirmowy", new CompanyBuyerPage(this) },
+                { "NabywcaPrywatny", new PrivateBuyerPage(this) }
             };
 
             return NewDictionaryOfPages;
