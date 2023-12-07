@@ -20,9 +20,25 @@ namespace dksApp.Bookkeeping.Invoice
     /// </summary>
     public partial class SellerInvoicePage : Page
     {
-        public SellerInvoicePage()
+        CreateInvoiceWindow createInvoice;
+
+        public SellerInvoicePage(CreateInvoiceWindow createInvoiceW)
         {
             InitializeComponent();
+            createInvoice = createInvoiceW;
+        }
+
+        public void NextPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                createInvoice.WhichBuyer_Click(sender, e);
+                createInvoice.HighlightBuyerButton();
+            }
+            catch
+            {
+                MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

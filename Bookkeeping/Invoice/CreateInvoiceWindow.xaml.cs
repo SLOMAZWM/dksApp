@@ -27,6 +27,7 @@ namespace dksApp.Bookkeeping.Invoice
         private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
         private string selectedGrid;
         private bool isSelected;
+
         public string SelectedGrid 
         {
             get 
@@ -68,11 +69,16 @@ namespace dksApp.Bookkeeping.Invoice
             }
         }
 
+        public void HighlightBuyerButton()
+        {
+            navigator.ChangeInvoiceTabButton(BuyerBtn);
+        }
+
         private Dictionary<string, Page> InitializeGridPages()
         {
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
-                { "Sprzedawca", new SellerInvoicePage() },
+                { "Sprzedawca", new SellerInvoicePage(this) },
                 { "Produkty", new ProductsInvoicePage(this) },
                 { "NabywcaFirmowy", new CompanyBuyerPage() },
                 { "NabywcaPrywatny", new PrivateBuyerPage() }
@@ -81,7 +87,7 @@ namespace dksApp.Bookkeeping.Invoice
             return NewDictionaryOfPages;
         }
 
-        private void WhichBuyer_Click(object sender, RoutedEventArgs e) 
+        public void WhichBuyer_Click(object sender, RoutedEventArgs e) 
         {
             if (isSelected == false)
             {
