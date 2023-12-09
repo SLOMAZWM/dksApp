@@ -56,6 +56,9 @@ namespace dksApp.Bookkeeping
             DisplayedInvoices = new ObservableCollection<InvoiceClass>();
             BookKeepingDataGrid.ItemsSource = DisplayedInvoices;
             InitializeAllInvoices();
+
+            CurrentPage = 1;
+            UpdateDisplayedInvoices();
         }
 
         private void InitializeAllInvoices()
@@ -114,6 +117,8 @@ namespace dksApp.Bookkeeping
             {
                 DisplayedInvoices.Add(Invoices[i]);
             }
+
+            UpdatePaginationButtonStyles();
         }
 
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -123,7 +128,6 @@ namespace dksApp.Bookkeeping
             {
                 CurrentPage++;
                 UpdateDisplayedInvoices();
-                UpdatePaginationButtonStyles();
             }
         }
 
@@ -133,7 +137,6 @@ namespace dksApp.Bookkeeping
             {
                 CurrentPage--;
                 UpdateDisplayedInvoices();
-                UpdatePaginationButtonStyles();
             }
         }
 
@@ -170,7 +173,6 @@ namespace dksApp.Bookkeeping
             {
                 CurrentPage = pageNumber;
                 UpdateDisplayedInvoices();
-                UpdatePaginationButtonStyles();
             }
         }
 
