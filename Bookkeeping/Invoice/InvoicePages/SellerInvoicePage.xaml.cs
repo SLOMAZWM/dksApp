@@ -40,5 +40,17 @@ namespace dksApp.Bookkeeping.Invoice
                 MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        //Invoice Data
+
+        private void SellerNameTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.SellerName = SellerNameTxt.Text;
+        }
+
+        private void ZipCodeTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.SellerZipCode = ZipCodeTxt.Text;
+        }
     }
 }

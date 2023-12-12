@@ -67,7 +67,7 @@ namespace dksApp.Bookkeeping
 
         private void InitializeAllInvoices()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\frees\\Desktop\\Moje\\Programowanie\\Visual\\C#\\Projekty\\dksApp\\dksApp.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();

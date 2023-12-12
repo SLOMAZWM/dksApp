@@ -14,7 +14,14 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data.SqlClient">
+      <HintPath>bin\Debug\net8.0-windows\System.Data.SqlClient.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

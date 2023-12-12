@@ -27,6 +27,7 @@ namespace dksApp.Bookkeeping.Invoice
         private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
         private string selectedGrid;
         private bool isSelected;
+        public InvoiceClass NewInvoice {  get; set; }
 
         public string SelectedGrid 
         {

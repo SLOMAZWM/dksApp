@@ -26,12 +26,12 @@
 
             <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Firmy: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerNameTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerNameTxt_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="ZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="ZipCodeTxt_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
