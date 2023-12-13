@@ -24,39 +24,40 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel x:Name="InputSP">
+                <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Firmy: "/>
                 <TextBox x:Name="SellerNameTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerNameTxt_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
-                <TextBox x:Name="ZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="ZipCodeTxt_TextChanged"/>
+                <TextBox x:Name="SellerZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="ZipCodeTxt_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Miasto: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerCity_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Ulica: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerStreet_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="NIP: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerNIP" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerNIP_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Banku: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerBankName" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerBankName_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Numer Rachunku: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="SellerBankAccount" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="SellerBankAccount_TextChanged"/>
             </StackPanel>
 
             <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -72,6 +73,7 @@
                         <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Width="11" Height="11" Margin="8,1,0,0"/>
                     </StackPanel>
                 </Button>
+            </StackPanel>
             </StackPanel>
 
         </Grid>

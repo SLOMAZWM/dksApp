@@ -52,5 +52,37 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        //Change Data Input
+
+        private void BuyerName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerName = BuyerName.Text;
+        }
+
+        private void BuyerZipCode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerZipCode = BuyerZipCode.Text;
+        }
+
+        private void BuyerCity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerCity = BuyerCity.Text;
+        }
+
+        private void BuyerStreet_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerStreet = BuyerStreet.Text;
+        }
+
+        private void BuyerPaymentType_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerPaymentType = BuyerPaymentType.Text;
+        }
+
+        private void BuyerPaymentDate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            createInvoice.NewInvoice.BuyerPaymentDate = BuyerPaymentDate.Text;
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         private uint LP = 2;
         private CreateInvoiceWindow parentWindow;
 
+
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             InitializeComponent();
@@ -69,5 +70,10 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        //private void IsValidPagesInput()
+        //{
+        //    parentWindow.GridPage
+        //}
     }
 }

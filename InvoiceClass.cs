@@ -51,7 +51,8 @@ namespace dksApp
         public string? SellerCity { get; set; }
         public string? SellerZipCode { get; set; }
         public string? SellerNIP { get; set; }
-        public string? SellerBank { get; set; }
+        public string? SellerBankName { get; set; }
+        public string? SellerBankAccount { get; set; } //Change DataBase
         public string? SellerNumberBank { get; set; }
         public string? Comments { get; set; }
 
@@ -62,8 +63,10 @@ namespace dksApp
         public string? BuyerCity { get; set; }
         public string? BuyerZipCode { get; set; }
         public string? BuyerNIP { get; set; }
-        public string? BuyerBank { get; set; }
-        public string? BuyerNumberBank { get; set; }
+        public string? BuyerPaymentType { get; set; }
+        public string? BuyerPaymentDate { get; set; }
+        public string? BuyerBankName { get; set; }
+        public string? BuyerBankNumber { get; set; }
 
         //PRODUCT INFO - Product.cs
         public List<Product> Products { get; set; }

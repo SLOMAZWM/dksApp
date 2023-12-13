@@ -26,22 +26,22 @@
 
             <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Imię i Nazwisko: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerName" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerName_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerZipCode" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerZipCode_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Miasto: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerCity_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Ulica: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerStreet_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
@@ -51,12 +51,12 @@
 
             <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Sposób Płatności: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerPaymentType" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerPaymentType_TextChanged"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Termin Płatności: "/>
-                <TextBox Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
+                <TextBox x:Name="BuyerPaymentDate" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerPaymentDate_TextChanged"/>
             </StackPanel>
 
             <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
