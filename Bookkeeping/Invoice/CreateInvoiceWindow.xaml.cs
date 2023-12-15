@@ -55,6 +55,7 @@ namespace dksApp.Bookkeeping.Invoice
         public CreateInvoiceWindow()
         {
             InitializeComponent();
+            NewInvoice = new InvoiceClass();
             GridPage = InitializeGridPages();
             navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
         }
@@ -80,6 +81,11 @@ namespace dksApp.Bookkeeping.Invoice
             navigator.ChangeInvoiceTabButton(ProductBtn);
         }
 
+        public void HighlightInformationButton()
+        {
+            navigator.ChangeInvoiceTabButton(InformationBtn);
+        }
+
         public void HighlightSellerButton()
         {
             navigator.ChangeInvoiceTabButton(SellerBtn);
@@ -91,6 +97,7 @@ namespace dksApp.Bookkeeping.Invoice
             {
                 { "Sprzedawca", new SellerInvoicePage(this) },
                 { "Produkty", new ProductsInvoicePage(this) },
+                { "Informacje", new InformationInvoicePage(this) },
                 { "NabywcaFirmowy", new CompanyBuyerPage(this) },
                 { "NabywcaPrywatny", new PrivateBuyerPage(this) }
             };

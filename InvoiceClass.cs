@@ -63,8 +63,6 @@ namespace dksApp
         public string? BuyerCity { get; set; }
         public string? BuyerZipCode { get; set; }
         public string? BuyerNIP { get; set; }
-        public string? BuyerPaymentType { get; set; }
-        public string? BuyerPaymentDate { get; set; }
         public string? BuyerBankName { get; set; }
         public string? BuyerBankNumber { get; set; }
 

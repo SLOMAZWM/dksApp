@@ -44,23 +44,13 @@
             <TextBox x:Name="BuyerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerStreet_TextChanged"/>
         </StackPanel>
 
-        <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Style="{StaticResource TextInput}" Text="NIP: "/>
-            <TextBox x:Name="BuyerNIP" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerNIP_TextChanged"/>
-        </StackPanel>
+            <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource TextInput}" Text="NIP: "/>
+                <TextBox x:Name="BuyerNIP" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerNIP_TextChanged"/>
+            </StackPanel>
 
-        <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Style="{StaticResource TextInput}" Text="Sposób Płatności: "/>
-            <TextBox x:Name="BuyerPaymentType" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerPaymentType_TextChanged"/>
-        </StackPanel>
-
-        <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Style="{StaticResource TextInput}" Text="Termin Płatności: "/>
-            <TextBox x:Name="BuyerPaymentDate"  Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerPaymentDate_TextChanged"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+            <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                         <TextBlock Text="Poprzednia strona"/>
@@ -73,7 +63,7 @@
                     <TextBlock Text="Zapisz Nabywcę"/>
                 </StackPanel>
             </Button>
-            <Button Click="NextPageBtn_Click" x:Name="NextPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+                <Button Click="NextPageBtn_Click" x:Name="NextPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Następna strona"/>
                     <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Width="11" Height="11" Margin="8,1,0,0"/>

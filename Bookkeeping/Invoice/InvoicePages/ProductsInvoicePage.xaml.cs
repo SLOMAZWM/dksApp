@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +31,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
-            InitializeComponent();
-
             parentWindow = InvoiceWindow;
+            InitializeComponent();
 
             Product first = new Product() { NumberOfItems = 1, IdProduct = 1, NameItem = "Testowy" };
             Products.Add(first);
@@ -62,8 +63,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             try
             {
-                parentWindow.WhichBuyer_Click(sender, e);
-                parentWindow.HighlightBuyerButton();
+                parentWindow.Navigator.NavigateToGrid("Informacje");
+                parentWindow.HighlightInformationButton();
             }
             catch
             {
@@ -71,9 +72,161 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
+        private void ProductsDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var product = e.Row.Item as Product;
+                var editingTextBox = e.EditingElement as TextBox;
+
+                switch (e.Column.Header.ToString())
+                {
+                    case "L.p.":
+                        if (uint.TryParse(editingTextBox.Text, out uint numberOfItems))
+                        {
+                            product.NumberOfItems = numberOfItems;
+                        }
+                        break;
+                    case "Nazwa Produktu/Usługi":
+                        product.NameItem = editingTextBox.Text;
+                        break;
+                    case "Ilość":
+                        if (ulong.TryParse(editingTextBox.Text, out ulong quantity))
+                        {
+                            product.Quantity = quantity;
+                        }
+                        break;
+                    case "J.m.":
+                        product.QuantityType = editingTextBox.Text;
+                        break;
+                    case "PKWiU":
+                        product.PKWiU = editingTextBox.Text;
+                        break;
+                    case "Cena netto [PLN]":
+                        if (decimal.TryParse(editingTextBox.Text, out decimal nettoPrice))
+                        {
+                            product.NettoPrice = nettoPrice;
+                        }
+                        break;
+                    case "Wartość netto [PLN]":
+                        if (decimal.TryParse(editingTextBox.Text, out decimal nettoValue))
+                        {
+                            product.NettoValue = nettoValue;
+                        }
+                        break;
+                    case "Vat [%]":
+                        product.VATPercent = editingTextBox.Text;
+                        break;
+                    case "Wartość VAT [PLN]":
+                        if (decimal.TryParse(editingTextBox.Text, out decimal vatValue))
+                        {
+                            product.VATValue = vatValue;
+                        }
+                        break;
+                    case "Wartość Brutto [PLN]":
+                        if (decimal.TryParse(editingTextBox.Text, out decimal bruttoValue))
+                        {
+                            product.BruttoValue = bruttoValue;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
+        private void Save_Invoice(object sender, RoutedEventArgs e)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Dodawanie produktów i zapisywanie ich ID
+                List<int> productIds = new List<int>();
+                foreach (var product in parentWindow.NewInvoice.Products)
+                {
+                    string productQuery = "INSERT INTO Product (NumberOfItems, NameItem, Quantity, QuantityType, PKWiU, NettoPrice, NettoValue, VATPercent, VATValue, BruttoValue, ShowIt) OUTPUT INSERTED.ProductID VALUES (@NumberOfItems, @NameItem, @Quantity, @QuantityType, @PKWiU, @NettoPrice, @NettoValue, @VATPercent, @VATValue, @BruttoValue, @ShowIt)";
+
+                    using (SqlCommand command = new SqlCommand(productQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@NumberOfItems", product.NumberOfItems);
+                        command.Parameters.AddWithValue("@NameItem", product.NameItem);
+                        command.Parameters.AddWithValue("@Quantity", product.Quantity);
+                        command.Parameters.AddWithValue("@QuantityType", product.QuantityType);
+                        command.Parameters.AddWithValue("@PKWiU", product.PKWiU);
+                        command.Parameters.AddWithValue("@NettoPrice", product.NettoPrice);
+                        command.Parameters.AddWithValue("@NettoValue", product.NettoValue);
+                        command.Parameters.AddWithValue("@VATPercent", product.VATPercent);
+                        command.Parameters.AddWithValue("@VATValue", product.VATValue);
+                        command.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
+                        command.Parameters.AddWithValue("@ShowIt", product.ShowIt);
+
+                        int productId = (int)command.ExecuteScalar(); // Zapisuje ID dodanego produktu
+                        productIds.Add(productId);
+                    }
+                }
+
+                // Dodawanie faktury
+                string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, BuyerBankName, BuyerBankAccount, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @BuyerBankName, @BuyerBankAccount, @InvoiceFrom)";
+
+                int invoiceId;
+                using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
+                {
+                    long idSeller = Convert.ToInt64(parentWindow.NewInvoice.IdSeller);
+
+                    command.Parameters.AddWithValue("@IssueDate", parentWindow.NewInvoice.IssueDate);
+                    command.Parameters.AddWithValue("@ExecutionDate", parentWindow.NewInvoice.ExecutionDate);
+                    command.Parameters.AddWithValue("@PaymentType", parentWindow.NewInvoice.PaymentType);
+                    command.Parameters.AddWithValue("@PaymentDate", parentWindow.NewInvoice.PaymentDate);
+                    command.Parameters.AddWithValue("@Paid", parentWindow.NewInvoice.Paid);
+                    command.Parameters.AddWithValue("@PaidYet", parentWindow.NewInvoice.PaidYet);
+                    command.Parameters.AddWithValue("@IdSeller", idSeller);
+                    command.Parameters.AddWithValue("@SellerName", parentWindow.NewInvoice.SellerName);
+                    command.Parameters.AddWithValue("@SellerStreet", parentWindow.NewInvoice.SellerStreet);
+                    command.Parameters.AddWithValue("@SellerCity", parentWindow.NewInvoice.SellerCity);
+                    command.Parameters.AddWithValue("@SellerZipCode", parentWindow.NewInvoice.SellerZipCode);
+                    command.Parameters.AddWithValue("@SellerNIP", parentWindow.NewInvoice.SellerNIP);
+                    command.Parameters.AddWithValue("@SellerBankName", parentWindow.NewInvoice.SellerBankName);
+                    command.Parameters.AddWithValue("@SellerBankAccount", parentWindow.NewInvoice.SellerBankAccount);
+                    command.Parameters.AddWithValue("@Comments", parentWindow.NewInvoice.Comments);
+                    command.Parameters.AddWithValue("@BuyerName", parentWindow.NewInvoice.BuyerName);
+                    command.Parameters.AddWithValue("@BuyerStreet", parentWindow.NewInvoice.BuyerStreet);
+                    command.Parameters.AddWithValue("@BuyerCity", parentWindow.NewInvoice.BuyerCity);
+                    command.Parameters.AddWithValue("@BuyerZipCode", parentWindow.NewInvoice.BuyerZipCode);
+                    command.Parameters.AddWithValue("@BuyerNIP", parentWindow.NewInvoice.BuyerNIP);
+                    command.Parameters.AddWithValue("@BuyerBankName", parentWindow.NewInvoice.BuyerBankName);
+                    command.Parameters.AddWithValue("@BuyerBankAccount", parentWindow.NewInvoice.BuyerBankNumber);
+                    command.Parameters.AddWithValue("@InvoiceFrom", parentWindow.NewInvoice.From);
+
+                    invoiceId = (int)command.ExecuteScalar();
+                }
+
+                // Dodawanie powiązań w InvoiceProducts
+                foreach (int productId in productIds)
+                {
+                    string invoiceProductQuery = "INSERT INTO InvoiceProducts (InvoiceID, ProductID) VALUES (@InvoiceID, @ProductID)";
+
+                    using (SqlCommand command = new SqlCommand(invoiceProductQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceID", invoiceId);
+                        command.Parameters.AddWithValue("@ProductID", productId);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                connection.Close();
+            }
+        }
+
         //private void IsValidPagesInput()
         //{
         //    parentWindow.GridPage
         //}
+
+
     }
 }

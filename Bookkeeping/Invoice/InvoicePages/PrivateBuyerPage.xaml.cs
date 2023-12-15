@@ -31,8 +31,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             try
             {
-                createInvoice.Navigator.NavigateToGrid("Produkty");
-                createInvoice.HighlightProductButton();
+                createInvoice.Navigator.NavigateToGrid("Informacje");
+                createInvoice.HighlightInformationButton();
             }
             catch
             {
@@ -58,31 +58,25 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         private void BuyerName_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerName = BuyerName.Text;
+            createInvoice.NewInvoice.BuyerNIP = "Brak";
         }
 
         private void BuyerZipCode_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerZipCode = BuyerZipCode.Text;
+            createInvoice.NewInvoice.BuyerNIP = "Brak";
         }
 
         private void BuyerCity_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerCity = BuyerCity.Text;
+            createInvoice.NewInvoice.BuyerNIP = "Brak";
         }
 
         private void BuyerStreet_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerStreet = BuyerStreet.Text;
-        }
-
-        private void BuyerPaymentType_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            createInvoice.NewInvoice.BuyerPaymentType = BuyerPaymentType.Text;
-        }
-
-        private void BuyerPaymentDate_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            createInvoice.NewInvoice.BuyerPaymentDate = BuyerPaymentDate.Text;
+            createInvoice.NewInvoice.BuyerNIP = "Brak";
         }
     }
 }

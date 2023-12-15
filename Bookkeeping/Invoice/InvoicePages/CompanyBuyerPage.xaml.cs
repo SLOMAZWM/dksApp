@@ -32,8 +32,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             try
             {
-                createInvoice.Navigator.NavigateToGrid("Produkty");
-                createInvoice.HighlightProductButton();
+                createInvoice.Navigator.NavigateToGrid("Informacje");
+                createInvoice.HighlightInformationButton();
             }
             catch
             {
@@ -78,16 +78,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         private void BuyerNIP_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerNIP = BuyerNIP.Text;
-        }
-
-        private void BuyerPaymentType_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            createInvoice.NewInvoice.BuyerPaymentType = BuyerPaymentType.Text;
-        }
-
-        private void BuyerPaymentDate_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            createInvoice.NewInvoice.BuyerPaymentDate = BuyerPaymentDate.Text;
         }
     }
 }

@@ -405,7 +405,7 @@
             </Style.Triggers>
             </Style>
 
-        <Style x:Key="InvoiceNextButton" TargetType="Button" BasedOn="{StaticResource InvoiceRememberButton}">
+        <Style x:Key="InvoiceNavigationtButton" TargetType="Button" BasedOn="{StaticResource InvoiceRememberButton}">
             <Setter Property="Background" Value="#6741d9"/>
             <Setter Property="Template">
                 <Setter.Value>

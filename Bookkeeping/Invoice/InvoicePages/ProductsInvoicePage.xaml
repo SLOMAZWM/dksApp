@@ -21,23 +21,12 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="ProductsDataGrid" HorizontalAlignment="Center">
+            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="ProductsDataGrid" HorizontalAlignment="Center" CellEditEnding="ProductsDataGrid_CellEditEnding">
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="L.p." IsReadOnly="False" CanUserResize="False" Width="auto" Binding="{Binding NumberOfItems}"/>
+                    <DataGridTextColumn Header="L.p." IsReadOnly="False" CanUserResize="False" Width="auto" Binding="{Binding NumberOfItems}"/>
 
-                            <!--<DataGridTemplateColumn Header="Produktu/Usługi:" IsReadOnly="True" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-
-                                        <TextBlock Text="{Binding Type}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>-->
-
-                            <DataGridTextColumn Header="Nazwa Produktu/Usługi" IsReadOnly="False" Width="auto" Binding="{Binding NameItem}"/>
+                    <DataGridTextColumn Header="Nazwa Produktu/Usługi" IsReadOnly="False" Width="auto" Binding="{Binding NameItem}"/>
                             <DataGridTextColumn Header="Ilość" IsReadOnly="False" Width="auto" Binding="{Binding Quantity}"/>
                             <DataGridTextColumn Header="J.m." IsReadOnly="False" Width="auto" Binding="{Binding QuantityType}"/>
                             <DataGridTextColumn Header="PKWiU" IsReadOnly="False" Width="auto" Binding="{Binding PKWiU}"/>
@@ -51,7 +40,7 @@
                     </DataGrid>
 
                     <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+                <Button Click="PreviousPageBtn_Click" x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                         <TextBlock Text="Poprzednia strona"/>
@@ -64,8 +53,8 @@
                                 <TextBlock Text="Dodaj Produkt"/>
                             </StackPanel>
                         </Button>
-                        
-                        <Button x:Name="SaveInvoiceBtn" Style="{StaticResource InvoiceNextButton}" Margin="10">
+
+                <Button x:Name="SaveInvoiceBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Click="Save_Invoice">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ContentSave" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                                 <TextBlock Text="Zapisz Fakturę"/>

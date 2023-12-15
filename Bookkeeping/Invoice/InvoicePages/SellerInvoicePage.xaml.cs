@@ -103,7 +103,7 @@ namespace dksApp.Bookkeeping.Invoice
 
         private void SellerStreet_TextChanged(object sender, TextChangedEventArgs e)
         {
-            createInvoice.NewInvoice.SellerCity = SellerStreet.Text;
+            createInvoice.NewInvoice.SellerStreet = SellerStreet.Text;
         }
 
         private void SellerNIP_TextChanged(object sender, TextChangedEventArgs e)
