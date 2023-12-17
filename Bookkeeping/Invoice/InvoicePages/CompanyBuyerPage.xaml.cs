@@ -72,7 +72,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void BuyerStreet_TextChanged(object sender, TextChangedEventArgs e)
         {
-            createInvoice.NewInvoice.BuyerCity = BuyerStreet.Text;
+            createInvoice.NewInvoice.BuyerStreet = BuyerStreet.Text;
         }
 
         private void BuyerNIP_TextChanged(object sender, TextChangedEventArgs e)

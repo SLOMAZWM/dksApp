@@ -129,9 +129,34 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                             product.BruttoValue = bruttoValue;
                         }
                         break;
-                    default:
-                        break;
                 }
+
+                UpdateProductInInvoice(product);
+            
+        }
+        }
+
+        private void UpdateProductInInvoice(Product updatedProduct)
+        {
+            var invoice = parentWindow.NewInvoice;
+            var existingProduct = invoice.Products.FirstOrDefault(p => p.IdProduct == updatedProduct.IdProduct);
+
+            if (existingProduct != null)
+            {
+                existingProduct.NumberOfItems = updatedProduct.NumberOfItems;
+                existingProduct.NameItem = updatedProduct.NameItem;
+                existingProduct.Quantity = updatedProduct.Quantity;
+                existingProduct.QuantityType = updatedProduct.QuantityType;
+                existingProduct.PKWiU = updatedProduct.PKWiU;
+                existingProduct.NettoPrice = updatedProduct.NettoPrice;
+                existingProduct.NettoValue = updatedProduct.NettoValue;
+                existingProduct.VATPercent = updatedProduct.VATPercent;
+                existingProduct.VATValue = updatedProduct.VATValue;
+                existingProduct.BruttoValue = updatedProduct.BruttoValue;
+            }
+            else
+            {
+                invoice.Products.Add(updatedProduct);
             }
         }
 
@@ -148,6 +173,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 List<int> productIds = new List<int>();
                 foreach (var product in parentWindow.NewInvoice.Products)
                 {
+                    bool showIt = false;
                     string productQuery = "INSERT INTO Product (NumberOfItems, NameItem, Quantity, QuantityType, PKWiU, NettoPrice, NettoValue, VATPercent, VATValue, BruttoValue, ShowIt) OUTPUT INSERTED.ProductID VALUES (@NumberOfItems, @NameItem, @Quantity, @QuantityType, @PKWiU, @NettoPrice, @NettoValue, @VATPercent, @VATValue, @BruttoValue, @ShowIt)";
 
                     using (SqlCommand command = new SqlCommand(productQuery, connection))
@@ -162,7 +188,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                         command.Parameters.AddWithValue("@VATPercent", product.VATPercent);
                         command.Parameters.AddWithValue("@VATValue", product.VATValue);
                         command.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
-                        command.Parameters.AddWithValue("@ShowIt", product.ShowIt);
+                        command.Parameters.AddWithValue("@ShowIt", showIt);
 
                         int productId = (int)command.ExecuteScalar(); // Zapisuje ID dodanego produktu
                         productIds.Add(productId);
@@ -170,9 +196,10 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 }
 
                 // Dodawanie faktury
-                string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, BuyerBankName, BuyerBankAccount, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @BuyerBankName, @BuyerBankAccount, @InvoiceFrom)";
 
                 int invoiceId;
+
+                string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @InvoiceFrom)";
                 using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
                 {
                     long idSeller = Convert.ToInt64(parentWindow.NewInvoice.IdSeller);
@@ -197,8 +224,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                     command.Parameters.AddWithValue("@BuyerCity", parentWindow.NewInvoice.BuyerCity);
                     command.Parameters.AddWithValue("@BuyerZipCode", parentWindow.NewInvoice.BuyerZipCode);
                     command.Parameters.AddWithValue("@BuyerNIP", parentWindow.NewInvoice.BuyerNIP);
-                    command.Parameters.AddWithValue("@BuyerBankName", parentWindow.NewInvoice.BuyerBankName);
-                    command.Parameters.AddWithValue("@BuyerBankAccount", parentWindow.NewInvoice.BuyerBankNumber);
                     command.Parameters.AddWithValue("@InvoiceFrom", parentWindow.NewInvoice.From);
 
                     invoiceId = (int)command.ExecuteScalar();

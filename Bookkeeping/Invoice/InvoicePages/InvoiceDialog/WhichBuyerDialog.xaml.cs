@@ -17,8 +17,14 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
     /// <summary>
     /// Interaction logic for WhichBuyerDialog.xaml
     /// </summary>
+    /// 
+
+    public delegate void BuyerTypeSelectedHandler(string selectedBuyerType);
+
     public partial class WhichBuyerDialog : Window
     {
+        public event BuyerTypeSelectedHandler BuyerTypeSelected;
+
         public NavigatorManager Navigator { get; set; }
         //public string SelectedGrid { get; set; }
         public WhichBuyerDialog()
@@ -36,36 +42,18 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
         
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            string selectedType = null;
             if (PrivateCheckBox.IsChecked == true)
             {
-                // Ustaw SelectedGrid właściciela (który jest CreateInvoiceWindow)
-                if (Owner is CreateInvoiceWindow ownerWindow)
-                {
-                    ownerWindow.IsSelected = true;
-                    ownerWindow.SelectedGrid = "NabywcaPrywatny";
-                    Navigator?.NavigateToGrid(ownerWindow.SelectedGrid);
-                }
-                this.Close();
+                selectedType = "NabywcaPrywatny";
             }
-            else if(CompanyCheckBox.IsChecked == true) 
+            else if (CompanyCheckBox.IsChecked == true)
             {
-                if(Owner is CreateInvoiceWindow ownerWindow) 
-                {
-                    ownerWindow.IsSelected = true;
-                    ownerWindow.SelectedGrid = "NabywcaFirmowy";
-                    Navigator?.NavigateToGrid(ownerWindow.SelectedGrid);
-                }
-                this.Close();
+                selectedType = "NabywcaFirmowy";
             }
-            else
-            {
-                if(Owner is CreateInvoiceWindow ownerWindow)
-                {
-                    ownerWindow.IsSelected = false;
-                    MessageBox.Show("Nie wybrałeś żadnej opcji!", "Błąd wyboru", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-            }
+
+            BuyerTypeSelected?.Invoke(selectedType);
+            this.Close();
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

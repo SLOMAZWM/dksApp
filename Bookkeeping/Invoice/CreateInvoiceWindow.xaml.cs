@@ -22,7 +22,6 @@ namespace dksApp.Bookkeeping.Invoice
     /// </summary>
     public partial class CreateInvoiceWindow : Window
     {
-
         private NavigatorManager navigator;
         private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
         private string selectedGrid;
@@ -97,9 +96,7 @@ namespace dksApp.Bookkeeping.Invoice
             {
                 { "Sprzedawca", new SellerInvoicePage(this) },
                 { "Produkty", new ProductsInvoicePage(this) },
-                { "Informacje", new InformationInvoicePage(this) },
-                { "NabywcaFirmowy", new CompanyBuyerPage(this) },
-                { "NabywcaPrywatny", new PrivateBuyerPage(this) }
+                { "Informacje", new InformationInvoicePage(this) }
             };
 
             return NewDictionaryOfPages;
@@ -115,12 +112,32 @@ namespace dksApp.Bookkeeping.Invoice
                     WhichBuyerDialog choiceBuyerType = new WhichBuyerDialog();
                     choiceBuyerType.Owner = this;
                     choiceBuyerType.Navigator = navigator;
+
+                    choiceBuyerType.BuyerTypeSelected += BuyerTypeSelected;
                     choiceBuyerType.ShowDialog();
                 }
             }
             else if(isSelected == true && sender is Button button)
             {
                 navigator.ChangeInvoiceTabButton(button);
+                navigator.NavigateToGrid(SelectedGrid);
+            }
+        }
+
+        private void BuyerTypeSelected(string buyerType)
+        {
+            if (buyerType != null)
+            {
+                IsSelected = true;
+                SelectedGrid = buyerType;
+
+                if (!GridPage.ContainsKey(buyerType))
+                {
+                    GridPage.Add(buyerType, buyerType == "NabywcaPrywatny"
+                        ? new PrivateBuyerPage(this)
+                        : new CompanyBuyerPage(this));
+                }
+
                 navigator.NavigateToGrid(SelectedGrid);
             }
         }

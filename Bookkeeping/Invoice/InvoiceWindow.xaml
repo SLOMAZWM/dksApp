@@ -9,8 +9,8 @@
         Title="Faktura" Height="600" Width="535.5" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <Style x:Name="txtInput" TargetType="TextBlock">
-            
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
         </Style>
     </Window.Resources>
     
@@ -107,6 +107,14 @@
 
         <Grid Grid.Row="4" Margin="10">
 
+            <Grid.Resources>
+                <Style TargetType="TextBlock" x:Key="txtLabel">
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="Width" Value="100"/>
+                </Style>
+            </Grid.Resources>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -117,32 +125,32 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <TextBlock Text="Sposób płatności:"/>
+                <TextBlock Text="Sposób płatności:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="Sposób:" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <TextBlock Text="Termin Płatności:"/>
+                <TextBlock Text="Termin Płatności:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="Data terminu" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <TextBlock Text="Zapłacono:"/>
+                <TextBlock Text="Zapłacono:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="ilość" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3">
-                <TextBlock Text="Pozostało do zapł.:"/>
+                <TextBlock Text="Pozostało do zapł.:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="ilość" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="4">
-                <TextBlock Text="Wartość brutto:"/>
+                <TextBlock Text="Wartość brutto:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="ilość PLN" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="5">
-                <TextBlock Text="Słownie:"/>
+                <TextBlock Text="Słownie:" Style="{StaticResource txtLabel}"/>
                 <TextBlock Text="Słownie PLN" Margin="20,0,0,0"/>
             </StackPanel>
 

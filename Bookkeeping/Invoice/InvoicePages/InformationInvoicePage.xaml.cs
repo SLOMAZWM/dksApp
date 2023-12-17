@@ -26,6 +26,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             parentWindow = CreateInvoiceW;
             InitializeComponent();
+            CommentsTxt.Text = "Brak";
         }
 
         private void TodayCHB_Checked(object sender, RoutedEventArgs e)
@@ -87,7 +88,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             parentWindow.NewInvoice.ExecutionDate = ExecutionDateTxt.Text;
         }
 
-        private void PaidYet_TextInput(object sender, TextCompositionEventArgs e)
+        private void PaidYet_TextChanged(object sender, TextChangedEventArgs e)
         {
             parentWindow.NewInvoice.PaidYet = Convert.ToDecimal(PaidYet.Text);
         }
@@ -161,7 +162,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
                 if(selectedValue == "WŁASNE")
                 {
-                    selectedValue = "Wlasne";
+                    selectedValue = "WLASNE";
                 }
                 parentWindow.NewInvoice.From = selectedValue;
             }
