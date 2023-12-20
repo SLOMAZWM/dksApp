@@ -25,7 +25,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     public partial class ProductsInvoicePage : Page
     {
         public ObservableCollection<Product> Products = new ObservableCollection<Product>();
-        private uint LP = 2;
+        private int LP = 2;
         private CreateInvoiceWindow parentWindow;
 
 
@@ -82,7 +82,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 switch (e.Column.Header.ToString())
                 {
                     case "L.p.":
-                        if (uint.TryParse(editingTextBox.Text, out uint numberOfItems))
+                        if (int.TryParse(editingTextBox.Text, out int numberOfItems))
                         {
                             product.NumberOfItems = numberOfItems;
                         }
@@ -91,7 +91,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                         product.NameItem = editingTextBox.Text;
                         break;
                     case "Ilość":
-                        if (ulong.TryParse(editingTextBox.Text, out ulong quantity))
+                        if (long.TryParse(editingTextBox.Text, out long quantity))
                         {
                             product.Quantity = quantity;
                         }

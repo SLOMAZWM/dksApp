@@ -8,10 +8,10 @@ namespace dksApp
 {
     public class Product
     {
-        public uint IdProduct { get; set; }
-        public uint NumberOfItems { get; set; }
+        public int IdProduct { get; set; }
+        public int NumberOfItems { get; set; }
         public string? NameItem { get; set; }
-        public ulong Quantity { get; set; }
+        public long Quantity { get; set; }
         public string? QuantityType { get; set; }
         public string? PKWiU { get; set; }
         public decimal NettoPrice { get; set; }

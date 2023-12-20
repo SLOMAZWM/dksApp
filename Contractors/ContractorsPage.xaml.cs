@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using dksApp.Contractors.Dialog;
 
 namespace dksApp.Contractors
 {
@@ -32,13 +33,29 @@ namespace dksApp.Contractors
             navigator = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
         }
 
+        private void AddContractor_Click(object sender, RoutedEventArgs e)
+        {
+            byte choice = 0;
+            ContractorsDialog contractorsDialog = new ContractorsDialog(choice);
+            contractorsDialog.ShowDialog();
+
+            if(choice == 1)
+            {
+                
+            }
+            else if(choice == 2) 
+            {
+
+            }
+        }
+
         private Dictionary<string, Page> InitializeDataGridPages()
         {
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
                 { "Wszyscy", new AllDataGridPage() },
-                {"Dostawcy", new SuppliersPage() },
-                {"Odbiorcy", new RecipientsPage() }
+                {"Sprzedawcy", new SuppliersPage() },
+                {"Nabywcy", new RecipientsPage() }
             };
 
             return NewDictionaryOfPages;

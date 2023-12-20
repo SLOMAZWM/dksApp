@@ -32,7 +32,7 @@
 
             <!--Add Button-->
 
-            <Button Style="{StaticResource addButton}" Grid.Row="1">
+            <Button Style="{StaticResource addButton}" Grid.Row="1" Click="AddContractor_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                     <TextBlock Text="Dodaj Kontrahenta"/>
@@ -46,8 +46,8 @@
 
             <StackPanel x:Name="tabButtonSP" Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
                 <Button Content="Wszyscy" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Wszyscy"/>
-                <Button Content="Dostawcy" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Dostawcy"/>
-                <Button Content="Odbiorcy" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Odbiorcy"/>
+                <Button Content="Sprzedawcy" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Sprzedawcy"/>
+                <Button Content="Nabywcy" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Nabywcy"/>
             </StackPanel>
 
             <!--Magazine DataGrid-->
