@@ -14,8 +14,8 @@ namespace dksApp
         public string? SellerCity { get; set; }
         public string? SellerZipCode { get; set; }
         public string? SellerNIP { get; set; }
-        public string? SellerBank { get; set; }
-        public string? SellerNumberBank { get; set; }
-        public string? Comments { get; set; }
+        public string? SellerBankName { get; set; }
+        public string? SellerBankAccount { get; set; }
+        public string? SellerTitle { get; set; }
     }
 }

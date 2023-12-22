@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:dksApp.Contractors.AddContractorsW"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-                                    Title="ContractorsDialog" Height="600" Width="800" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
-AllowsTransparency="True">
+                                    Title="ContractorsDialog" Height="700" Width="800" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
+AllowsTransparency="True" MouseDown="Border_MouseDown">
 
     <Border Background="#eff2f7" CornerRadius="30">
 
@@ -16,57 +16,55 @@ AllowsTransparency="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="InputSP">
-                <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBlock Grid.Row="0" Text="Dodaj Kontahenta - Sprzedawca" Style="{StaticResource TitlePage}" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Separator Height="1" Grid.Row="1" Background="#dae2ea" Margin="0,-1,0,10"/>
+
+            <StackPanel x:Name="InputSP" Grid.Row="2">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Firmy: "/>
                     <TextBox x:Name="SellerNameTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
                     <TextBox x:Name="SellerZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Miasto: "/>
                     <TextBox x:Name="SellerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Ulica: "/>
                     <TextBox x:Name="SellerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="NIP: "/>
                     <TextBox x:Name="SellerNIP" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Banku: "/>
                     <TextBox x:Name="SellerBankName" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Numer Rachunku: "/>
                     <TextBox x:Name="SellerBankAccount" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
                 </StackPanel>
 
-                <StackPanel Margin="10" Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Zapisu: "/>
                     <TextBox x:Name="NameToSave" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="8" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Margin="9" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Button x:Name="SaveSellerBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="SaveSellerBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>

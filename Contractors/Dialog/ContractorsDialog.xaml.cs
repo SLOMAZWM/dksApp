@@ -19,52 +19,45 @@ namespace dksApp.Contractors.Dialog
     /// </summary>
     public partial class ContractorsDialog : Window
     {
-        private byte userChoice; // 1 for Seller || 2 for Buyer || 0 For Nothing
-        public ContractorsDialog(byte ch)
+        private ContractorsPage ParentPage { get; set; }
+        public ContractorsDialog(ContractorsPage Contractor)
         {
             InitializeComponent();
-            userChoice = ch;
+            ParentPage = Contractor;
         }
 
         private void SellerChb_Checked(object sender, RoutedEventArgs e)
         {
             BuyerChb.IsChecked = false;
-            userChoice = 1;
         }
 
         private void BuyerChb_Checked(object sender, RoutedEventArgs e)
         {
             SellerChb.IsChecked = false;
-            userChoice = 2;
-        }
-
-        private void SellerChb_Unchecked(object sender, RoutedEventArgs e)
-        {
-            userChoice = 0;
-        }
-
-        private void BuyerChb_Unchecked(object sender, RoutedEventArgs e)
-        {
-            userChoice = 0;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            userChoice = 0;
+            ParentPage.userChoice = 0;
             this.Close();
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            if(userChoice == 0) 
+           if(SellerChb.IsChecked == true)
             {
-                MessageBox.Show("Nie wybrałeś żadnej opcji!", "Błąd wyboru", MessageBoxButton.OK, MessageBoxImage.Error);
+                ParentPage.userChoice = 1;
+            }
+           else if(BuyerChb.IsChecked == true) 
+            {
+                ParentPage.userChoice = 2;
+            }
+           else
+            {
+                MessageBox.Show("Nie dokonałeś wyboru - zaznacz coś, lub kliknij anuluj!", "Błąd wyboru", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else
-            {
-                this.Close();
-            }
+           this.Close();
         }
 
         //front
