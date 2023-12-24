@@ -43,6 +43,7 @@ namespace dksApp
         public decimal Paid { get; set; }
         public decimal PaidYet { get; set; }
         public string? BruttoValueInWords { get; set; }
+        public string? Comments { get; set; }
 
         //SELLER INFO
         public uint IdSeller { get; set; }
@@ -53,7 +54,6 @@ namespace dksApp
         public string? SellerNIP { get; set; }
         public string? SellerBankName { get; set; }
         public string? SellerBankAccount { get; set; } //Change DataBase
-        public string? Comments { get; set; }
 
         //BUYER INFO
         public uint IdBuyer { get; set; }
@@ -69,6 +69,26 @@ namespace dksApp
         public InvoiceClass()
         {
             Products = new List<Product>();
+        }
+
+        public bool IsEmpty()
+        {
+            // Check if any of the string properties are null or empty
+            return string.IsNullOrEmpty(IssueDate)
+                || string.IsNullOrEmpty(ExecutionDate)
+                || string.IsNullOrEmpty(PaymentType)
+                || string.IsNullOrEmpty(PaymentDate)
+                || string.IsNullOrEmpty(SellerName)
+                || string.IsNullOrEmpty(SellerStreet)
+                || string.IsNullOrEmpty(SellerCity)
+                || string.IsNullOrEmpty(SellerZipCode)
+                || string.IsNullOrEmpty(SellerNIP)
+                || string.IsNullOrEmpty(SellerBankName)
+                || string.IsNullOrEmpty(SellerBankAccount)
+                || string.IsNullOrEmpty(BuyerName)
+                || string.IsNullOrEmpty(BuyerStreet)
+                || string.IsNullOrEmpty(BuyerCity)
+                || string.IsNullOrEmpty(BuyerZipCode);
         }
 
     }

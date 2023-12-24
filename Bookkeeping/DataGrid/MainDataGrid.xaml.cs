@@ -68,46 +68,62 @@ namespace dksApp.Bookkeeping
         private void InitializeAllInvoices()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+                    string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice";
+
+                    try
                     {
-                        while (reader.Read())
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
                         {
-                            var invoice = new InvoiceClass
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                IDInvoice = (uint)reader.GetInt32(reader.GetOrdinal("InvoiceID")),
-                                SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName")),
-                                BuyerName = reader.IsDBNull(reader.GetOrdinal("BuyerName")) ? null : reader.GetString(reader.GetOrdinal("BuyerName")),
-                                PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType")),
-                                Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid")),
-                                IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"))
-                            };
-                            Invoices.Add(invoice);
-                            AllDocuments++;
+                                while (reader.Read())
+                                {
+                                    var invoice = new InvoiceClass
+                                    {
+                                        IDInvoice = (uint)reader.GetInt32(reader.GetOrdinal("InvoiceID")),
+                                        SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName")),
+                                        BuyerName = reader.IsDBNull(reader.GetOrdinal("BuyerName")) ? null : reader.GetString(reader.GetOrdinal("BuyerName")),
+                                        PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType")),
+                                        Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid")),
+                                        IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"))
+                                    };
+                                    Invoices.Add(invoice);
+                                    AllDocuments++;
+                                }
+                            }
                         }
+                    }
+                    catch(SqlException ex) 
+                    {
+                        MessageBox.Show("Błąd odczytu z bazy danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
+
+                    for (int pageNumber = 1; pageNumber <= maxPage; pageNumber++)
+                    {
+                        var button = new Button
+                        {
+                            Content = pageNumber.ToString(),
+                            Style = FindResource("pagingButton") as Style
+                        };
+                        button.Click += PageButton_Click;
+
+                        PaginationItemsControl.Items.Add(button);
                     }
                 }
             }
-
-            int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
-
-            for (int pageNumber = 1; pageNumber <= maxPage; pageNumber++)
+            catch(SqlException ex)
             {
-                var button = new Button
-                {
-                    Content = pageNumber.ToString(),
-                    Style = FindResource("pagingButton") as Style
-                };
-                button.Click += PageButton_Click;
-                
-                PaginationItemsControl.Items.Add(button);
+                MessageBox.Show("Błąd połączenia z bazą danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void UpdateDisplayedInvoices()
