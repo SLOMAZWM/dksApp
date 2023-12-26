@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors.Media;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,48 @@ namespace dksApp
         public decimal BruttoValue { get; set; }
         public bool ShowIt { get; set; }
 
+        public bool isEmpty()
+        {
+            return string.IsNullOrEmpty(NameItem)
+                || string.IsNullOrEmpty(QuantityType)
+                || string.IsNullOrEmpty(PKWiU)
+                || string.IsNullOrEmpty(VATPercent);
+        }
+
+        public bool isZero()
+        {
+            if (NumberOfItems == 0)
+            {
+                return true;
+            }
+            else if (Quantity == 0)
+            {
+                return true;
+            }
+            else if (NettoPrice == 0)
+            {
+                return true;
+            }
+            else if(NettoValue == 0)
+            {
+                return true;
+            }
+            else if(NettoPrice == 0)
+            {
+                return true;
+            }
+            else if(VATValue == 0)
+            {
+                return true;
+            }
+            else if(BruttoValue == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

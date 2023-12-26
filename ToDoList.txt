@@ -1,11 +1,8 @@
-﻿checkbox - aktualnie zaplacono (brak)
-Cena netto/brutto/etc. - kropki/przecinki only
+﻿Cena netto/brutto/etc. - kropki/przecinki only
 Cena netto - za jedna sztuke (zeby chlop wiedzial)
-Walidacja dla produktow (wielu, dlaczego jeden pusty przechodzi, a drugi nie?)
-Przechodzenie dalej (walidacja)
+Przechodzenie dalej (walidacja)*
 
 allegro filtry
 własne filtry wyszukiwarka
 walidacja do dodawania kontrahenta - sprzedawca
-nieobsluzony wyjatek podczas wpisywania stringa w "aktualnie zapłacone" 
 szczegolowa waliacja np, nip nie moze byc stringiem

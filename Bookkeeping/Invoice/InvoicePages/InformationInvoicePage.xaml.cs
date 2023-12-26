@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -183,5 +184,45 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             parentWindow.NewInvoice.PaymentDate = PaymentDateTxt.Text;
         }
+
+        private void PaidYetCHB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            PaidYet.IsEnabled = true;
+        }
+
+        private void PaidYetCHB_Checked(object sender, RoutedEventArgs e)
+        {
+            PaidYet.Text = "0";
+            PaidYet.IsEnabled = false;
+        }
+
+        private void PaidYet_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PaidYet_OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            return !regex.IsMatch(text);
+        }
+
     }
 }

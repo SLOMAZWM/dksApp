@@ -48,8 +48,9 @@
 
             <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
                 <TextBlock Style="{StaticResource TextInput}" Width="250"  Text="Aktualnie zapłacono: " HorizontalAlignment="Left"/>
-                <TextBox x:Name="PaidYet" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="PaidYet_TextChanged"/>
-                
+                <TextBox x:Name="PaidYet" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" PreviewTextInput="PaidYet_PreviewTextInput" DataObject.Pasting="PaidYet_OnPaste"/>
+                <CheckBox x:Name="PaidYetCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="PaidYetCHB_Checked" Unchecked="PaidYetCHB_Unchecked"/>
+                <TextBlock Text="Brak wpłaty" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">

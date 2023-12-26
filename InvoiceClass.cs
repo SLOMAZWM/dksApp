@@ -73,7 +73,6 @@ namespace dksApp
 
         public bool IsEmpty()
         {
-            // Check if any of the string properties are null or empty
             return string.IsNullOrEmpty(IssueDate)
                 || string.IsNullOrEmpty(ExecutionDate)
                 || string.IsNullOrEmpty(PaymentType)
