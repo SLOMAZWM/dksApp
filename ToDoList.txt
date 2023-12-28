@@ -1,8 +1,7 @@
 ﻿Cena netto/brutto/etc. - kropki/przecinki only
 Cena netto - za jedna sztuke (zeby chlop wiedzial)
-Przechodzenie dalej (walidacja)*
 
 allegro filtry
 własne filtry wyszukiwarka
-walidacja do dodawania kontrahenta - sprzedawca
-szczegolowa waliacja np, nip nie moze byc stringiem
+
+Przechodzenie dalej (walidacja)*

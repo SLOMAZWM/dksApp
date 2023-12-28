@@ -27,59 +27,107 @@ namespace dksApp.Contractors.AddContractorsW
             InitializeComponent();
         }
 
+        private bool isEmpty()
+        {
+            if (string.IsNullOrEmpty(BuyerNameTxt.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerZipCodeTxt.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerCity.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerStreet.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerNIP.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerBankName.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerBankAccount.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(NameToSave.Text))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void SaveBuyerBtn_Click(object sender, RoutedEventArgs e)
         {
-            buyer.BuyerName = BuyerNameTxt.Text;
-            buyer.BuyerZipCode = BuyerZipCodeTxt.Text;
-            buyer.BuyerCity = BuyerCity.Text;
-            buyer.BuyerStreet = BuyerStreet.Text;
-            buyer.BuyerNIP = BuyerNIP.Text;
-            buyer.BuyerBankName = BuyerBankName.Text;
-            buyer.BuyerBankAccount = BuyerBankAccount.Text;
-            buyer.BuyerTitle = NameToSave.Text;
-
-            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-
-            try
+            if(isEmpty() == false)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                buyer.BuyerName = BuyerNameTxt.Text;
+                buyer.BuyerZipCode = BuyerZipCodeTxt.Text;
+                buyer.BuyerCity = BuyerCity.Text;
+                buyer.BuyerStreet = BuyerStreet.Text;
+                buyer.BuyerNIP = BuyerNIP.Text;
+                buyer.BuyerBankName = BuyerBankName.Text;
+                buyer.BuyerBankAccount = BuyerBankAccount.Text;
+                buyer.BuyerTitle = NameToSave.Text;
+
+                string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+
+                try
                 {
-                    conn.Open();
-
-                    string query = "INSERT INTO Buyer (BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, BuyerBankName, BuyerBankAccount, BuyerTitle)  OUTPUT INSERTED.IdBuyer VALUES (@BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @BuyerBankName, @BuyerBankAccount, @BuyerTitle)";
-                    try
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        conn.Open();
+
+                        string query = "INSERT INTO Buyer (BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, BuyerBankName, BuyerBankAccount, BuyerTitle)  OUTPUT INSERTED.IdBuyer VALUES (@BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @BuyerBankName, @BuyerBankAccount, @BuyerTitle)";
+                        try
                         {
-                            int SellerID = 0;
+                            using (SqlCommand cmd = new SqlCommand(query, conn))
+                            {
+                                int SellerID = 0;
 
-                            cmd.Parameters.AddWithValue("@BuyerName", buyer.BuyerName);
-                            cmd.Parameters.AddWithValue("@BuyerZipCode", buyer.BuyerZipCode);
-                            cmd.Parameters.AddWithValue("@BuyerCity", buyer.BuyerCity);
-                            cmd.Parameters.AddWithValue("@BuyerStreet", buyer.BuyerStreet);
-                            cmd.Parameters.AddWithValue("@BuyerNIP", buyer.BuyerNIP);
-                            cmd.Parameters.AddWithValue("@BuyerBankName", buyer.BuyerBankName);
-                            cmd.Parameters.AddWithValue("@BuyerBankAccount", buyer.BuyerBankAccount);
-                            cmd.Parameters.AddWithValue("@BuyerTitle", buyer.BuyerTitle);
+                                cmd.Parameters.AddWithValue("@BuyerName", buyer.BuyerName);
+                                cmd.Parameters.AddWithValue("@BuyerZipCode", buyer.BuyerZipCode);
+                                cmd.Parameters.AddWithValue("@BuyerCity", buyer.BuyerCity);
+                                cmd.Parameters.AddWithValue("@BuyerStreet", buyer.BuyerStreet);
+                                cmd.Parameters.AddWithValue("@BuyerNIP", buyer.BuyerNIP);
+                                cmd.Parameters.AddWithValue("@BuyerBankName", buyer.BuyerBankName);
+                                cmd.Parameters.AddWithValue("@BuyerBankAccount", buyer.BuyerBankAccount);
+                                cmd.Parameters.AddWithValue("@BuyerTitle", buyer.BuyerTitle);
 
-                            SellerID = (int)cmd.ExecuteScalar();
+                                SellerID = (int)cmd.ExecuteScalar();
+                            }
+                            MessageBox.Show("Poprawnie dodano Nabywcę!", "Dodano Kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                        MessageBox.Show("Poprawnie dodano Nabywcę!", "Dodano Kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Błąd wykonania bazy danych: " + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally 
-                    { 
-                        conn.Close(); 
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Błąd wykonania bazy danych: " + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
                     }
                 }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Błąd połączenia z bazą danych: " + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch (SqlException ex)
+            else
             {
-                MessageBox.Show("Błąd połączenia z bazą danych: " + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wypełnij wszystkie pola!", "Błąd zapisu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
 

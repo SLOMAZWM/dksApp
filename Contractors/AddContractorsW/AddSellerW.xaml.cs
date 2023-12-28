@@ -33,59 +33,109 @@ namespace dksApp.Contractors.AddContractorsW
             this.Close();
         }
 
+        private bool isEmpty()
+        {
+            if (string.IsNullOrEmpty(SellerNameTxt.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerZipCodeTxt.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerCity.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerStreet.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerNIP.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerBankName.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(SellerBankAccount.Text))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(NameToSave.Text))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         private void SaveSellerBtn_Click(object sender, RoutedEventArgs e)
         {
-            seller.SellerName = SellerNameTxt.Text;
-            seller.SellerZipCode = SellerZipCodeTxt.Text;
-            seller.SellerCity = SellerCity.Text;
-            seller.SellerStreet = SellerStreet.Text;
-            seller.SellerNIP = SellerNIP.Text;
-            seller.SellerBankName = SellerBankName.Text;
-            seller.SellerBankAccount = SellerBankAccount.Text;
-            seller.SellerTitle = NameToSave.Text;
-
-            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-
-            try
+            if (isEmpty() == false) 
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                seller.SellerName = SellerNameTxt.Text;
+                seller.SellerZipCode = SellerZipCodeTxt.Text;
+                seller.SellerCity = SellerCity.Text;
+                seller.SellerStreet = SellerStreet.Text;
+                seller.SellerNIP = SellerNIP.Text;
+                seller.SellerBankName = SellerBankName.Text;
+                seller.SellerBankAccount = SellerBankAccount.Text;
+                seller.SellerTitle = NameToSave.Text;
+
+                string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+
+                try
                 {
-                    conn.Open();
-                    string query = "INSERT INTO Seller (SellerName, SellerZipCode, SellerCity, SellerStreet, SellerNIP, SellerBankName, SellerBankAccount, SellerTitle) OUTPUT INSERTED.IdSeller VALUES (@SellerName, @SellerZipCode, @SellerCity, @SellerStreet, @SellerNIP, @SellerBankName, @SellerBankAccount, @SellerTitle)";
-                    try
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        conn.Open();
+                        string query = "INSERT INTO Seller (SellerName, SellerZipCode, SellerCity, SellerStreet, SellerNIP, SellerBankName, SellerBankAccount, SellerTitle) OUTPUT INSERTED.IdSeller VALUES (@SellerName, @SellerZipCode, @SellerCity, @SellerStreet, @SellerNIP, @SellerBankName, @SellerBankAccount, @SellerTitle)";
+                        try
                         {
-                            int SellerID = 0;
+                            using (SqlCommand cmd = new SqlCommand(query, conn))
+                            {
+                                int SellerID = 0;
 
-                            cmd.Parameters.AddWithValue("@SellerName", seller.SellerName);
-                            cmd.Parameters.AddWithValue("@SellerZipCode", seller.SellerZipCode);
-                            cmd.Parameters.AddWithValue("@SellerCity", seller.SellerCity);
-                            cmd.Parameters.AddWithValue("@SellerStreet", seller.SellerStreet);
-                            cmd.Parameters.AddWithValue("@SellerNIP", seller.SellerNIP);
-                            cmd.Parameters.AddWithValue("@SellerBankName", seller.SellerBankName);
-                            cmd.Parameters.AddWithValue("@SellerBankAccount", seller.SellerBankAccount);
-                            cmd.Parameters.AddWithValue("@SellerTitle", seller.SellerTitle);
+                                cmd.Parameters.AddWithValue("@SellerName", seller.SellerName);
+                                cmd.Parameters.AddWithValue("@SellerZipCode", seller.SellerZipCode);
+                                cmd.Parameters.AddWithValue("@SellerCity", seller.SellerCity);
+                                cmd.Parameters.AddWithValue("@SellerStreet", seller.SellerStreet);
+                                cmd.Parameters.AddWithValue("@SellerNIP", seller.SellerNIP);
+                                cmd.Parameters.AddWithValue("@SellerBankName", seller.SellerBankName);
+                                cmd.Parameters.AddWithValue("@SellerBankAccount", seller.SellerBankAccount);
+                                cmd.Parameters.AddWithValue("@SellerTitle", seller.SellerTitle);
 
-                            SellerID = (int)cmd.ExecuteScalar();
+                                SellerID = (int)cmd.ExecuteScalar();
+                            }
+
+                            MessageBox.Show("Poprawnie dodano Sprzedawcę!", "Dodano Kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Błąd wykonania polecenia: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
+                    }
 
-                        MessageBox.Show("Poprawnie dodano Sprzedawcę!", "Dodano Kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Błąd wykonania polecenia: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
-                    {
-                        conn.Close();                    }
                 }
-                
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Wystąpił błąd połączenia: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            catch (SqlException ex)
+            else
             {
-                MessageBox.Show("Wystąpił błąd połączenia: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wypełnij wszystkie pola!", "Błąd zapisu!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         //front
