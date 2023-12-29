@@ -1,7 +1,7 @@
 ﻿Cena netto/brutto/etc. - kropki/przecinki only
 Cena netto - za jedna sztuke (zeby chlop wiedzial)
 
-allegro filtry
-własne filtry wyszukiwarka
 
+
+dostosowanie liczby wyszukanych faktur po filtrowaniu*
 Przechodzenie dalej (walidacja)*

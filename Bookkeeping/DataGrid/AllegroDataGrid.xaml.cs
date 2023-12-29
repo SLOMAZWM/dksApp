@@ -60,6 +60,7 @@ namespace dksApp.Bookkeeping
 
             CurrentPage = 1;
             UpdateDisplayedInvoices();
+            txtFilter.TextChanged += TxtFilter_TextChanged;
         }
 
         private void InitializeAllInvoices()
@@ -202,6 +203,33 @@ namespace dksApp.Bookkeeping
             foreach (var invoice in DisplayedInvoices)
             {
                 invoice.IsSelected = isChecked;
+            }
+        }
+
+        private void TxtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterInvoices();
+        }
+
+        private void FilterInvoices()
+        {
+            var filterText = txtFilter.Text?.ToLower() ?? string.Empty;
+            var filteredInvoices = string.IsNullOrWhiteSpace(filterText)
+                ? Invoices
+                : new ObservableCollection<InvoiceClass>(Invoices.Where(invoice =>
+                    invoice.SellerName?.ToLower().Contains(filterText) == true ||
+                    invoice.BuyerName?.ToLower().Contains(filterText) == true ||
+                    invoice.IDInvoice.ToString().Contains(filterText) ||
+                    invoice.PaymentType?.ToLower().Contains(filterText) == true ||
+                    invoice.PaymentDate?.ToLower().Contains(filterText) == true ||
+                    invoice.Paid.ToString().Contains(filterText) ||
+                    invoice.IssueDate?.ToLower().Contains(filterText) == true
+                ));
+
+            DisplayedInvoices.Clear();
+            foreach (var invoice in filteredInvoices)
+            {
+                DisplayedInvoices.Add(invoice);
             }
         }
 
