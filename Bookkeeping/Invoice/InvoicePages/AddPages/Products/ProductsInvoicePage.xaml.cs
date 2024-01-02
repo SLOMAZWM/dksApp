@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products;
 
 namespace dksApp.Bookkeeping.Invoice.InvoicePages
 {
@@ -55,6 +56,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             {
                 NumberOfItems = LP
             };
+            AddNewProduct newProductWindow = new AddNewProduct(newProduct);
+            newProductWindow.ShowDialog();
             Products.Add(newProduct);
             LP++;
         }

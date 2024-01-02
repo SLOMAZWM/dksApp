@@ -1,7 +1,7 @@
-﻿Cena netto/brutto/etc. - kropki/przecinki only
-Cena netto - za jedna sztuke (zeby chlop wiedzial)
+﻿Dokonczenie okienka AddNewProduct
+Uniemozliwienie edycji gotowych produktow w DataGrid
 
 
 
-dostosowanie liczby wyszukanych faktur po filtrowaniu*
-Przechodzenie dalej (walidacja)*
+Poprawienie wydajnosci (nawigacja)**
+Przechodzenie dalej (walidacja)***

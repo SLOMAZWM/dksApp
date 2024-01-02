@@ -232,6 +232,8 @@ namespace dksApp.Bookkeeping
             {
                 DisplayedInvoices.Add(invoice);
             }
+
+            AllDocuments = (uint)filteredInvoices.Count;
         }
 
     }

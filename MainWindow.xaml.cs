@@ -17,12 +17,7 @@ namespace dksApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        //Nawigacja dla DataGrid
-        //Zaimplementuj SQL'a dla faktur, klienta (bez allegro Api)
-
         private NavigatorManager navigator;
-
 
         public MainWindow()
         {
