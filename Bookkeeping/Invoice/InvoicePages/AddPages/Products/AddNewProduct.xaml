@@ -16,6 +16,7 @@ AllowsTransparency="True" Background="Transparent">
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
 
@@ -34,6 +35,101 @@ AllowsTransparency="True" Background="Transparent">
 
             <Separator Grid.Row="2" Margin="0,10,0,0" VerticalAlignment="Bottom" Height="0.8" Background="DarkGray"/>
 
+            <Grid Grid.Row="3">
+
+                <Grid.Resources>
+                    <Style TargetType="TextBlock" x:Key="FormsBlock" BasedOn="{StaticResource TextInput}">
+                        <Setter Property="Width" Value="200"/>
+                        <Setter Property="Margin" Value="0,14,0,0"/>
+                    </Style>
+                    <Style TargetType="TextBox" x:Key="FormsBox" BasedOn="{StaticResource Input}">
+                        <Setter Property="Width" Value="500"/>
+                    </Style>
+                </Grid.Resources>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Nazwa Produktu/Usługi:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="ProductNameTxt" Style="{StaticResource FormsBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Miara ilości:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="TypeAmountTxt" Style="{StaticResource FormsBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Ilość: " Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="AmountTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="PKWiU: " Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="PKWiUTxt" Style="{StaticResource FormsBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Cena za sztukę NETTO:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="NettoOneTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Wartość NETTO:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="ValueNettoTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="6" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="VAT [%]:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="VatTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="7" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Wartość VAT:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="ValueVatTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="8" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="Wartość BRUTTO:" Style="{StaticResource FormsBlock}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBox x:Name="ValueBruttoTxt" Style="{StaticResource FormsBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="9" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="AddProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="AddProductBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                            <TextBlock Text="Dodaj Produkt"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ContentSaveCheck" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                            <TextBlock Text="Zapisz Produkt"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="ExitProductBtn" Click="exitBtn_Click" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="LocationExit" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                            <TextBlock Text="Wyjdź"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+            
         </Grid>
 
     </Border>

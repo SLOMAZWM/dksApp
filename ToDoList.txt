@@ -1,5 +1,4 @@
-﻿Dokonczenie okienka AddNewProduct
-Uniemozliwienie edycji gotowych produktow w DataGrid
+﻿Walidacja dla sprzedawcy, nabywcy i informacji
 
 
 

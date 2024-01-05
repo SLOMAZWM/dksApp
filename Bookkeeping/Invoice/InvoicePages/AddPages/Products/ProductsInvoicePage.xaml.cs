@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products;
+using System.Security.Cryptography.X509Certificates;
 
 namespace dksApp.Bookkeeping.Invoice.InvoicePages
 {
@@ -26,17 +27,13 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     public partial class ProductsInvoicePage : Page
     {
         public ObservableCollection<Product> Products = new ObservableCollection<Product>();
-        private int LP = 2;
+        private int LP = 1;
         private CreateInvoiceWindow parentWindow;
-
 
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
             InitializeComponent();
-
-            Product first = new Product() { NumberOfItems = 1, IdProduct = 1, NameItem = "Testowy" };
-            Products.Add(first);
 
             ProductsDataGrid.ItemsSource = Products;
         }
@@ -58,8 +55,15 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             };
             AddNewProduct newProductWindow = new AddNewProduct(newProduct);
             newProductWindow.ShowDialog();
-            Products.Add(newProduct);
-            LP++;
+            if(newProductWindow.IsCreated == true)
+            {
+                Products.Add(newProduct);
+                LP++;
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void PreviousPageBtn_Click(object sender, RoutedEventArgs e)
@@ -72,94 +76,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             catch
             {
                 MessageBox.Show("Błąd nawigacji podstrony, skontaktuj się z administratorem aplikacji!", "Krytyczny błąd Nawigacji", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ProductsDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
-                var product = e.Row.Item as Product;
-                var editingTextBox = e.EditingElement as TextBox;
-
-                switch (e.Column.Header.ToString())
-                {
-                    case "L.p.":
-                        if (int.TryParse(editingTextBox.Text, out int numberOfItems))
-                        {
-                            product.NumberOfItems = numberOfItems;
-                        }
-                        break;
-                    case "Nazwa Produktu/Usługi":
-                        product.NameItem = editingTextBox.Text;
-                        break;
-                    case "Ilość":
-                        if (long.TryParse(editingTextBox.Text, out long quantity))
-                        {
-                            product.Quantity = quantity;
-                        }
-                        break;
-                    case "J.m.":
-                        product.QuantityType = editingTextBox.Text;
-                        break;
-                    case "PKWiU":
-                        product.PKWiU = editingTextBox.Text;
-                        break;
-                    case "Cena netto [PLN]":
-                        if (decimal.TryParse(editingTextBox.Text, out decimal nettoPrice))
-                        {
-                            product.NettoPrice = nettoPrice;
-                        }
-                        break;
-                    case "Wartość netto [PLN]":
-                        if (decimal.TryParse(editingTextBox.Text, out decimal nettoValue))
-                        {
-                            product.NettoValue = nettoValue;
-                        }
-                        break;
-                    case "Vat [%]":
-                        product.VATPercent = editingTextBox.Text;
-                        break;
-                    case "Wartość VAT [PLN]":
-                        if (decimal.TryParse(editingTextBox.Text, out decimal vatValue))
-                        {
-                            product.VATValue = vatValue;
-                        }
-                        break;
-                    case "Wartość Brutto [PLN]":
-                        if (decimal.TryParse(editingTextBox.Text, out decimal bruttoValue))
-                        {
-                            product.BruttoValue = bruttoValue;
-                        }
-                        break;
-                }
-
-                UpdateProductInInvoice(product);
-            
-        }
-        }
-
-        private void UpdateProductInInvoice(Product updatedProduct)
-        {
-            var invoice = parentWindow.NewInvoice;
-            var existingProduct = invoice.Products.FirstOrDefault(p => p.IdProduct == updatedProduct.IdProduct);
-
-            if (existingProduct != null)
-            {
-                existingProduct.NumberOfItems = updatedProduct.NumberOfItems;
-                existingProduct.NameItem = updatedProduct.NameItem;
-                existingProduct.Quantity = updatedProduct.Quantity;
-                existingProduct.QuantityType = updatedProduct.QuantityType;
-                existingProduct.PKWiU = updatedProduct.PKWiU;
-                existingProduct.NettoPrice = updatedProduct.NettoPrice;
-                existingProduct.NettoValue = updatedProduct.NettoValue;
-                existingProduct.VATPercent = updatedProduct.VATPercent;
-                existingProduct.VATValue = updatedProduct.VATValue;
-                existingProduct.BruttoValue = updatedProduct.BruttoValue;
-            }
-            else
-            {
-                invoice.Products.Add(updatedProduct);
             }
         }
 
@@ -177,7 +93,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 {
                     connection.Open();
 
-                    // Dodawanie produktów i zapisywanie ich ID
                     List<int> productIds = new List<int>();
                     foreach (var product in parentWindow.NewInvoice.Products)
                     {
@@ -198,12 +113,10 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                             command.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
                             command.Parameters.AddWithValue("@ShowIt", showIt);
 
-                            int productId = (int)command.ExecuteScalar(); // Zapisuje ID dodanego produktu
+                            int productId = (int)command.ExecuteScalar();
                             productIds.Add(productId);
                         }
                     }
-
-                    // Dodawanie faktury
 
                     int invoiceId;
 
@@ -258,10 +171,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
-        //private void IsValidPagesInput()
-        //{
-        //    parentWindow.GridPage
-        //}
 
 
     }

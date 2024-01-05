@@ -12,7 +12,7 @@ namespace dksApp
         public int IdProduct { get; set; }
         public int NumberOfItems { get; set; }
         public string? NameItem { get; set; }
-        public long Quantity { get; set; }
+        public double Quantity { get; set; }
         public string? QuantityType { get; set; }
         public string? PKWiU { get; set; }
         public decimal NettoPrice { get; set; }
@@ -20,7 +20,7 @@ namespace dksApp
         public string ? VATPercent { get; set; }
         public decimal VATValue { get; set; }
         public decimal BruttoValue { get; set; }
-        public bool ShowIt { get; set; }
+        public bool ShowIt { get; set; } //ADDED TO MAGAZINE!
 
         public bool isEmpty()
         {
