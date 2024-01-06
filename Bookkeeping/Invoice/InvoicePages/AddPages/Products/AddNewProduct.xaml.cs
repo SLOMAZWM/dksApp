@@ -93,22 +93,43 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
             return !regex.IsMatch(text);
         }
 
+        private bool AreTextBoxesEmpty(Grid grid)
+        {
+            foreach (UIElement element in grid.Children) 
+            {
+                if (element is StackPanel stackPanel)
+                {
+                    foreach(var child in stackPanel.Children)
+                    {
+                        if(child is TextBox textBox && string.IsNullOrWhiteSpace(textBox.Text))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            Product.NameItem = ProductNameTxt.Text;
-            Product.QuantityType = TypeAmountTxt.Text;
-            Product.Quantity = double.Parse(AmountTxt.Text);
-            Product.PKWiU = PKWiUTxt.Text;
-            Product.NettoPrice = Convert.ToDecimal(NettoOneTxt.Text);
-            Product.NettoValue = Convert.ToDecimal(ValueNettoTxt.Text);
-            Product.VATPercent = VatTxt.Text;
-            Product.VATValue = Convert.ToDecimal(ValueVatTxt.Text);
-            Product.BruttoValue = Convert.ToDecimal(ValueBruttoTxt.Text);
-
-            if (Product.isEmpty() == false && Product.isZero() == false)
+            if(AreTextBoxesEmpty(InputGrid) == false) 
             {
-                IsCreated = true;
-                this.Close();
+                Product.NameItem = ProductNameTxt.Text;
+                Product.QuantityType = TypeAmountTxt.Text;
+                Product.Quantity = double.Parse(AmountTxt.Text);
+                Product.PKWiU = PKWiUTxt.Text;
+                Product.NettoPrice = Convert.ToDecimal(NettoOneTxt.Text);
+                Product.NettoValue = Convert.ToDecimal(ValueNettoTxt.Text);
+                Product.VATPercent = VatTxt.Text;
+                Product.VATValue = Convert.ToDecimal(ValueVatTxt.Text);
+                Product.BruttoValue = Convert.ToDecimal(ValueBruttoTxt.Text);
+
+                if (Product.isEmpty() == false && Product.isZero() == false)
+                {
+                    IsCreated = true;
+                    this.Close();
+                }
             }
             else
             {

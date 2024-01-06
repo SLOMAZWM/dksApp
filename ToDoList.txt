@@ -1,6 +1,9 @@
-﻿Walidacja dla sprzedawcy, nabywcy i informacji
+﻿1.Dodaj edytowania produktow i usuwanie ich z datagrid
+
+2.Sprawdź czy wszystko jest w porządku z tworzeniem faktur i przypisywaniem do niej produktow
 
 
 
 Poprawienie wydajnosci (nawigacja)**
 Przechodzenie dalej (walidacja)***
+Responsywność***

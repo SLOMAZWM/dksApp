@@ -34,14 +34,14 @@
 
             <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
                 <TextBlock Style="{StaticResource TextInput}" Width="250" Text="Data Wystawienia: " HorizontalAlignment="Left"/>
-                <TextBox x:Name="IssueDate" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" HorizontalAlignment="Left" TextChanged="IssueDate_TextChanged"/>
+                <TextBox x:Name="IssueDate" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" HorizontalAlignment="Left" TextChanged="IssueDate_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
                 <CheckBox x:Name="TodayIssueCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="TodayCHB_Checked" Unchecked="TodayCHB_Unchecked"/>
                 <TextBlock Text="Dzisiaj" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
                 <TextBlock Style="{StaticResource TextInput}" Width="250"  Text="Data Wykonania/Dostarczenia: " HorizontalAlignment="Left"/>
-                <TextBox x:Name="ExecutionDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="ExecutionDateTxt_TextChanged"/>
+                <TextBox x:Name="ExecutionDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="ExecutionDateTxt_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
                 <CheckBox x:Name="TodayPayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="TodayPayCHB_Checked" Unchecked="TodayPayCHB_Unchecked"/>
                 <TextBlock Text="Dzisiaj" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
             </StackPanel>
@@ -63,7 +63,7 @@
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Termin Płatności: " Width="250"/>
-                <TextBox x:Name="PaymentDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="PaymentDateTxt_TextChanged"/>
+                <TextBox x:Name="PaymentDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="PaymentDateTxt_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
                 <CheckBox x:Name="Days7PayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,24,0,0" HorizontalAlignment="Right" Checked="Days7PayCHB_Checked" Unchecked="Days7PayCHB_Unchecked"/>
                 <TextBlock Text="7dni" Style="{StaticResource TextInput}" Margin="5,20,0,0" HorizontalAlignment="Right" Width="auto"/>
                 <CheckBox x:Name="Days14PayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,24,0,0" HorizontalAlignment="Right" Checked="Days14PayCHB_Checked" Unchecked="Days14PayCHB_Unchecked"/>

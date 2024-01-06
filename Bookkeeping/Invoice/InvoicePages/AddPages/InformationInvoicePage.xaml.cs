@@ -207,7 +207,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             if (e.DataObject.GetDataPresent(typeof(String)))
             {
                 String text = (String)e.DataObject.GetData(typeof(String));
-                if (!IsTextAllowed(text))
+                if (!IsTextAllowedPaidYet(text))
                 {
                     e.CancelCommand();
                 }
@@ -218,11 +218,38 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
-        private bool IsTextAllowed(string text)
+        private bool IsTextAllowedPaidYet(string text)
         {
             Regex regex = new Regex("[^0-9]+");
             return !regex.IsMatch(text);
         }
 
+        private void NumbersDash_PreviewInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9-]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void NumbersDash_Paste(object sender, DataObjectPastingEventArgs e)
+        {
+            if(e.DataObject.GetDataPresent(typeof(String))) 
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if(!IsTextAllowedNumbersDash(text)) 
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private bool IsTextAllowedNumbersDash(string text)
+        {
+            Regex regex = new Regex("[^0-9-]");
+            return !regex.IsMatch(text);
+        }
     }
 }

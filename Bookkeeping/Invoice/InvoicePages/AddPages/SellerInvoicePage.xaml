@@ -32,7 +32,7 @@
 
             <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
-                <TextBox x:Name="SellerZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="ZipCodeTxt_TextChanged"/>
+                    <TextBox x:Name="SellerZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="ZipCodeTxt_TextChanged" PreviewTextInput="SellerZipCodeTxt_PreviewTextInput" DataObject.Pasting="TextOnlyNumber_CheckPasteZipCode"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">

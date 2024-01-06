@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -78,6 +79,34 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         private void BuyerNIP_TextChanged(object sender, TextChangedEventArgs e)
         {
             createInvoice.NewInvoice.BuyerNIP = BuyerNIP.Text;
+        }
+
+        private void BuyerZipCodeTxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9-]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void TextOnlyNumber_CheckPasteZipCode(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9-]");
+            return !regex.IsMatch(text);
         }
     }
 }
