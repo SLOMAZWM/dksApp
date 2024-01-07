@@ -2,11 +2,10 @@
 
 2.Sprawdź czy wszystko jest w porządku z tworzeniem faktur i przypisywaniem do niej produktow
 
-3.MIASTO - TYLKO LITERY
 4. NIP - TYLKO CYFRY + DODAJ ROWIJNANE MENU DO KRAJOW
+
 5.Walidacja dla braku produktow w fakturze
-6. wartosc brutto walidacja - ujemne wartosci i literki
 
 Poprawienie wydajnosci (nawigacja)**
 Przechodzenie dalej (walidacja)***
-Responsywność***
+Responsywność*

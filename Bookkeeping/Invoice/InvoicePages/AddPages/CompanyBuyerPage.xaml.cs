@@ -92,7 +92,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             if (e.DataObject.GetDataPresent(typeof(String)))
             {
                 String text = (String)e.DataObject.GetData(typeof(String));
-                if (!IsTextAllowed(text))
+                if (!IsTextAllowedZipCode(text))
                 {
                     e.CancelCommand();
                 }
@@ -103,9 +103,37 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
-        private bool IsTextAllowed(string text)
+        private bool IsTextAllowedZipCode(string text)
         {
             Regex regex = new Regex("[^0-9-]");
+            return !regex.IsMatch(text);
+        }
+
+        private void BuyerCityTxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^[a-zA-Z]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+        }
+
+        private void TextOnlyNumber_CheckPasteCity(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowedCity(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private bool IsTextAllowedCity(string text)
+        {
+            Regex regex = new Regex("[^a-z, A-Z]+$");
             return !regex.IsMatch(text);
         }
     }

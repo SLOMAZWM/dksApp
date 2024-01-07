@@ -36,11 +36,11 @@
 
             <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <TextBlock Style="{StaticResource TextInput}" Text="Miasto: "/>
-                <TextBox x:Name="BuyerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerCity_TextChanged"/>
+                <TextBox x:Name="BuyerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerCity_TextChanged" PreviewTextInput="BuyerCityTxt_PreviewTextInput" DataObject.Pasting="TextOnlyNumber_CheckPasteCity"/>
             </StackPanel>
 
             <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                <TextBlock Style="{StaticResource TextInput}" Text="Ulica: "/>
+                <TextBlock Style="{StaticResource TextInput}" Text="Adres: "/>
                 <TextBox x:Name="BuyerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" TextChanged="BuyerStreet_TextChanged"/>
             </StackPanel>
 

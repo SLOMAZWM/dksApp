@@ -101,8 +101,8 @@ AllowsTransparency="True" Background="Transparent">
                 </StackPanel>
 
                 <StackPanel Grid.Row="8" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="Wartość BRUTTO:" Style="{StaticResource FormsBlock}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
-                    <TextBox x:Name="ValueBruttoTxt" Style="{StaticResource FormsBox}"/>
+                    <TextBlock Text="Wartość BRUTTO:" Style="{StaticResource FormsBlock}" />
+                    <TextBox x:Name="ValueBruttoTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="9" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
