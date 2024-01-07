@@ -164,8 +164,8 @@ namespace dksApp.Bookkeeping.Invoice
                 if (IsMaximized)
                 {
                     this.WindowState = WindowState.Normal;
-                    this.Width = 650;
-                    this.Height = 400;
+                    this.Width = 1080;
+                    this.Height = 700;
 
                     IsMaximized = false;
                 }
