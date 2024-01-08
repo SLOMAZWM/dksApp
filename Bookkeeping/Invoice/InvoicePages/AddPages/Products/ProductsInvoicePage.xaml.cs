@@ -26,7 +26,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     /// </summary>
     public partial class ProductsInvoicePage : Page
     {
-        public ObservableCollection<Product> Products = new ObservableCollection<Product>();
         private int LP = 1;
         private CreateInvoiceWindow parentWindow;
 
@@ -35,7 +34,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             parentWindow = InvoiceWindow;
             InitializeComponent();
 
-            ProductsDataGrid.ItemsSource = Products;
+            ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
         }
 
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
@@ -57,7 +56,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             newProductWindow.ShowDialog();
             if(newProductWindow.IsCreated == true)
             {
-                Products.Add(newProduct);
+                parentWindow.NewInvoice.Products.Add(newProduct);
                 LP++;
             }
             else
@@ -66,6 +65,18 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
+        private bool IsProductsDataGridEmpty()
+        {
+            if(ProductsDataGrid.Items.IsEmpty)
+            {
+                MessageBox.Show("Brak produktów - kliknij dodaj produkt!", "Błąd dodawania faktury", MessageBoxButton.OK, MessageBoxImage.Error);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private void PreviousPageBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -81,94 +92,103 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void Save_Invoice(object sender, RoutedEventArgs e)
         {
-            if(parentWindow.NewInvoice.IsEmpty() == true)
+            if(IsProductsDataGridEmpty() == true)
             {
-                MessageBox.Show("Pole jest puste!", "Błąd wypełniania!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (parentWindow.NewInvoice.IsEmpty() == true)
                 {
-                    connection.Open();
-
-                    List<int> productIds = new List<int>();
-                    foreach (var product in parentWindow.NewInvoice.Products)
-                    {
-                        bool showIt = false;
-                        string productQuery = "INSERT INTO Product (NumberOfItems, NameItem, Quantity, QuantityType, PKWiU, NettoPrice, NettoValue, VATPercent, VATValue, BruttoValue, ShowIt) OUTPUT INSERTED.ProductID VALUES (@NumberOfItems, @NameItem, @Quantity, @QuantityType, @PKWiU, @NettoPrice, @NettoValue, @VATPercent, @VATValue, @BruttoValue, @ShowIt)";
-
-                        using (SqlCommand command = new SqlCommand(productQuery, connection))
-                        {
-                            command.Parameters.AddWithValue("@NumberOfItems", product.NumberOfItems);
-                            command.Parameters.AddWithValue("@NameItem", product.NameItem);
-                            command.Parameters.AddWithValue("@Quantity", product.Quantity);
-                            command.Parameters.AddWithValue("@QuantityType", product.QuantityType);
-                            command.Parameters.AddWithValue("@PKWiU", product.PKWiU);
-                            command.Parameters.AddWithValue("@NettoPrice", product.NettoPrice);
-                            command.Parameters.AddWithValue("@NettoValue", product.NettoValue);
-                            command.Parameters.AddWithValue("@VATPercent", product.VATPercent);
-                            command.Parameters.AddWithValue("@VATValue", product.VATValue);
-                            command.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
-                            command.Parameters.AddWithValue("@ShowIt", showIt);
-
-                            int productId = (int)command.ExecuteScalar();
-                            productIds.Add(productId);
-                        }
-                    }
-
-                    int invoiceId;
-
-                    string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @InvoiceFrom)";
-                    using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
-                    {
-                        long idSeller = Convert.ToInt64(parentWindow.NewInvoice.IdSeller);
-
-                        command.Parameters.AddWithValue("@IssueDate", parentWindow.NewInvoice.IssueDate);
-                        command.Parameters.AddWithValue("@ExecutionDate", parentWindow.NewInvoice.ExecutionDate);
-                        command.Parameters.AddWithValue("@PaymentType", parentWindow.NewInvoice.PaymentType);
-                        command.Parameters.AddWithValue("@PaymentDate", parentWindow.NewInvoice.PaymentDate);
-                        command.Parameters.AddWithValue("@Paid", parentWindow.NewInvoice.Paid);
-                        command.Parameters.AddWithValue("@PaidYet", parentWindow.NewInvoice.PaidYet);
-                        command.Parameters.AddWithValue("@IdSeller", idSeller);
-                        command.Parameters.AddWithValue("@SellerName", parentWindow.NewInvoice.SellerName);
-                        command.Parameters.AddWithValue("@SellerStreet", parentWindow.NewInvoice.SellerStreet);
-                        command.Parameters.AddWithValue("@SellerCity", parentWindow.NewInvoice.SellerCity);
-                        command.Parameters.AddWithValue("@SellerZipCode", parentWindow.NewInvoice.SellerZipCode);
-                        command.Parameters.AddWithValue("@SellerNIP", parentWindow.NewInvoice.SellerNIP);
-                        command.Parameters.AddWithValue("@SellerBankName", parentWindow.NewInvoice.SellerBankName);
-                        command.Parameters.AddWithValue("@SellerBankAccount", parentWindow.NewInvoice.SellerBankAccount);
-                        command.Parameters.AddWithValue("@Comments", parentWindow.NewInvoice.Comments);
-                        command.Parameters.AddWithValue("@BuyerName", parentWindow.NewInvoice.BuyerName);
-                        command.Parameters.AddWithValue("@BuyerStreet", parentWindow.NewInvoice.BuyerStreet);
-                        command.Parameters.AddWithValue("@BuyerCity", parentWindow.NewInvoice.BuyerCity);
-                        command.Parameters.AddWithValue("@BuyerZipCode", parentWindow.NewInvoice.BuyerZipCode);
-                        command.Parameters.AddWithValue("@BuyerNIP", parentWindow.NewInvoice.BuyerNIP);
-                        command.Parameters.AddWithValue("@InvoiceFrom", parentWindow.NewInvoice.From);
-
-                        invoiceId = (int)command.ExecuteScalar();
-                    }
-
-                    // Dodawanie powiązań w InvoiceProducts
-                    foreach (int productId in productIds)
-                    {
-                        string invoiceProductQuery = "INSERT INTO InvoiceProducts (InvoiceID, ProductID) VALUES (@InvoiceID, @ProductID)";
-
-                        using (SqlCommand command = new SqlCommand(invoiceProductQuery, connection))
-                        {
-                            command.Parameters.AddWithValue("@InvoiceID", invoiceId);
-                            command.Parameters.AddWithValue("@ProductID", productId);
-
-                            command.ExecuteNonQuery();
-                        }
-                    }
-
-                    MessageBox.Show("Poprawnie dodano fakturę!", "Operacja wykonana pomyślnie!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    connection.Close();
+                    MessageBox.Show("Pole jest puste!", "Błąd wypełniania!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            
+                else
+                {
+                    string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        List<int> productIds = new List<int>();
+                        foreach (var product in parentWindow.NewInvoice.Products)
+                        {
+                            bool showIt = false;
+                            string productQuery = "INSERT INTO Product (NumberOfItems, NameItem, Quantity, QuantityType, PKWiU, NettoPrice, NettoValue, VATPercent, VATValue, BruttoValue, ShowIt) OUTPUT INSERTED.ProductID VALUES (@NumberOfItems, @NameItem, @Quantity, @QuantityType, @PKWiU, @NettoPrice, @NettoValue, @VATPercent, @VATValue, @BruttoValue, @ShowIt)";
+
+                            using (SqlCommand command = new SqlCommand(productQuery, connection))
+                            {
+                                command.Parameters.AddWithValue("@NumberOfItems", product.NumberOfItems);
+                                command.Parameters.AddWithValue("@NameItem", product.NameItem);
+                                command.Parameters.AddWithValue("@Quantity", product.Quantity);
+                                command.Parameters.AddWithValue("@QuantityType", product.QuantityType);
+                                command.Parameters.AddWithValue("@PKWiU", product.PKWiU);
+                                command.Parameters.AddWithValue("@NettoPrice", product.NettoPrice);
+                                command.Parameters.AddWithValue("@NettoValue", product.NettoValue);
+                                command.Parameters.AddWithValue("@VATPercent", product.VATPercent);
+                                command.Parameters.AddWithValue("@VATValue", product.VATValue);
+                                command.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
+                                command.Parameters.AddWithValue("@ShowIt", showIt);
+
+                                int productId = (int)command.ExecuteScalar();
+                                productIds.Add(productId);
+                            }
+                        }
+
+                        int invoiceId;
+
+                        string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @InvoiceFrom)";
+                        using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
+                        {
+                            long idSeller = Convert.ToInt64(parentWindow.NewInvoice.IdSeller);
+
+                            command.Parameters.AddWithValue("@IssueDate", parentWindow.NewInvoice.IssueDate);
+                            command.Parameters.AddWithValue("@ExecutionDate", parentWindow.NewInvoice.ExecutionDate);
+                            command.Parameters.AddWithValue("@PaymentType", parentWindow.NewInvoice.PaymentType);
+                            command.Parameters.AddWithValue("@PaymentDate", parentWindow.NewInvoice.PaymentDate);
+                            command.Parameters.AddWithValue("@Paid", parentWindow.NewInvoice.Paid);
+                            command.Parameters.AddWithValue("@PaidYet", parentWindow.NewInvoice.PaidYet);
+                            command.Parameters.AddWithValue("@IdSeller", idSeller);
+                            command.Parameters.AddWithValue("@SellerName", parentWindow.NewInvoice.SellerName);
+                            command.Parameters.AddWithValue("@SellerStreet", parentWindow.NewInvoice.SellerStreet);
+                            command.Parameters.AddWithValue("@SellerCity", parentWindow.NewInvoice.SellerCity);
+                            command.Parameters.AddWithValue("@SellerZipCode", parentWindow.NewInvoice.SellerZipCode);
+                            command.Parameters.AddWithValue("@SellerNIP", parentWindow.NewInvoice.SellerNIP);
+                            command.Parameters.AddWithValue("@SellerBankName", parentWindow.NewInvoice.SellerBankName);
+                            command.Parameters.AddWithValue("@SellerBankAccount", parentWindow.NewInvoice.SellerBankAccount);
+                            command.Parameters.AddWithValue("@Comments", parentWindow.NewInvoice.Comments);
+                            command.Parameters.AddWithValue("@BuyerName", parentWindow.NewInvoice.BuyerName);
+                            command.Parameters.AddWithValue("@BuyerStreet", parentWindow.NewInvoice.BuyerStreet);
+                            command.Parameters.AddWithValue("@BuyerCity", parentWindow.NewInvoice.BuyerCity);
+                            command.Parameters.AddWithValue("@BuyerZipCode", parentWindow.NewInvoice.BuyerZipCode);
+                            command.Parameters.AddWithValue("@BuyerNIP", parentWindow.NewInvoice.BuyerNIP);
+                            command.Parameters.AddWithValue("@InvoiceFrom", parentWindow.NewInvoice.From);
+
+                            invoiceId = (int)command.ExecuteScalar();
+                        }
+
+                        // Dodawanie powiązań w InvoiceProducts
+                        foreach (int productId in productIds)
+                        {
+                            string invoiceProductQuery = "INSERT INTO InvoiceProducts (InvoiceID, ProductID) VALUES (@InvoiceID, @ProductID)";
+
+                            using (SqlCommand command = new SqlCommand(invoiceProductQuery, connection))
+                            {
+                                command.Parameters.AddWithValue("@InvoiceID", invoiceId);
+                                command.Parameters.AddWithValue("@ProductID", productId);
+
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        MessageBox.Show("Poprawnie dodano fakturę!", "Operacja wykonana pomyślnie!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        connection.Close();
+                    
+                    }
+
+                }
             }
+            
         }
 
 

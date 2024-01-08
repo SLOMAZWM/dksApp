@@ -239,5 +239,31 @@ namespace dksApp.Bookkeeping
             AllDocuments = (uint)filteredInvoices.Count;
         }
 
+        private void GridRemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+                if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
+                {
+                    int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
+                    if (MessageBox.Show("Czy na pewno chcesz usunąć tę fakturę?", "Potwierdzenie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                    MessageBox.Show("Usunięto", "Prawidłowe usunięcie", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Proszę wybrać fakturę do usunięcia.");
+                }
+        }
+
+        private void BookKeepingDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
+            {
+                int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
+            }
+        }
+
+
     }
 }

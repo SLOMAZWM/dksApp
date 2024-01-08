@@ -1,6 +1,7 @@
 ﻿using dksApp.Bookkeeping.Invoice;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -64,11 +65,11 @@ namespace dksApp
         public string? BuyerNIP { get; set; }
 
         //PRODUCT INFO - Product.cs
-        public List<Product> Products { get; set; }
+        public ObservableCollection<Product> Products { get; set; }
 
         public InvoiceClass()
         {
-            Products = new List<Product>();
+            Products = new ObservableCollection<Product>();
         }
 
         public bool IsEmpty()
