@@ -1,4 +1,4 @@
-﻿1.Dodaj edytowania produktow i usuwanie ich z datagrid
+﻿1.Dodaj edytowania produktow z datagrid
 
 2. Usuwanie faktur z bazy danych - dokoncz logike*
 

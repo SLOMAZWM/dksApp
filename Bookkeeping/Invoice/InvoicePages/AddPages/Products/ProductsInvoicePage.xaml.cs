@@ -191,7 +191,15 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             
         }
 
+        private void EditProductBtn_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
+        private void DeleteProductBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedProduct = ProductsDataGrid.SelectedItem;
+            parentWindow.NewInvoice.Products.Remove((Product)selectedProduct);
+        }
     }
 }
