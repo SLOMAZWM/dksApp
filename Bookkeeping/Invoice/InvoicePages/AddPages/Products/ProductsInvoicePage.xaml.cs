@@ -193,7 +193,14 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void EditProductBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            try 
+            {
+                //Implementation EditProductWindow
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Błąd wybierania produktu do edycji: " + ex.Message, "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void DeleteProductBtn_Click(object sender, RoutedEventArgs e)

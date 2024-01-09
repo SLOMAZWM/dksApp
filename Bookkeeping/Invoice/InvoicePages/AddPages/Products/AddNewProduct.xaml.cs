@@ -27,6 +27,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
         {
             InitializeComponent();
             Product = p;
+            IsCreated = false;
         }
 
         //frontSETTINGS
