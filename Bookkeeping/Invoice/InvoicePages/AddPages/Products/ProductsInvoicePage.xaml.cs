@@ -28,7 +28,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     {
         private int LP = 1;
         private CreateInvoiceWindow parentWindow;
-
+        public DataGrid ? ProductGrid { get; set; }
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
@@ -193,11 +193,13 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void EditProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            try 
+			ProductGrid = ProductsDataGrid;
+			try 
             {
                 //Implementation EditProductWindow
                 var selectedProduct = ProductsDataGrid.SelectedItem;
-                EditProductW editProduct = new EditProductW();
+                EditProductW editProduct = new EditProductW((Product)selectedProduct, this);
+                editProduct.ShowDialog();
 
             }
             catch(Exception ex)

@@ -107,17 +107,10 @@ AllowsTransparency="True" Background="Transparent">
                 </StackPanel>
 
                 <StackPanel Grid.Row="9" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button x:Name="AddProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="AddProductBtn_Click">
+                    <Button x:Name="EditProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="EditProductBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Dodaj Produkt"/>
-                        </StackPanel>
-                    </Button>
-
-                    <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="ContentSaveCheck" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Zapisz Produkt"/>
+                            <TextBlock Text="Zatwierdź Produkt"/>
                         </StackPanel>
                     </Button>
 
