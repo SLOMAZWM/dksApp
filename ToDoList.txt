@@ -1,4 +1,4 @@
-﻿1.Edycja Produktow (nowe okno)
+﻿1.Edycja Produktow (nowe okno) - dokoncz
 
 2. Usuwanie faktur z bazy danych - dokoncz logike*
 

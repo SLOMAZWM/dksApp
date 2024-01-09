@@ -196,6 +196,9 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             try 
             {
                 //Implementation EditProductWindow
+                var selectedProduct = ProductsDataGrid.SelectedItem;
+                EditProductW editProduct = new EditProductW();
+
             }
             catch(Exception ex)
             {
