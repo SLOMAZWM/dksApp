@@ -28,7 +28,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     {
         private int LP = 1;
         private CreateInvoiceWindow parentWindow;
-        public DataGrid ? ProductGrid { get; set; }
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
@@ -193,15 +192,14 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void EditProductBtn_Click(object sender, RoutedEventArgs e)
         {
-			ProductGrid = ProductsDataGrid;
 			try 
             {
-                //Implementation EditProductWindow
-                var selectedProduct = ProductsDataGrid.SelectedItem;
-                EditProductW editProduct = new EditProductW((Product)selectedProduct, this);
-                editProduct.ShowDialog();
-
-            }
+				//Implementation EditProductWindow
+				var selectedProduct = ProductsDataGrid.SelectedItem;
+				EditProductW editProduct = new EditProductW((Product)selectedProduct, this);
+				editProduct.ShowDialog();
+                ProductsDataGrid.Items.Refresh();
+			}
             catch(Exception ex)
             {
                 MessageBox.Show("Błąd wybierania produktu do edycji: " + ex.Message, "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);

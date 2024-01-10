@@ -2,6 +2,8 @@
 
 2. Usuwanie faktur z bazy danych - dokoncz logike*
 
+3. Brak referencji z edycji produktu = zlokowana pamiec
+
 4. NIP - TYLKO CYFRY + DODAJ ROWIJNANE MENU DO KRAJOW
 
 Poprawienie wydajnosci (nawigacja)**

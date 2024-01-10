@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products;
 
 namespace dksApp.Bookkeeping.Invoice.InvoicePages
 {
@@ -20,14 +21,28 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     /// </summary>
     public partial class EditProductW : Window
     {
-		Page page { get; set; }
 		Product product { get; set; }
-        public EditProductW(Product prod, Page pg)
+		ProductsInvoicePage MotherPage { get; set; }
+        public EditProductW(Product prod, ProductsInvoicePage MotherP)
         {
             InitializeComponent();
-			prod = product;
-			pg = page;
+			product = prod;
+			InitializeProduct(product);
+			MotherPage = MotherP;
         }
+
+		private void InitializeProduct(Product Product)
+		{
+			ProductNameTxt.Text = Product.NameItem;
+			TypeAmountTxt.Text = Product.QuantityType;
+			AmountTxt.Text = Convert.ToString(Product.Quantity);
+			PKWiUTxt.Text = Product.PKWiU;
+			NettoOneTxt.Text = Convert.ToString(Product.NettoPrice);
+			ValueNettoTxt.Text = Convert.ToString(Product.NettoValue);
+			VatTxt.Text = Product.VATPercent;
+			ValueVatTxt.Text = Convert.ToString(Product.VATValue);
+			ValueBruttoTxt.Text = Convert.ToString(Product.BruttoValue);
+		}
 
 		//frontSETTINGS
 		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -127,7 +142,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
 				if (product.isEmpty() == false && product.isZero() == false)
 				{
-					//Implementation to change data in DataGrid
+					MotherPage.ProductsDataGrid.SelectedItem = product;
 					this.Close();
 				}
 			}
