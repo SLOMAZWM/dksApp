@@ -17,253 +17,264 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.ComponentModel;
+using System.Collections;
 
 namespace dksApp.Bookkeeping
 {
-    /// <summary>
-    /// Interaction logic for MainDataGrid.xaml
-    /// </summary>
-    public partial class MainDataGrid : Page, INotifyPropertyChanged
-    {
-        private ObservableCollection<InvoiceClass> Invoices;
-        private ObservableCollection<InvoiceClass> DisplayedInvoices;
-        private int CurrentPage;
-        private int PageSize = 7; // Liczba wierszy na stronie
-        private uint allDocuments;
-        public uint AllDocuments
-        {
-            get { return allDocuments; }
-            set
-            {
-                if (allDocuments != value)
-                {
-                    allDocuments = value;
-                    OnPropertyChanged(nameof(AllDocuments));
-                }
-            }
-        }
+	/// <summary>
+	/// Interaction logic for MainDataGrid.xaml
+	/// </summary>
+	public partial class MainDataGrid : Page, INotifyPropertyChanged
+	{
+		private ObservableCollection<InvoiceClass> Invoices;
+		private ObservableCollection<InvoiceClass> DisplayedInvoices;
+		private int CurrentPage;
+		private int PageSize = 7; // Liczba wierszy na stronie
+		private uint allDocuments;
+		public uint AllDocuments
+		{
+			get { return allDocuments; }
+			set
+			{
+				if (allDocuments != value)
+				{
+					allDocuments = value;
+					OnPropertyChanged(nameof(AllDocuments));
+				}
+			}
+		}
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+		protected void OnPropertyChanged(string name)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
 
-        public MainDataGrid()
-        {
-            InitializeComponent();
-            this.DataContext = this;
-            Invoices = new ObservableCollection<InvoiceClass>();
-            DisplayedInvoices = new ObservableCollection<InvoiceClass>();
-            BookKeepingDataGrid.ItemsSource = DisplayedInvoices;
-            InitializeAllInvoices();
+		public MainDataGrid()
+		{
+			InitializeComponent();
+			this.DataContext = this;
+			Invoices = new ObservableCollection<InvoiceClass>();
+			DisplayedInvoices = new ObservableCollection<InvoiceClass>();
+			BookKeepingDataGrid.ItemsSource = DisplayedInvoices;
+			InitializeAllInvoices();
 
-            CurrentPage = 1;
-            UpdateDisplayedInvoices();
-            txtFilter.TextChanged += TxtFilter_TextChanged;
-        }
+			CurrentPage = 1;
+			UpdateDisplayedInvoices();
+			txtFilter.TextChanged += TxtFilter_TextChanged;
+		}
 
-        private void InitializeAllInvoices()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+		private void InitializeAllInvoices()
+		{
+			string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
 
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice";
+			try
+			{
+				using (SqlConnection conn = new SqlConnection(connectionString))
+				{
+					conn.Open();
+					string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice";
 
-                    try
-                    {
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
-                        {
-                            using (SqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    var invoice = new InvoiceClass
-                                    {
-                                        IDInvoice = (uint)reader.GetInt32(reader.GetOrdinal("InvoiceID")),
-                                        SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName")),
-                                        BuyerName = reader.IsDBNull(reader.GetOrdinal("BuyerName")) ? null : reader.GetString(reader.GetOrdinal("BuyerName")),
-                                        PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType")),
-                                        Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid")),
-                                        IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"))
-                                    };
-                                    Invoices.Add(invoice);
-                                    AllDocuments++;
-                                }
-                            }
-                        }
-                    }
-                    catch(SqlException ex) 
-                    {
-                        MessageBox.Show("Błąd odczytu z bazy danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+					try
+					{
+						using (SqlCommand cmd = new SqlCommand(query, conn))
+						{
+							using (SqlDataReader reader = cmd.ExecuteReader())
+							{
+								while (reader.Read())
+								{
+									var invoice = new InvoiceClass
+									{
+										IDInvoice = (uint)reader.GetInt32(reader.GetOrdinal("InvoiceID")),
+										SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName")),
+										BuyerName = reader.IsDBNull(reader.GetOrdinal("BuyerName")) ? null : reader.GetString(reader.GetOrdinal("BuyerName")),
+										PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType")),
+										Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid")),
+										IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"))
+									};
+									Invoices.Add(invoice);
+									AllDocuments++;
+								}
+							}
+						}
+					}
+					catch (SqlException ex)
+					{
+						MessageBox.Show("Błąd odczytu z bazy danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+					}
 
-                    int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
+					int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
 
-                    for (int pageNumber = 1; pageNumber <= maxPage; pageNumber++)
-                    {
-                        var button = new Button
-                        {
-                            Content = pageNumber.ToString(),
-                            Style = FindResource("pagingButton") as Style
-                        };
-                        button.Click += PageButton_Click;
+					for (int pageNumber = 1; pageNumber <= maxPage; pageNumber++)
+					{
+						var button = new Button
+						{
+							Content = pageNumber.ToString(),
+							Style = FindResource("pagingButton") as Style
+						};
+						button.Click += PageButton_Click;
 
-                        PaginationItemsControl.Items.Add(button);
-                    }
-                }
-            }
-            catch(SqlException ex)
-            {
-                MessageBox.Show("Błąd połączenia z bazą danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+						PaginationItemsControl.Items.Add(button);
+					}
+				}
+			}
+			catch (SqlException ex)
+			{
+				MessageBox.Show("Błąd połączenia z bazą danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 
-        }
+		}
 
-        private void UpdateDisplayedInvoices()
-        {
-            int startIndex = (CurrentPage - 1) * PageSize;
-            int endIndex = startIndex + PageSize;
+		private void UpdateDisplayedInvoices()
+		{
+			int startIndex = (CurrentPage - 1) * PageSize;
+			int endIndex = startIndex + PageSize;
 
-            DisplayedInvoices.Clear();
+			DisplayedInvoices.Clear();
 
-            for (int i = startIndex; i < endIndex && i < Invoices.Count; i++)
-            {
-                DisplayedInvoices.Add(Invoices[i]);
-            }
+			for (int i = startIndex; i < endIndex && i < Invoices.Count; i++)
+			{
+				DisplayedInvoices.Add(Invoices[i]);
+			}
 
-            UpdatePaginationButtonStyles();
-        }
+			UpdatePaginationButtonStyles();
+		}
 
-        private void NextPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
-            if (CurrentPage < maxPage)
-            {
-                CurrentPage++;
-                UpdateDisplayedInvoices();
-            }
-        }
+		private void NextPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
+			if (CurrentPage < maxPage)
+			{
+				CurrentPage++;
+				UpdateDisplayedInvoices();
+			}
+		}
 
-        private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentPage > 1)
-            {
-                CurrentPage--;
-                UpdateDisplayedInvoices();
-            }
-        }
+		private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (CurrentPage > 1)
+			{
+				CurrentPage--;
+				UpdateDisplayedInvoices();
+			}
+		}
 
-        private void UpdatePaginationButtonStyles()
-        {
-            foreach (UIElement element in PaginationItemsControl.Items)
-            {
-                if (element is Button button)
-                {
-                    int pageNumber;
-                    if (int.TryParse(button.Content?.ToString(), out pageNumber))
-                    {
-                        Brush actuallyButtonBackground = new SolidColorBrush(Color.FromRgb(0x79, 0x50, 0xF2));
-                        Brush normalButtonForeground = new SolidColorBrush(Color.FromRgb(0x6C, 0x76, 0x82));
+		private void UpdatePaginationButtonStyles()
+		{
+			foreach (UIElement element in PaginationItemsControl.Items)
+			{
+				if (element is Button button)
+				{
+					int pageNumber;
+					if (int.TryParse(button.Content?.ToString(), out pageNumber))
+					{
+						Brush actuallyButtonBackground = new SolidColorBrush(Color.FromRgb(0x79, 0x50, 0xF2));
+						Brush normalButtonForeground = new SolidColorBrush(Color.FromRgb(0x6C, 0x76, 0x82));
 
-                        if (pageNumber == CurrentPage)
-                        {
-                            button.Background = actuallyButtonBackground;
-                            button.Foreground = Brushes.White;
-                        }
-                        else
-                        {
-                            button.Background = Brushes.Transparent;
-                            button.Foreground = normalButtonForeground;
-                        }
-                    }
-                }
-            }
-        }
+						if (pageNumber == CurrentPage)
+						{
+							button.Background = actuallyButtonBackground;
+							button.Foreground = Brushes.White;
+						}
+						else
+						{
+							button.Background = Brushes.Transparent;
+							button.Foreground = normalButtonForeground;
+						}
+					}
+				}
+			}
+		}
 
-        private void PageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && int.TryParse(button.Content?.ToString(), out int pageNumber))
-            {
-                CurrentPage = pageNumber;
-                UpdateDisplayedInvoices();
-            }
-        }
+		private void PageButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is Button button && int.TryParse(button.Content?.ToString(), out int pageNumber))
+			{
+				CurrentPage = pageNumber;
+				UpdateDisplayedInvoices();
+			}
+		}
 
-        //HEADER CHECKBOX ALL SELECTED IN DATAGRID
-        private void CheckBoxHeader_Click(object sender, RoutedEventArgs e)
-        {
-            var checkBoxHeader = (CheckBox)sender;
-            bool isChecked = checkBoxHeader.IsChecked ?? false;
+		//HEADER CHECKBOX ALL SELECTED IN DATAGRID
+		private void CheckBoxHeader_Click(object sender, RoutedEventArgs e)
+		{
+			var checkBoxHeader = (CheckBox)sender;
+			bool isChecked = checkBoxHeader.IsChecked ?? false;
 
-            foreach (var invoice in DisplayedInvoices)
-            {
-                invoice.IsSelected = isChecked;
-            }
-        }
+			foreach (var invoice in DisplayedInvoices)
+			{
+				invoice.IsSelected = isChecked;
+			}
+		}
 
-        //FILTER
+		//FILTER
 
-        private void TxtFilter_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterInvoices();
-        }
+		private void TxtFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			FilterInvoices();
+		}
 
-        private void FilterInvoices()
-        {
-            var filterText = txtFilter.Text?.ToLower() ?? string.Empty;
-            var filteredInvoices = string.IsNullOrWhiteSpace(filterText)
-                ? Invoices
-                : new ObservableCollection<InvoiceClass>(Invoices.Where(invoice =>
-                    invoice.SellerName?.ToLower().Contains(filterText) == true ||
-                    invoice.BuyerName?.ToLower().Contains(filterText) == true ||
-                    invoice.IDInvoice.ToString().Contains(filterText) ||
-                    invoice.PaymentType?.ToLower().Contains(filterText) == true ||
-                    invoice.PaymentDate?.ToLower().Contains(filterText) == true ||
-                    invoice.Paid.ToString().Contains(filterText) ||
-                    invoice.IssueDate?.ToLower().Contains(filterText) == true
-                ));
+		private void FilterInvoices()
+		{
+			var filterText = txtFilter.Text?.ToLower() ?? string.Empty;
+			var filteredInvoices = string.IsNullOrWhiteSpace(filterText)
+				? Invoices
+				: new ObservableCollection<InvoiceClass>(Invoices.Where(invoice =>
+					invoice.SellerName?.ToLower().Contains(filterText) == true ||
+					invoice.BuyerName?.ToLower().Contains(filterText) == true ||
+					invoice.IDInvoice.ToString().Contains(filterText) ||
+					invoice.PaymentType?.ToLower().Contains(filterText) == true ||
+					invoice.PaymentDate?.ToLower().Contains(filterText) == true ||
+					invoice.Paid.ToString().Contains(filterText) ||
+					invoice.IssueDate?.ToLower().Contains(filterText) == true
+				));
 
-            DisplayedInvoices.Clear();
-            foreach (var invoice in filteredInvoices)
-            {
-                DisplayedInvoices.Add(invoice);
-            }
+			DisplayedInvoices.Clear();
+			foreach (var invoice in filteredInvoices)
+			{
+				DisplayedInvoices.Add(invoice);
+			}
 
-            AllDocuments = (uint)filteredInvoices.Count;
-        }
+			AllDocuments = (uint)filteredInvoices.Count;
+		}
 
-        private void GridRemoveButton_Click(object sender, RoutedEventArgs e)
-        {
+		private void GridRemoveButton_Click(object sender, RoutedEventArgs e)
+		{
 
-                if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
-                {
-                    int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
-                    if (MessageBox.Show("Czy na pewno chcesz usunąć tę fakturę?", "Potwierdzenie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                    {
-                    MessageBox.Show("Usunięto", "Prawidłowe usunięcie", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Proszę wybrać fakturę do usunięcia.");
-                }
-        }
+			if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
+			{
+				int invoiceId = (int)selectedInvoice.IDInvoice; 
+				if (MessageBox.Show("Czy na pewno chcesz usunąć tę fakturę?", "Potwierdzenie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				{
+					string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
 
-        private void BookKeepingDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
-            {
-                int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
-            }
-        }
+					using (SqlConnection connection = new SqlConnection(connectionString))
+					{
+						string Query = "";
+						using (SqlCommand command = new SqlCommand(Query, connection))
+						{
+
+						}
+					}
+
+				}
+			}
+			else
+			{
+				MessageBox.Show("Proszę wybrać fakturę do usunięcia.");
+			}
+		}
+
+		private void BookKeepingDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
+			{
+				int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
+			}
+		}
 
 
-    }
+	}
 }

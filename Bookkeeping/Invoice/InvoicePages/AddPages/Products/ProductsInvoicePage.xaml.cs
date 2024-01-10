@@ -194,15 +194,24 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
 			try 
             {
-				//Implementation EditProductWindow
 				var selectedProduct = ProductsDataGrid.SelectedItem;
-				EditProductW editProduct = new EditProductW((Product)selectedProduct, this);
-				editProduct.ShowDialog();
-                ProductsDataGrid.Items.Refresh();
+                if(selectedProduct != null)
+                {
+					EditProductW editProduct = new EditProductW((Product)selectedProduct, this);
+					editProduct.ShowDialog();
+					ProductsDataGrid.Items.Refresh();
+					editProduct.Close();
+				}
+				else
+                {
+                    MessageBox.Show("Wybierz produkt do edycji!", "Brak wyboru produktu", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 			}
-            catch(Exception ex)
+            catch(Exception ex) //test
             {
                 MessageBox.Show("Błąd wybierania produktu do edycji: " + ex.Message, "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
         }
 

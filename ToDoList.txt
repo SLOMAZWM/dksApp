@@ -1,10 +1,6 @@
-﻿1.Edycja Produktow (nowe okno) - dokoncz
+﻿1. Usuwanie faktur z bazy danych - dokoncz logike*
 
-2. Usuwanie faktur z bazy danych - dokoncz logike*
-
-3. Brak referencji z edycji produktu = zlokowana pamiec
-
-4. NIP - TYLKO CYFRY + DODAJ ROWIJNANE MENU DO KRAJOW
+2. NIP - TYLKO CYFRY + DODAJ ROWIJNANE MENU DO KRAJOW
 
 Poprawienie wydajnosci (nawigacja)**
 Przechodzenie dalej (walidacja)***

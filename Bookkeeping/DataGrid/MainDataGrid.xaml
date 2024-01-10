@@ -54,17 +54,6 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
 
                     <DataGridTextColumn Header="Nr." IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding IDInvoice}"/>
 
-                    <!--<DataGridTemplateColumn Header="Faktura:" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-
-                                    <TextBlock Text="{Binding Type}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
-
                     <DataGridTextColumn Header="Sprzedawca" IsReadOnly="True" Width="*" Binding="{Binding SellerName}"/>
                     <DataGridTextColumn Header="Nabywca" IsReadOnly="True" Width="*" Binding="{Binding BuyerName}"/>
                     <DataGridTextColumn Header="Płatność" IsReadOnly="True" Width="*" Binding="{Binding PaymentType}"/>
