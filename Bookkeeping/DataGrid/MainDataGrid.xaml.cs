@@ -18,6 +18,7 @@ using System.Configuration;
 using System.Data;
 using System.ComponentModel;
 using System.Collections;
+using dksApp.Services;
 
 namespace dksApp.Bookkeeping
 {
@@ -29,8 +30,9 @@ namespace dksApp.Bookkeeping
 		private ObservableCollection<InvoiceClass> Invoices;
 		private ObservableCollection<InvoiceClass> DisplayedInvoices;
 		private int CurrentPage;
-		private int PageSize = 7; // Liczba wierszy na stronie
+		private int PageSize = 7;
 		private uint allDocuments;
+		public int InvoiceId { get; set; }
 		public uint AllDocuments
 		{
 			get { return allDocuments; }
@@ -242,23 +244,17 @@ namespace dksApp.Bookkeeping
 
 		private void GridRemoveButton_Click(object sender, RoutedEventArgs e)
 		{
-
 			if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
 			{
-				int invoiceId = (int)selectedInvoice.IDInvoice; 
-				if (MessageBox.Show("Czy na pewno chcesz usunąć tę fakturę?", "Potwierdzenie", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				MessageBoxResult result = MessageBox.Show($"Czy na pewno chcesz usunąć fakturę o ID: {selectedInvoice.IDInvoice}?", "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+				if (result == MessageBoxResult.Yes)
 				{
-					string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+					var invoiceService = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
+					invoiceService.DeleteInvoiceWithProducts((int)selectedInvoice.IDInvoice);
 
-					using (SqlConnection connection = new SqlConnection(connectionString))
-					{
-						string Query = "";
-						using (SqlCommand command = new SqlCommand(Query, connection))
-						{
-
-						}
-					}
-
+					
+					DisplayedInvoices.Remove(selectedInvoice);
 				}
 			}
 			else
@@ -266,15 +262,6 @@ namespace dksApp.Bookkeeping
 				MessageBox.Show("Proszę wybrać fakturę do usunięcia.");
 			}
 		}
-
-		private void BookKeepingDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
-			{
-				int invoiceId = (int)selectedInvoice.IDInvoice; // Pobranie ID faktury
-			}
-		}
-
 
 	}
 }

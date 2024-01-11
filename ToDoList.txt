@@ -1,7 +1,10 @@
-﻿1. Usuwanie faktur z bazy danych - dokoncz logike*
+﻿1. Dodanie usuń masowo, po zaznaczeniu dwóch faktur
 
-2. NIP - TYLKO CYFRY + DODAJ ROWIJNANE MENU DO KRAJOW
+2. Dokończenie usuwanie faktur z innych datagrid niz Main
 
-Poprawienie wydajnosci (nawigacja)**
+
+Poprawienie wydajnosci (nawigacja)*
+Po usunieciu w datagrid faktury - zaktualizowanie widoku**
 Przechodzenie dalej (walidacja)***
 Responsywność*
+Stworzenie własnych okienek z błędami*
