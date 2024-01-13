@@ -14,17 +14,20 @@ namespace dksApp
     {
         //Pagination
         private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                _isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
+		public bool IsSelected
+		{
+			get { return _isSelected; }
+			set
+			{
+				if (_isSelected != value)
+				{
+					_isSelected = value;
+					OnPropertyChanged(nameof(IsSelected));
+				}
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

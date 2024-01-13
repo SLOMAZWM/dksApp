@@ -68,16 +68,16 @@ namespace dksApp.Bookkeeping
 			txtFilter.TextChanged += TxtFilter_TextChanged;
 		}
 
+
 		private void InitializeAllInvoices()
 		{
 			string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-
 			try
 			{
 				using (SqlConnection conn = new SqlConnection(connectionString))
 				{
 					conn.Open();
-					string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice";
+					string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice ORDER BY IssueDate DESC";
 
 					try
 					{
@@ -107,19 +107,7 @@ namespace dksApp.Bookkeeping
 						MessageBox.Show("Błąd odczytu z bazy danych!" + ex.Message, "Błąd bazy danych!", MessageBoxButton.OK, MessageBoxImage.Error);
 					}
 
-					int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
-
-					for (int pageNumber = 1; pageNumber <= maxPage; pageNumber++)
-					{
-						var button = new Button
-						{
-							Content = pageNumber.ToString(),
-							Style = FindResource("pagingButton") as Style
-						};
-						button.Click += PageButton_Click;
-
-						PaginationItemsControl.Items.Add(button);
-					}
+					UpdatePaginationButtons();
 				}
 			}
 			catch (SqlException ex)
@@ -129,19 +117,52 @@ namespace dksApp.Bookkeeping
 
 		}
 
+		private void UpdatePaginationButtons()
+		{
+			int maxPage = (int)Math.Ceiling((double)Invoices.Count / PageSize);
+			PaginationItemsControl.Items.Clear();
+
+			int halfRange = 3;
+			int startPage = Math.Max(1, CurrentPage - halfRange);
+			int endPage = Math.Min(maxPage, CurrentPage + halfRange);
+
+			if (endPage - startPage < 5)
+			{
+				if (startPage > 1) startPage = Math.Max(1, endPage - 5);
+				else endPage = Math.Min(maxPage, startPage + 5);
+			}
+
+			for (int pageNumber = startPage; pageNumber <= endPage; pageNumber++)
+			{
+				var button = new Button
+				{
+					Content = pageNumber.ToString(),
+					Style = FindResource("pagingButton") as Style
+				};
+				button.Click += PageButton_Click;
+
+				PaginationItemsControl.Items.Add(button);
+			}
+
+			UpdatePaginationButtonStyles();
+		}
+
+
 		private void UpdateDisplayedInvoices()
 		{
 			int startIndex = (CurrentPage - 1) * PageSize;
-			int endIndex = startIndex + PageSize;
+			int endIndex = Math.Min(startIndex + PageSize, Invoices.Count);
 
 			DisplayedInvoices.Clear();
 
-			for (int i = startIndex; i < endIndex && i < Invoices.Count; i++)
+			for (int i = startIndex; i < endIndex; i++)
 			{
 				DisplayedInvoices.Add(Invoices[i]);
 			}
 
 			UpdatePaginationButtonStyles();
+			UpdatePaginationButtons();
+
 		}
 
 		private void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -253,8 +274,11 @@ namespace dksApp.Bookkeeping
 					var invoiceService = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
 					invoiceService.DeleteInvoiceWithProducts((int)selectedInvoice.IDInvoice);
 
-					
+					Invoices.Remove(selectedInvoice);
 					DisplayedInvoices.Remove(selectedInvoice);
+
+					AllDocuments = (uint)Invoices.Count;
+					UpdateDisplayedInvoices();
 				}
 			}
 			else
@@ -263,5 +287,52 @@ namespace dksApp.Bookkeeping
 			}
 		}
 
+		private void DeleteSelectedInvoices_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedInvoices = DisplayedInvoices.Where(invoice => invoice.IsSelected).ToList();
+
+			if (selectedInvoices.Count <= 1)
+			{
+				MessageBox.Show("Proszę wybrać co najmniej dwie faktury do usunięcia.");
+				return;
+			}
+			else
+			{
+				MessageBoxResult confirmation = MessageBox.Show($"Czy na pewno chcesz usunąć {selectedInvoices.Count} faktur?", "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+				if (confirmation == MessageBoxResult.Yes) 
+				{
+					var invoiceService = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
+
+					foreach(var selectedInvoice in selectedInvoices) 
+					{
+						invoiceService.DeleteInvoiceWithProducts((int)selectedInvoice.IDInvoice);
+						DisplayedInvoices.Remove(selectedInvoice);
+
+						Invoices.Remove(selectedInvoice);
+						DisplayedInvoices.Remove(selectedInvoice);
+
+						AllDocuments = (uint)Invoices.Count;
+						UpdateDisplayedInvoices();
+					}
+					
+				}
+			}
+		}
+
+		private void FirstPageButton_Click(object sender, RoutedEventArgs e) 
+		{
+			CurrentPage = 1;
+			UpdateDisplayedInvoices();
+		}
+
+		private void LastPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int totalItems = Invoices.Count;
+			int maxPage = (int)Math.Ceiling((double)totalItems / PageSize);
+
+			CurrentPage = maxPage;
+			UpdateDisplayedInvoices();
+		}
 	}
 }

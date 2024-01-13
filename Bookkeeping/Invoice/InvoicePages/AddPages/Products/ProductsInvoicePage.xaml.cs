@@ -218,7 +218,23 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         private void DeleteProductBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectedProduct = ProductsDataGrid.SelectedItem;
-            parentWindow.NewInvoice.Products.Remove((Product)selectedProduct);
+            if(selectedProduct != null) 
+            {
+                Product deleteProduct = (Product)selectedProduct;
+				var result = MessageBox.Show($"Czy chcesz usunąć produkt: {deleteProduct.NameItem}?", "Usuwanie produktu", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				if (result == MessageBoxResult.Yes)
+				{
+					parentWindow.NewInvoice.Products.Remove((Product)selectedProduct);
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+            {
+                MessageBox.Show("Wybierz produkt!", "Błąd wybrania!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

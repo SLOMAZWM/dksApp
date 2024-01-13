@@ -1,10 +1,12 @@
-﻿1. Dodanie usuń masowo, po zaznaczeniu dwóch faktur
+﻿1. Edytowanie Faktur (Nowe okno, nadpisujace texboxy istniejacymi danymi z faktur)
 
-2. Dokończenie usuwanie faktur z innych datagrid niz Main
+2. Podgląd faktur (ogarnięcie datagrid w szablonie faktury)
 
+3. Drukowanie faktur (podgląd)
 
 Poprawienie wydajnosci (nawigacja)*
-Po usunieciu w datagrid faktury - zaktualizowanie widoku**
 Przechodzenie dalej (walidacja)***
 Responsywność*
-Stworzenie własnych okienek z błędami*
+Stworzenie własnych okienek z błędami**
+Poprawa ServiceInvoice (klasa statyczna - statyczna zmienna z polaczeniem SQL)**
+trim w inputach podczas dodawania faktury*
