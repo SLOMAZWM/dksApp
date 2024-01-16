@@ -29,6 +29,7 @@ namespace dksApp.Bookkeeping
 	{
 		private ObservableCollection<InvoiceClass> Invoices;
 		private ObservableCollection<InvoiceClass> DisplayedInvoices;
+		private int selectedInvoice = 0;
 		private int CurrentPage;
 		private int PageSize = 7;
 		private uint allDocuments;
@@ -57,6 +58,7 @@ namespace dksApp.Bookkeeping
 		public MainDataGrid()
 		{
 			InitializeComponent();
+			DeleteSelectedInvoicesBtn.Visibility = Visibility.Collapsed;
 			this.DataContext = this;
 			Invoices = new ObservableCollection<InvoiceClass>();
 			DisplayedInvoices = new ObservableCollection<InvoiceClass>();
@@ -333,6 +335,26 @@ namespace dksApp.Bookkeeping
 
 			CurrentPage = maxPage;
 			UpdateDisplayedInvoices();
+		}
+
+		private void UpdateDeleteButtonVisibility()
+		{
+			int selectedCount = DisplayedInvoices.Count(invoice => invoice.IsSelected);
+			DeleteSelectedInvoicesBtn.Visibility = selectedCount >= 2 ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void CheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			selectedInvoice++;
+
+			UpdateDeleteButtonVisibility();
+		}
+
+		private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			selectedInvoice--;
+
+			UpdateDeleteButtonVisibility();
 		}
 	}
 }

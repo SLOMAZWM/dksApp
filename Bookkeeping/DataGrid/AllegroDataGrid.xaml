@@ -44,10 +44,16 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
 
             <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="BookKeepingDataGrid">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}" Binding="{Binding IsSelected}">
+                    <DataGridCheckBoxColumn CanUserResize="False" Width="auto" Binding="{Binding IsSelected}">
                         <DataGridCheckBoxColumn.Header>
                             <CheckBox Click="CheckBoxHeader_Click" Style="{StaticResource CheckBoxStyle1}"/>
                         </DataGridCheckBoxColumn.Header>
+                        <DataGridCheckBoxColumn.ElementStyle>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle1}">
+                                <EventSetter Event="Checked" Handler="CheckBox_Checked"/>
+                                <EventSetter Event="Unchecked" Handler="CheckBox_Unchecked"/>
+                            </Style>
+                        </DataGridCheckBoxColumn.ElementStyle>
                     </DataGridCheckBoxColumn>
 
                     <DataGridTextColumn Header="Nr." IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding IDInvoice}"/>
@@ -132,6 +138,16 @@ Background="White" Margin="0,20,20,20">
                     </Button>
                 </StackPanel>
             </Border>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,20">
+                <Button x:Name="DeleteSelectedInvoicesBtn" Style="{StaticResource InvoiceDeleteButton}" Click="DeleteSelectedInvoices_Click" Visibility="{Binding DeleteButtonVisibility}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="MinusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        <TextBlock Text="Usuń faktury"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
         </Grid>
     </Border>
 </Page>
