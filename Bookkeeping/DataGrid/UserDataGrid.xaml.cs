@@ -27,6 +27,7 @@ namespace dksApp.Bookkeeping
     {
         private ObservableCollection<InvoiceClass> Invoices { get; set; }
         private ObservableCollection<InvoiceClass> DisplayedInvoices { get; set; }
+        private int selectedInvoice = 0;
         private int CurrentPage { get; set; }
         private int PageSize { get; set; } = 7; // Liczba wierszy na stronie
         private uint allDocuments;
@@ -54,7 +55,8 @@ namespace dksApp.Bookkeeping
         public UserDataGrid()
         {
             InitializeComponent();
-            this.DataContext = this;
+			DeleteSelectedInvoicesBtn.Visibility = Visibility.Collapsed;
+			this.DataContext = this;
             Invoices = new ObservableCollection<InvoiceClass>();
             DisplayedInvoices = new ObservableCollection<InvoiceClass>();
             BookKeepingDataGrid.ItemsSource = DisplayedInvoices;
@@ -338,6 +340,26 @@ namespace dksApp.Bookkeeping
 
 			CurrentPage = maxPage;
 			UpdateDisplayedInvoices();
+		}
+
+		private void UpdateDeleteButtonVisibility()
+		{
+			int selectedCount = DisplayedInvoices.Count(invoice => invoice.IsSelected);
+			DeleteSelectedInvoicesBtn.Visibility = selectedCount >= 2 ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void CheckBox_Checked(object sender, RoutedEventArgs e)
+		{
+			selectedInvoice++;
+
+			UpdateDeleteButtonVisibility();
+		}
+
+		private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			selectedInvoice--;
+
+			UpdateDeleteButtonVisibility();
 		}
 
 	}

@@ -132,6 +132,16 @@ Background="White" Margin="0,20,20,20">
                     </Button>
                 </StackPanel>
             </Border>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,20">
+                <Button x:Name="DeleteSelectedInvoicesBtn" Style="{StaticResource InvoiceDeleteButton}" Click="DeleteSelectedInvoices_Click" Visibility="{Binding DeleteButtonVisibility}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="MinusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        <TextBlock Text="Usuń faktury"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
         </Grid>
 
     </Border>
