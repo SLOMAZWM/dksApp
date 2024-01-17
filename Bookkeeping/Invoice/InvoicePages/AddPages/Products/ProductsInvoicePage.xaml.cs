@@ -28,28 +28,12 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     {
         private int LP = 1;
         private readonly CreateInvoiceWindow parentWindow;
-        private readonly EditInvoiceWindow editParentWindow;
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
             InitializeComponent();
 
             ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
-        }
-
-        public ProductsInvoicePage(EditInvoiceWindow editInvoiceW)
-        {
-            editParentWindow = editInvoiceW;
-            InitializeComponent();
-            InitializeLP();
-
-			ProductsDataGrid.ItemsSource = editParentWindow.EditInvoice.Products;
-
-		}
-
-        private void InitializeLP()
-        {
-            LP = ProductsDataGrid.Items.Count;
         }
 
 		private void AddProductBtn_Click(object sender, RoutedEventArgs e)

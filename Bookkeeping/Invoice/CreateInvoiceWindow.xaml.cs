@@ -28,7 +28,7 @@ namespace dksApp.Bookkeeping.Invoice
         private bool isSelected;
         public InvoiceClass NewInvoice {  get; set; }
 
-        public string SelectedGrid 
+		public string SelectedGrid 
         {
             get 
             { 
@@ -56,8 +56,8 @@ namespace dksApp.Bookkeeping.Invoice
             InitializeComponent();
             NewInvoice = new InvoiceClass();
             GridPage = InitializeGridPages();
-            navigator = new NavigatorManager(tabButtonSP, GridFrame, GridPage);
-        }
+            navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
+	}
 
         //Function's
 
@@ -120,8 +120,8 @@ namespace dksApp.Bookkeeping.Invoice
             else if(isSelected == true && sender is Button button)
             {
                 navigator.ChangeInvoiceTabButton(button);
-                navigator.NavigateToGrid(SelectedGrid);
-            }
+				navigator.NavigateToPage(selectedGrid);
+			}
         }
 
         private void BuyerTypeSelected(string buyerType)
