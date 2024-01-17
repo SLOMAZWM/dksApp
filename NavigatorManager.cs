@@ -17,13 +17,13 @@ namespace dksApp
 {
     public class NavigatorManager
     {
-        private Dictionary<string, Page> Pages = new Dictionary<string, Page>();
-        private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
-        private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
-        private Frame ActuallyContentFrame;
-        List<Button> ButtonListMenu = new List<Button>();
-        private StackPanel tabButtonStackPanel;
-        private StackPanel invoiceTabButton;
+        private Dictionary<string, Page>? Pages = new Dictionary<string, Page>();
+        private Dictionary<string, Page>? DataGridPage = new Dictionary<string, Page>();
+        private Dictionary<string, Page>? GridPage = new Dictionary<string, Page>();
+        private Frame? ActuallyContentFrame;
+        List<Button>? ButtonListMenu = new List<Button>();
+        private StackPanel? tabButtonStackPanel;
+        private StackPanel? invoiceTabButton;
 
         //MainWindow Navigation
         public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu)
@@ -33,20 +33,12 @@ namespace dksApp
             ButtonListMenu = ListOfButtonsMenu;
         }
 
-        //GridNavigation
+        //GridNavigation || CreateInvoiceNavigation || EditInvoiceNavigation
         public NavigatorManager(StackPanel SP, Frame frame, Dictionary<string, Page> GridPages)
         {
             DataGridPage = GridPages;
             tabButtonStackPanel = SP;
             ActuallyContentFrame = frame;
-        }
-
-        //CreateInvoiceNavigation
-        public NavigatorManager(Dictionary<string, Page> GridPages, StackPanel SP, Frame frame)
-        {
-            ActuallyContentFrame = frame;
-            invoiceTabButton = SP;
-            GridPage = GridPages;
         }
 
         public void NavigateToDataGrid(string dataGridName)

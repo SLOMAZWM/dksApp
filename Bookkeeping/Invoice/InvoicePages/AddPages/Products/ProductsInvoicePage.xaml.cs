@@ -27,7 +27,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     public partial class ProductsInvoicePage : Page
     {
         private int LP = 1;
-        private CreateInvoiceWindow parentWindow;
+        private readonly CreateInvoiceWindow parentWindow;
+        private readonly EditInvoiceWindow editParentWindow;
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
@@ -36,7 +37,22 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
         }
 
-        private void AddProductBtn_Click(object sender, RoutedEventArgs e)
+        public ProductsInvoicePage(EditInvoiceWindow editInvoiceW)
+        {
+            editParentWindow = editInvoiceW;
+            InitializeComponent();
+            InitializeLP();
+
+			ProductsDataGrid.ItemsSource = editParentWindow.EditInvoice.Products;
+
+		}
+
+        private void InitializeLP()
+        {
+            LP = ProductsDataGrid.Items.Count;
+        }
+
+		private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
             ProductDialogWindow dialog = new ProductDialogWindow();
             dialog.Owner = parentWindow;

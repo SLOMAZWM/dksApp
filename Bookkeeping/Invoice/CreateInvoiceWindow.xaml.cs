@@ -56,7 +56,7 @@ namespace dksApp.Bookkeeping.Invoice
             InitializeComponent();
             NewInvoice = new InvoiceClass();
             GridPage = InitializeGridPages();
-            navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
+            navigator = new NavigatorManager(tabButtonSP, GridFrame, GridPage);
         }
 
         //Function's

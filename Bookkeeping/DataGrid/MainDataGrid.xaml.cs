@@ -356,5 +356,10 @@ namespace dksApp.Bookkeeping
 
 			UpdateDeleteButtonVisibility();
 		}
+
+		private void GridEditButton_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedProduct = BookKeepingDataGrid.Items.
+		}
 	}
 }
