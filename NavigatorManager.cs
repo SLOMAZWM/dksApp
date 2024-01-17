@@ -23,7 +23,6 @@ namespace dksApp
         private Frame? ActuallyContentFrame;
         List<Button>? ButtonListMenu = new List<Button>();
         private StackPanel? tabButtonStackPanel;
-        private StackPanel? invoiceTabButton;
 
         //MainWindow Navigation
         public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu)
@@ -126,7 +125,7 @@ namespace dksApp
             SolidColorBrush blackForegroundBrush = new SolidColorBrush(Color.FromRgb(0x12, 0x15, 0x18));
             SolidColorBrush transparentBrush = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
 
-            foreach (var child in invoiceTabButton.Children)
+            foreach (var child in tabButtonStackPanel.Children)
             {
                 if (child is Button button)
                 {

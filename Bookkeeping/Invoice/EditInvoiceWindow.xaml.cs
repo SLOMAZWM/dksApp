@@ -44,6 +44,15 @@ namespace dksApp.Bookkeeping.Invoice
 			return newPage;
 		}
 
+		private void NavigationButton_Click(object sender,  RoutedEventArgs e)
+		{
+			if(sender is Button button && button.Tag is string gridName) 
+			{
+				navigator.ChangeInvoiceTabButton(button);
+				navigator.NavigateToPage(gridName);
+			}
+		}
+
 		//frontend settings
 
 		private void Border_MouseDown(object sender, MouseButtonEventArgs e)

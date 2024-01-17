@@ -21,8 +21,8 @@ namespace dksApp.Bookkeeping.Invoice
     /// </summary>
     public partial class SellerInvoicePage : Page
     {
-        private readonly CreateInvoiceWindow ? createInvoice;
-        private readonly EditInvoiceWindow ? editInvoice;
+        private CreateInvoiceWindow ? createInvoice;
+        private EditInvoiceWindow ? editInvoice;
 
         public SellerInvoicePage(CreateInvoiceWindow createInvoiceW)
         {
