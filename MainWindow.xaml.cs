@@ -6,8 +6,6 @@ using System.Windows.Media;
 using dksApp.Bookkeeping;
 using dksApp.Orders;
 using dksApp.Contractors;
-using dksApp.Calendar;
-using dksApp.Allegro;
 using System.Xml;
 
 namespace dksApp

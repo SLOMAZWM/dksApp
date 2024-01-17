@@ -10,19 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dksApp.Calendar
+namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
 {
-    /// <summary>
-    /// Interaction logic for CalendarPage.xaml
-    /// </summary>
-    public partial class CalendarPage : Page
-    {
-        public CalendarPage()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for EditProductW.xaml
+	/// </summary>
+	public partial class EditProductW : Window
+	{
+		public EditProductW()
+		{
+			InitializeComponent();
+		}
+	}
 }

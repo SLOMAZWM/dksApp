@@ -1,0 +1,106 @@
+﻿<Page x:Class="dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.InformationEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:dksApp.Bookkeeping.Invoice.InvoicePages.EditPage"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+        Title="InformationInvoicePage">
+
+    <Border Background="#eff2f7" CornerRadius="30">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+                <TextBlock Style="{StaticResource TextInput}" Width="250" Text="Pochodzenie Faktury: " HorizontalAlignment="Left"/>
+                <ComboBox x:Name="InvoiceFromCB" Width="200" Height="25" Margin="0,17,0,0" Cursor="Hand" SelectedIndex="0" HorizontalContentAlignment="Center" SelectionChanged="InvoiceFromCB_SelectionChanged">
+                    <ComboBoxItem Content="WŁASNE"/>
+                    <ComboBoxItem Content="ALLEGRO" Cursor="Hand"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+                <TextBlock Style="{StaticResource TextInput}" Width="250" Text="Data Wystawienia: " HorizontalAlignment="Left"/>
+                <TextBox x:Name="IssueDate" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" HorizontalAlignment="Left" TextChanged="IssueDate_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
+                <CheckBox x:Name="TodayIssueCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="TodayCHB_Checked" Unchecked="TodayCHB_Unchecked"/>
+                <TextBlock Text="Dzisiaj" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+                <TextBlock Style="{StaticResource TextInput}" Width="250"  Text="Data Wykonania/Dostarczenia: " HorizontalAlignment="Left"/>
+                <TextBox x:Name="ExecutionDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="ExecutionDateTxt_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
+                <CheckBox x:Name="TodayPayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="TodayPayCHB_Checked" Unchecked="TodayPayCHB_Unchecked"/>
+                <TextBlock Text="Dzisiaj" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+                <TextBlock Style="{StaticResource TextInput}" Width="250"  Text="Aktualnie zapłacono: " HorizontalAlignment="Left"/>
+                <TextBox x:Name="PaidYet" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" PreviewTextInput="PaidYet_PreviewTextInput" DataObject.Pasting="PaidYet_OnPaste"/>
+                <CheckBox x:Name="PaidYetCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,20,0,0" HorizontalAlignment="Right" Checked="PaidYetCHB_Checked" Unchecked="PaidYetCHB_Unchecked"/>
+                <TextBlock Text="Brak wpłaty" Style="{StaticResource TextInput}" Margin="5,17,0,0" HorizontalAlignment="Right" Width="auto"/>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+                <TextBlock Style="{StaticResource TextInput}" Text="Sposób Płatności: " Width="250"/>
+                <ComboBox x:Name="PaymentType" Width="200" Height="25" Margin="0,17,0,0" Cursor="Hand" SelectedIndex="0" HorizontalContentAlignment="Center" SelectionChanged="PaymentType_SelectionChanged">
+                    <ComboBoxItem Content="PRZELEW" Cursor="Hand"/>
+                    <ComboBoxItem Content="GOTÓWKA" Cursor="Hand"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource TextInput}" Text="Termin Płatności: " Width="250"/>
+                <TextBox x:Name="PaymentDateTxt" Style="{StaticResource Input}" Width="200" Margin="0,15,0,0" TextChanged="PaymentDateTxt_TextChanged" PreviewTextInput="NumbersDash_PreviewInput" DataObject.Pasting="NumbersDash_Paste"/>
+                <CheckBox x:Name="Days7PayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,24,0,0" HorizontalAlignment="Right" Checked="Days7PayCHB_Checked" Unchecked="Days7PayCHB_Unchecked"/>
+                <TextBlock Text="7dni" Style="{StaticResource TextInput}" Margin="5,20,0,0" HorizontalAlignment="Right" Width="auto"/>
+                <CheckBox x:Name="Days14PayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,24,0,0" HorizontalAlignment="Right" Checked="Days14PayCHB_Checked" Unchecked="Days14PayCHB_Unchecked"/>
+                <TextBlock Text="14dni" Style="{StaticResource TextInput}" Margin="5,20,0,0" HorizontalAlignment="Right" Width="auto"/>
+                <CheckBox x:Name="Days30PayCHB" Style="{StaticResource CheckBoxStyle1}" Margin="20,24,0,0" HorizontalAlignment="Right" Checked="Days30PayCHB_Checked" Unchecked="Days30PayCHB_Unchecked"/>
+                <TextBlock Text="30dni" Style="{StaticResource TextInput}" Margin="5,20,0,0" HorizontalAlignment="Right" Width="auto"/>
+            </StackPanel>
+
+            <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+
+                <TextBlock Style="{StaticResource TextInput}" Width="180"  Text="Dodatkowy Komentarz: " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
+                <TextBox x:Name="CommentsTxt" Style="{StaticResource Input}" Width="400" Height="50" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="False" TextChanged="CommentsTxt_TextChanged"/>
+                <StackPanel>
+                    <CheckBox x:Name="OnCommentsChb" Style="{StaticResource CheckBoxStyle1}" Margin="5,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="OnCommentsChb_Checked" Unchecked="OnCommentsChb_Unchecked"/>
+                    <TextBlock Style="{StaticResource TextInput}" Width="auto" Text="Włącz/Wyłącz" Margin="10,0,0,0"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="7" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="PreviousPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Click="PreviousPageBtn_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        <TextBlock Text="Poprzednia strona"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="NextPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Click="NextPageBtn_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Następna strona"/>
+                        <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Width="11" Height="11" Margin="8,1,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+</Page>

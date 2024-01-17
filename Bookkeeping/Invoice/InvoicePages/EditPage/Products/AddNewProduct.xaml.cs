@@ -10,19 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dksApp.Allegro
+namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
 {
-    /// <summary>
-    /// Interaction logic for DeletePage.xaml
-    /// </summary>
-    public partial class DeletePage : Page
-    {
-        public DeletePage()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for AddNewProduct.xaml
+	/// </summary>
+	public partial class AddNewProduct : Window
+	{
+		public AddNewProduct()
+		{
+			InitializeComponent();
+		}
+	}
 }

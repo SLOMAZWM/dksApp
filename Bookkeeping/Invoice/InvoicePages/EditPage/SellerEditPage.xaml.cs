@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dksApp.Allegro
+namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage
 {
-    /// <summary>
-    /// Interaction logic for AddPage.xaml
-    /// </summary>
-    public partial class AddPage : Page
-    {
-        public AddPage()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for SellerEditPage.xaml
+	/// </summary>
+	public partial class SellerEditPage : Page
+	{
+		public SellerEditPage()
+		{
+			InitializeComponent();
+		}
+	}
 }

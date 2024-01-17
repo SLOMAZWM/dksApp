@@ -1,7 +1,5 @@
-﻿using dksApp.Allegro;
-using dksApp.Bookkeeping;
+﻿using dksApp.Bookkeeping;
 using dksApp.Bookkeeping.Invoice;
-using dksApp.Calendar;
 using dksApp.Contractors;
 using dksApp.Orders;
 using System;
@@ -78,8 +76,6 @@ namespace dksApp
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
 				{ "MainBook", new MainBookPage() },
-				{"Allegro", new AllegroPage() },
-				{"Calendar", new CalendarPage() },
 				{"Contractors", new ContractorsPage() },
 				{"Orders", new OrdersPage() }
 			};
