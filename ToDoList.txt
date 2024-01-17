@@ -1,5 +1,8 @@
 ﻿1. Edytowanie Faktur (Nowe okno, nadpisujace texboxy istniejacymi danymi z faktur)
 
+1.1 SQL QUERRY w invoicedatagridService
+1.2 Przeslanie do editWindow produktu z MainDataGrid
+
 2. Podgląd faktur (ogarnięcie datagrid w szablonie faktury)
 
 3. Drukowanie faktur (podgląd)

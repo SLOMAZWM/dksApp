@@ -359,7 +359,9 @@ namespace dksApp.Bookkeeping
 
 		private void GridEditButton_Click(object sender, RoutedEventArgs e)
 		{
-			var selectedProduct = BookKeepingDataGrid.Items.
+			var selectedProduct = BookKeepingDataGrid.SelectedItem;
+
+			//Get the product from database
 		}
 	}
 }

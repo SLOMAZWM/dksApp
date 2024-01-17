@@ -93,5 +93,10 @@ namespace dksApp.Services
 				command.ExecuteNonQuery();
 			}
 		}
+
+		private void GetInformationInvoice(int invoiceId, SqlConnection connection, SqlTransaction transaction)
+		{
+			string GetInformationQuery = "SELECT * "; // Finish Query
+		}
 	}
 }
