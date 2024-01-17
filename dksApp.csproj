@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InvoiceDataGridService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\logoDARKAS.jpg" />
   </ItemGroup>
 

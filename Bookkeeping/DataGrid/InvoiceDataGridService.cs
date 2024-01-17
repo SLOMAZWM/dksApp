@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Windows;
 
@@ -12,34 +13,6 @@ namespace dksApp.Services
 		public InvoiceDataGridService(string connectionString)
 		{
 			this.connectionString = connectionString;
-		}
-
-		public void DeleteInvoiceWithProducts(int invoiceId)
-		{
-			using (SqlConnection connection = new SqlConnection(connectionString))
-			{
-				connection.Open();
-				SqlTransaction transaction = connection.BeginTransaction();
-
-				try
-				{
-					List<int> productIds = GetProductIds(invoiceId, connection, transaction);
-
-					DeleteInvoiceProducts(invoiceId, connection, transaction);
-
-					DeleteProducts(productIds, connection, transaction);
-
-					DeleteInvoice(invoiceId, connection, transaction);
-
-					transaction.Commit();
-					MessageBox.Show("Faktura i powiązane produkty zostały usunięte.");
-				}
-				catch (SqlException ex)
-				{
-					transaction.Rollback();
-					MessageBox.Show("Wystąpił błąd podczas usuwania faktury i powiązanych produktów: " + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-			}
 		}
 
 		private List<int> GetProductIds(int invoiceId, SqlConnection connection, SqlTransaction transaction)
@@ -93,5 +66,35 @@ namespace dksApp.Services
 				command.ExecuteNonQuery();
 			}
 		}
+
+		public void DeleteInvoiceWithProducts(int invoiceId)
+		{
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+				using (SqlTransaction transaction = connection.BeginTransaction())
+				{
+					try
+					{
+						List<int> productIds = GetProductIds(invoiceId, connection, transaction);
+
+						DeleteInvoiceProducts(invoiceId, connection, transaction);
+
+						DeleteProducts(productIds, connection, transaction);
+
+	
+						DeleteInvoice(invoiceId, connection, transaction);
+
+						transaction.Commit();
+					}
+					catch
+					{
+						transaction.Rollback();
+						throw;
+					}
+				}
+			}
+		}
+
 	}
 }
