@@ -50,7 +50,7 @@ AllowsTransparency="True">
 
                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="tabButtonSP" Grid.Row="0" Orientation="Horizontal" Margin="0,5,0,0" Grid.Column="0" Grid.ColumnSpan="2">
                     <Button x:Name="SellerBtn" Content="Sprzedawca" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Sprzedawca" Width="130"/>
-                    <Button x:Name="BuyerBtn" Content="Nabywca" Style="{StaticResource tabButton}" Click="WhichBuyer_Click" Tag="Nabywca" Width="130"/>
+                    <Button x:Name="BuyerBtn" Content="Nabywca" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Nabywca" Width="130"/>
                     <Button x:Name="InformationBtn" Content="Informacje" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Informacje" Width="130"/>
                     <Button x:Name="ProductBtn" Content="Produkty/Usługi" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Produkty" Width="130"/>
                 </StackPanel>

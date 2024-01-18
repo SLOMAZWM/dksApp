@@ -19,6 +19,7 @@ using System.Data;
 using System.ComponentModel;
 using System.Collections;
 using dksApp.Services;
+using dksApp.Bookkeeping.Invoice;
 
 namespace dksApp.Bookkeeping
 {
@@ -359,9 +360,15 @@ namespace dksApp.Bookkeeping
 
 		private void GridEditButton_Click(object sender, RoutedEventArgs e)
 		{
-			var selectedProduct = BookKeepingDataGrid.SelectedItem;
+			if (BookKeepingDataGrid.SelectedItem is InvoiceClass selectedInvoice)
+			{
+				var invoiceService = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
 
-			//Get the product from database
+				InvoiceClass detailedInvoice = invoiceService.GetInvoiceWithProducts((int)selectedInvoice.IDInvoice);
+
+				EditInvoiceWindow editInvoiceW = new EditInvoiceWindow(detailedInvoice);
+				editInvoiceW.ShowDialog();
+			}
 		}
 	}
 }
