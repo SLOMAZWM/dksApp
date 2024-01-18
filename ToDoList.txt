@@ -1,11 +1,16 @@
-﻿1. Edytowanie Faktur (Nowe okno, nadpisujace texboxy istniejacymi danymi z faktur)
-
-1.5 Podmiana inputow na dane z wybranej faktury
+﻿1.5 Podmiana inputow na dane z wybranej faktury
 1.6 Stworzenie logiki do nadpisania istniejacej faktury jako korekta faktury
 1.7 walidacja
 1.8 Testy
 
+//KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
+
 2. Podgląd faktur (ogarnięcie datagrid w szablonie faktury)
+
+2.1 Popraw podgląd faktury UserControl
+
+    paragraph.Inlines.Add(new Run("Tutaj umieść treść faktury."));
+
 
 3. Drukowanie faktur (podgląd)
 

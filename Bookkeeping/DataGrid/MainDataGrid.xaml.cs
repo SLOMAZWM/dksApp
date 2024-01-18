@@ -370,5 +370,17 @@ namespace dksApp.Bookkeeping
 				editInvoiceW.ShowDialog();
 			}
 		}
+
+		private void BookKeepingDataGrid_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			var selectedInvoice = (InvoiceClass)BookKeepingDataGrid.SelectedItem;
+
+			if (selectedInvoice != null) 
+			{
+				InvoiceWindow invoiceWindow = new InvoiceWindow();
+
+				invoiceWindow.ShowDialog();
+			}
+		}
 	}
 }

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dksApp.Bookkeeping.Invoice"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Faktura" Height="600" Width="535.5" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen">
 
@@ -29,19 +30,36 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+        <Grid x:Name="MainGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Button Style="{StaticResource topButton}" Margin="0,0,55,0" HorizontalAlignment="Right" Click="PrintBtn_Click">
+                <Icon:PackIconMaterial Kind="Printer"/>
+            </Button>
+
+            <Button Style="{StaticResource topButton}" Margin="0,0,22,0" HorizontalAlignment="Right" Click="exitBtn_Click">
+                <Icon:PackIconMaterial Kind="ExitToApp"/>
+            </Button>
+
+        </Grid>
+
+        <ContentControl x:Name="InvoiceDataControl" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Grid.RowSpan="8">
+            
+        </ContentControl>
+        
+        <Grid Grid.Row="1" Grid.Column="0" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             
-            <TextBlock Text="Faktura" Style="{StaticResource TitlePage}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Row="0"/>
+            <TextBlock Text="Faktura" FontSize="42" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Row="0"/>
             <TextBlock Text="nr: F/00/11/23" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold" Grid.Row="1"/>
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="1" Margin="0,20,0,0">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -54,7 +72,7 @@
             <TextBlock Text="oryginał/kopia" HorizontalAlignment="Center" Grid.Row="2" FontSize="10" Margin="5"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="10">
+        <Grid Grid.Row="2" Grid.Column="0" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -76,7 +94,7 @@
             <TextBlock Text="Numer Rachunku:" Grid.Row="6" Margin="0,0,0,1"/>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="2" Margin="10">
+        <Grid Grid.Row="2" Grid.Column="2" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -97,15 +115,15 @@
             <TextBlock Text="NIP:" Grid.Row="5" Margin="0,0,0,1"/>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10">
+        <Grid Grid.Row="3" Margin="10">
             <TextBlock Text="Uwagi: "/>
         </Grid>
 
-        <Grid Grid.Row="3" Margin="10">
+        <Grid Grid.Row="4" Margin="10">
             <!--Tabela produktow-->
         </Grid>
 
-        <Grid Grid.Row="4" Margin="10">
+        <Grid Grid.Row="5" Margin="10">
 
             <Grid.Resources>
                 <Style TargetType="TextBlock" x:Key="txtLabel">
@@ -156,7 +174,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="5" Grid.Column="0" Margin="10,25,0,0">
+        <Grid Grid.Row="6" Grid.Column="0" Margin="10,25,0,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -167,7 +185,7 @@
             <TextBlock Text="Podpis osoby upoważnionej do odbioru dokumentu" HorizontalAlignment="Center" Grid.Row="1" FontSize="9"/>
         </Grid>
 
-        <Grid Grid.Row="5" Grid.Column="1" Margin="10">
+        <Grid Grid.Row="6" Grid.Column="1" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
