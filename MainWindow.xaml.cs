@@ -28,9 +28,7 @@ private List<Button> InitializeButtonList()
             List<Button> newButtonList = new List<Button>
             {
                 NavigationToBookKeepingBtn,
-                NavigationToAllegroBtn,
                 NavigationToOrdersBtn,
-                NavigationToCalendarBtn,
                 NavigationToContractorsBtn,
             };
             

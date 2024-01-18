@@ -74,19 +74,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="NavigationToCalendarBtn" Tag="Calendar" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CalendarClock"  Style="{StaticResource menubuttonIcon}"/>
-                                    <TextBlock Text="Kalendarz"/>
-                                </StackPanel>
-                            </Button>
 
-                            <Button x:Name="NavigationToAllegroBtn" Tag="Allegro" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="AccountSettings"  Style="{StaticResource menubuttonIcon}"/>
-                                    <TextBlock Text="Allegro"/>
-                                </StackPanel>
-                            </Button>
 
                         </StackPanel>
 
