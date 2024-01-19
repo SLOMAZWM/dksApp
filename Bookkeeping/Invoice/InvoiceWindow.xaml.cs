@@ -18,6 +18,10 @@ using System.Windows.Shapes;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 using System.Xml;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Fonts;
+using System.Runtime.Intrinsics.Arm;
 
 
 namespace dksApp.Bookkeeping.Invoice
@@ -31,8 +35,8 @@ namespace dksApp.Bookkeeping.Invoice
         public InvoiceWindow(InvoiceClass inv)
         {
             InitializeComponent();
-            //DetailedInvoice = inv;
-        }
+			//DetailedInvoice = inv;
+		}
 
 		public InvoiceWindow()
 		{
@@ -41,25 +45,62 @@ namespace dksApp.Bookkeeping.Invoice
 
 		private void PrintBtn_Click(object sender, RoutedEventArgs e)
 		{
-			// Przygotuj treść faktury w formie FlowDocument
-			FlowDocument flowDocument = new FlowDocument();
-
-			// Dodaj treść faktury do FlowDocument
-			Paragraph paragraph = new Paragraph();
-			paragraph.Inlines.Add(new Run("Tutaj umieść treść faktury."));
-			flowDocument.Blocks.Add(paragraph);
-
-			// Utwórz drukowalny obiekt do użycia w PrintDialog
-			IDocumentPaginatorSource paginatorSource = flowDocument as IDocumentPaginatorSource;
-			if (paginatorSource != null)
+			// Ukryj Grid.Row=0
+			var firstRow = MainGrid.Children
+							.Cast<UIElement>()
+							.Where(x => Grid.GetRow(x) == 0);
+			foreach (var element in firstRow)
 			{
-				PrintDialog printDialog = new PrintDialog();
-				if (printDialog.ShowDialog() == true)
-				{
-					printDialog.PrintDocument(paginatorSource.DocumentPaginator, "Faktura");
-				}
+				element.Visibility = Visibility.Collapsed;
 			}
+
+			// Renderowanie WPF UI do obrazu
+			int dpi = 300; // Wyższa wartość DPI dla lepszej jakości
+			RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(
+				(int)(MainGrid.ActualWidth * dpi / 96.0),
+				(int)(MainGrid.ActualHeight * dpi / 96.0),
+				dpi, dpi,
+				PixelFormats.Pbgra32);
+			renderTargetBitmap.Render(MainGrid);
+
+			var scale = dpi / 96.0;
+			MainGrid.LayoutTransform = new ScaleTransform(scale, scale);
+
+			// Przywróć widoczność Grid.Row=0
+			foreach (var element in firstRow)
+			{
+				element.Visibility = Visibility.Visible;
+			}
+
+			// Zapisanie obrazu do strumienia
+			PngBitmapEncoder pngImage = new PngBitmapEncoder();
+			pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+			MemoryStream imageStream = new MemoryStream();
+			pngImage.Save(imageStream);
+			imageStream.Position = 0;
+
+			// Tworzenie nowego dokumentu PDF
+			PdfDocument document = new PdfDocument();
+			PdfPage page = document.AddPage();
+			page.Width = renderTargetBitmap.Width;
+			page.Height = renderTargetBitmap.Height;
+			XGraphics gfx = XGraphics.FromPdfPage(page);
+			XImage image = XImage.FromStream(imageStream);
+
+			// Dodanie obrazu do dokumentu PDF, pomijając Grid.Row=0
+			gfx.DrawImage(image, 0, -MainGrid.RowDefinitions[0].ActualHeight, page.Width, page.Height);
+
+			// Zapisywanie dokumentu PDF do pliku
+			string fileName = "Faktura.pdf";
+			document.Save(fileName);
+
+			// Otwieranie pliku PDF w domyślnej przeglądarce PDF
+			string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
+			System.Diagnostics.Process.Start("explorer.exe", filePath);
+
+			MainGrid.LayoutTransform = null;
 		}
+
 
 
 		private void exitBtn_Click(object sender, RoutedEventArgs e)

@@ -14,8 +14,8 @@
             <Setter Property="FontSize" Value="11"/>
         </Style>
     </Window.Resources>
-    
-    <Grid>
+
+    <Grid x:Name="MainGrid">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,7 +33,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="MainGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
 
             <Button Style="{StaticResource topButton}" Margin="0,0,55,0" HorizontalAlignment="Right" Click="PrintBtn_Click">
                 <Icon:PackIconMaterial Kind="Printer"/>
@@ -45,10 +45,6 @@
 
         </Grid>
 
-        <ContentControl x:Name="InvoiceDataControl" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Grid.RowSpan="8">
-            
-        </ContentControl>
-        
         <Grid Grid.Row="1" Grid.Column="0" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
