@@ -9,7 +9,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
 
-    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -98,7 +98,7 @@
 
                 <!--Top Buttons-->
 
-                <Button Style="{StaticResource topButton}" Margin="0,0,20,0" Background="#dcdcdc" HorizontalAlignment="Right">
+                <Button Style="{StaticResource topButton}" Margin="0,0,20,0" HorizontalAlignment="Right">
                     <Icon:PackIconMaterial Kind="Cog"/>
                 </Button>
 

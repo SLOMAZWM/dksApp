@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
               xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Faktura" Height="600" Width="535.5" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen">
+        Title="Faktura" Height="600" Width="535.5" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Black">
 
     <Window.Resources>
         <Style TargetType="TextBlock">

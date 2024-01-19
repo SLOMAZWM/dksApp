@@ -55,7 +55,7 @@ namespace dksApp.Bookkeeping.Invoice
 			}
 
 			// Renderowanie WPF UI do obrazu
-			int dpi = 300; // Wyższa wartość DPI dla lepszej jakości
+			int dpi = 400; // Wyższa wartość DPI dla lepszej jakości
 			RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(
 				(int)(MainGrid.ActualWidth * dpi / 96.0),
 				(int)(MainGrid.ActualHeight * dpi / 96.0),
@@ -100,8 +100,6 @@ namespace dksApp.Bookkeeping.Invoice
 
 			MainGrid.LayoutTransform = null;
 		}
-
-
 
 		private void exitBtn_Click(object sender, RoutedEventArgs e)
 		{
