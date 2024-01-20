@@ -7,13 +7,38 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
               xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Faktura" Height="600" Width="535.5" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Black">
+        Title="Faktura" Height="900" Width="794" ResizeMode="NoResize" WindowStyle="None" FontFamily="TimesNewRoman" WindowStartupLocation="CenterScreen" BorderThickness="1" BorderBrush="Black">
 
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="11"/>
         </Style>
-    </Window.Resources>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="FontFamily" Value="Times New Roman"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="RowBackground" Value="White"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="GridLinesVisibility" Value="All"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="Black"/>
+                <Setter Property="VerticalGridLinesBrush" Value="Black"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+
+        </Window.Resources>
 
     <Grid x:Name="MainGrid">
 
@@ -115,9 +140,23 @@
             <TextBlock Text="Uwagi: "/>
         </Grid>
 
-        <Grid Grid.Row="4" Margin="10">
-            <!--Tabela produktow-->
+        <Grid Grid.Row="4" Margin="10" Grid.Column="0" Grid.ColumnSpan="2">
+            <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="L.P." Binding="{Binding Lp}" Width="Auto"/>
+                    <DataGridTextColumn Header="Nazwa Produktu" Binding="{Binding NazwaProduktu}" Width="*"/>
+                    <DataGridTextColumn Header="Ilość" Binding="{Binding Ilosc}" Width="Auto"/>
+                    <DataGridTextColumn Header="J.m." Binding="{Binding Jm}" Width="Auto"/>
+                    <DataGridTextColumn Header="PKWiU" Binding="{Binding PKWiU}" Width="Auto"/>
+                    <DataGridTextColumn Header="Cena netto [PLN]" Binding="{Binding CenaNetto}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość netto [PLN]" Binding="{Binding WartoscNetto}" Width="Auto"/>
+                    <DataGridTextColumn Header="VAT [%]" Binding="{Binding Vat}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość VAT [PLN]" Binding="{Binding WartoscVat}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość brutto [PLN]" Binding="{Binding WartoscBrutto}" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
+
 
         <Grid Grid.Row="5" Margin="10">
 
