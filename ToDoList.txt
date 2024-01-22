@@ -7,7 +7,6 @@
 
 2. Podgląd faktury
 
-2.1 Usuń błąd wychodzenia z okna InvoiceWindow
 2.2 Podmień wszystkie dane do txtLabel
 2.3 Sprawdź działanie z drukowaniem
 

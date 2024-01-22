@@ -46,16 +46,17 @@ private List<Button> InitializeButtonList()
             }
         }
 
-        //#settingsfrontend
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
+		//#settingsfrontend
+		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+			{
+				this.DragMove();
+			}
+		}
 
-        private void btnExit_Click(object sender, RoutedEventArgs e)
+
+		private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

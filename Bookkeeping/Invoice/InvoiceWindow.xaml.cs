@@ -45,7 +45,7 @@ namespace dksApp.Bookkeeping.Invoice
 
 		private void PrintBtn_Click(object sender, RoutedEventArgs e)
 		{
-			// Ukryj Grid.Row=0
+			
 			var firstRow = MainGrid.Children
 							.Cast<UIElement>()
 							.Where(x => Grid.GetRow(x) == 0);
@@ -54,8 +54,8 @@ namespace dksApp.Bookkeeping.Invoice
 				element.Visibility = Visibility.Collapsed;
 			}
 
-			// Renderowanie WPF UI do obrazu
-			int dpi = 400; // Wyższa wartość DPI dla lepszej jakości
+			
+			int dpi = 400; 
 			RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(
 				(int)(MainGrid.ActualWidth * dpi / 96.0),
 				(int)(MainGrid.ActualHeight * dpi / 96.0),
@@ -66,20 +66,20 @@ namespace dksApp.Bookkeeping.Invoice
 			var scale = dpi / 96.0;
 			MainGrid.LayoutTransform = new ScaleTransform(scale, scale);
 
-			// Przywróć widoczność Grid.Row=0
+			
 			foreach (var element in firstRow)
 			{
 				element.Visibility = Visibility.Visible;
 			}
 
-			// Zapisanie obrazu do strumienia
+			
 			PngBitmapEncoder pngImage = new PngBitmapEncoder();
 			pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
 			MemoryStream imageStream = new MemoryStream();
 			pngImage.Save(imageStream);
 			imageStream.Position = 0;
 
-			// Tworzenie nowego dokumentu PDF
+			
 			PdfDocument document = new PdfDocument();
 			PdfPage page = document.AddPage();
 			page.Width = renderTargetBitmap.Width;
@@ -87,14 +87,11 @@ namespace dksApp.Bookkeeping.Invoice
 			XGraphics gfx = XGraphics.FromPdfPage(page);
 			XImage image = XImage.FromStream(imageStream);
 
-			// Dodanie obrazu do dokumentu PDF, pomijając Grid.Row=0
 			gfx.DrawImage(image, 0, -MainGrid.RowDefinitions[0].ActualHeight, page.Width, page.Height);
 
-			// Zapisywanie dokumentu PDF do pliku
 			string fileName = "Faktura.pdf";
 			document.Save(fileName);
 
-			// Otwieranie pliku PDF w domyślnej przeglądarce PDF
 			string filePath = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
 			System.Diagnostics.Process.Start("explorer.exe", filePath);
 
@@ -104,6 +101,14 @@ namespace dksApp.Bookkeeping.Invoice
 		private void exitBtn_Click(object sender, RoutedEventArgs e)
 		{
             this.Close();
+		}
+
+		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ChangedButton == MouseButton.Left)
+			{
+				this.DragMove();
+			}
 		}
 	}
 }
