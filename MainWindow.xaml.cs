@@ -30,6 +30,7 @@ private List<Button> InitializeButtonList()
                 NavigationToBookKeepingBtn,
                 NavigationToOrdersBtn,
                 NavigationToContractorsBtn,
+                NavigationToMagazineBtn
             };
             
             return newButtonList;

@@ -31,16 +31,22 @@ namespace dksApp.Bookkeeping.Invoice
     /// </summary>
     public partial class InvoiceWindow : Window
     {
-        //public InvoiceClass DetailedInvoice { get; set; }
-        public InvoiceWindow(InvoiceClass inv)
+		public InvoiceClass DetailedInvoice { get; set; }
+		public InvoiceWindow(InvoiceClass inv)
         {
             InitializeComponent();
-			//DetailedInvoice = inv;
+			DetailedInvoice = inv;
+			InitializeInvoiceData();
 		}
 
 		public InvoiceWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void InitializeInvoiceData()
+		{
+			
 		}
 
 		private void PrintBtn_Click(object sender, RoutedEventArgs e)

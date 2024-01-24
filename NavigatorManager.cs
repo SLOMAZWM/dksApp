@@ -2,6 +2,7 @@
 using dksApp.Bookkeeping.Invoice;
 using dksApp.Contractors;
 using dksApp.Orders;
+using dksApp.Magazine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +78,8 @@ namespace dksApp
 			{
 				{ "MainBook", new MainBookPage() },
 				{"Contractors", new ContractorsPage() },
-				{"Orders", new OrdersPage() }
+				{"Orders", new OrdersPage() },
+				{"Magazine", new MagazinePage() }
 			};
 
 			return NewDictionaryOfPages;

@@ -94,7 +94,7 @@ namespace dksApp.Services
 			}
 		}
 
-		public InvoiceClass GetInvoiceWithProducts(int invoiceId)
+		public InvoiceClass GetInvoiceWithProducts(uint invoiceId)
 		{
 			InvoiceClass invoice = new InvoiceClass();
 
@@ -105,7 +105,7 @@ namespace dksApp.Services
 				string invoiceQuery = "SELECT * FROM Invoice WHERE InvoiceID = @InvoiceID";
 				using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
 				{
-					command.Parameters.AddWithValue("@InvoiceID", invoiceId);
+					command.Parameters.AddWithValue("@InvoiceID", (int)invoiceId);
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
 						if (reader.Read())
@@ -141,7 +141,7 @@ namespace dksApp.Services
                                     WHERE ip.InvoiceID = @InvoiceID";
 				using (SqlCommand command = new SqlCommand(productsQuery, connection))
 				{
-					command.Parameters.AddWithValue("@InvoiceID", invoiceId);
+					command.Parameters.AddWithValue("@InvoiceID", (int)invoiceId);
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
 						while (reader.Read())

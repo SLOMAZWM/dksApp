@@ -74,7 +74,12 @@
                                 </StackPanel>
                             </Button>
 
-
+                            <Button x:Name="NavigationToMagazineBtn" Tag="Magazine" Style="{StaticResource menuButton}" Click="NavigationButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Warehouse"  Style="{StaticResource menubuttonIcon}"/>
+                                    <TextBlock Text="Magazyn"/>
+                                </StackPanel>
+                            </Button>
 
                         </StackPanel>
 

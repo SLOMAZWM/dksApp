@@ -223,6 +223,21 @@ namespace dksApp.Bookkeeping
 			}
 		}
 
+		private void FirstPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			CurrentPage = 1;
+			UpdateDisplayedInvoices();
+		}
+
+		private void LastPageButton_Click(object sender, RoutedEventArgs e)
+		{
+			int totalItems = Invoices.Count;
+			int maxPage = (int)Math.Ceiling((double)totalItems / PageSize);
+
+			CurrentPage = maxPage;
+			UpdateDisplayedInvoices();
+		}
+
 		//HEADER CHECKBOX ALL SELECTED IN DATAGRID
 		private void CheckBoxHeader_Click(object sender, RoutedEventArgs e)
 		{
@@ -323,20 +338,6 @@ namespace dksApp.Bookkeeping
 			}
 		}
 
-		private void FirstPageButton_Click(object sender, RoutedEventArgs e) 
-		{
-			CurrentPage = 1;
-			UpdateDisplayedInvoices();
-		}
-
-		private void LastPageButton_Click(object sender, RoutedEventArgs e)
-		{
-			int totalItems = Invoices.Count;
-			int maxPage = (int)Math.Ceiling((double)totalItems / PageSize);
-
-			CurrentPage = maxPage;
-			UpdateDisplayedInvoices();
-		}
 
 		private void UpdateDeleteButtonVisibility()
 		{
@@ -364,7 +365,7 @@ namespace dksApp.Bookkeeping
 			{
 				var invoiceService = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
 
-				InvoiceClass detailedInvoice = invoiceService.GetInvoiceWithProducts((int)selectedInvoice.IDInvoice);
+				InvoiceClass detailedInvoice = invoiceService.GetInvoiceWithProducts((uint)selectedInvoice.IDInvoice);
 
 				EditInvoiceWindow editInvoiceW = new EditInvoiceWindow(detailedInvoice);
 				editInvoiceW.ShowDialog();
@@ -377,7 +378,9 @@ namespace dksApp.Bookkeeping
 
 			if (selectedInvoice != null) 
 			{
-				InvoiceWindow invoiceWindow = new InvoiceWindow();
+				InvoiceDataGridService getInformation = new InvoiceDataGridService(ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString);
+				selectedInvoice = getInformation.GetInvoiceWithProducts(selectedInvoice.IDInvoice);
+				InvoiceWindow invoiceWindow = new InvoiceWindow(selectedInvoice);
 
 				invoiceWindow.ShowDialog();
 			}

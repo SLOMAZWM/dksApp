@@ -5,11 +5,12 @@
 
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
-2.2 Podmień wszystkie dane do txtLabel
+2.2 Podmień wszystkie dane do txtLabel //przeslanie z sql juz jest
 2.3 Sprawdź działanie z drukowaniem
 
+3. Stworzenie magazine Page, datagridow i podzakladek w page, stworzenie okienka createproduct
 
-Poprawienie wydajnosci (nawigacja)*
+Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***
 Responsywność* [must have]
 Stworzenie własnych okienek z błędami**
