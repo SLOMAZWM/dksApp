@@ -15,8 +15,8 @@ namespace dksApp
         {
             base.OnStartup(e);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-        }
-    }
+			string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+		}
+	}
 
 }
