@@ -120,7 +120,7 @@ namespace dksApp.Bookkeeping.Invoice
             else if(isSelected == true && sender is Button button)
             {
                 navigator.ChangeInvoiceTabButton(button);
-				navigator.NavigateToPage(selectedGrid);
+				navigator.NavigateToGrid(selectedGrid);
 			}
         }
 

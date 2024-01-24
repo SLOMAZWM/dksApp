@@ -8,10 +8,6 @@
 2.2 Podmień wszystkie dane do txtLabel
 2.3 Sprawdź działanie z drukowaniem
 
-MUST HAVE:
-
-NAWIGACJA PONOWNA DO NABYWCY (PO WYBRANIU NABYWCY, NIE MA MOZLIWOSCI JEGO POWROTU)
-
 
 Poprawienie wydajnosci (nawigacja)*
 Przechodzenie dalej (walidacja)***

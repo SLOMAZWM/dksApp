@@ -26,7 +26,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
         public event BuyerTypeSelectedHandler BuyerTypeSelected;
 
         public NavigatorManager Navigator { get; set; }
-        //public string SelectedGrid { get; set; }
+        public string SelectedGrid { get; set; }
         public WhichBuyerDialog()
         {
             InitializeComponent();
