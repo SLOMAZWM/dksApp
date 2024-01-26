@@ -43,14 +43,18 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                 <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
             </Grid>
 
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="ProductDataGrid">
+            <DataGrid SelectionChanged="ProductDataGrid_SelectionChanged" SelectionMode="Extended" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="ProductDataGrid">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
+                    <DataGridCheckBoxColumn CanUserResize="False" Width="auto" Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGridCheckBoxColumn.Header>
+                            <CheckBox Click="CheckBoxHeader_Click" Style="{StaticResource CheckBoxStyle1}"/>
+                        </DataGridCheckBoxColumn.Header>
+                        <DataGridCheckBoxColumn.ElementStyle>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle1}">
+                                <EventSetter Event="Checked" Handler="CheckBox_Checked"/>
+                                <EventSetter Event="Unchecked" Handler="CheckBox_Unchecked"/>
+                            </Style>
+                        </DataGridCheckBoxColumn.ElementStyle>
                     </DataGridCheckBoxColumn>
 
                     <DataGridTextColumn Header="ID Produktu" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding IdProduct}"/>
@@ -117,8 +121,20 @@ Background="White" Margin="0,20,20,20">
                     <Button Style="{StaticResource pagingButton}" Click="LastPageButton_Click">
                         <Icon:PackIconMaterial Kind="ChevronDoubleRight" Style="{StaticResource pagingButtonIcon}"/>
                     </Button>
+                    
                 </StackPanel>
+
             </Border>
+            
+            <StackPanel Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" Margin="10,0,0,0">
+                <Button x:Name="DeleteProductsBtn" Style="{StaticResource InvoiceDeleteButton}" Click="DeleteProducts_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="DeleteCircle" Style="{StaticResource gridButtonIcon}"/>
+                        <TextBlock Text="Usuń Produkty"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
         </Grid>
     </Border>
 </Page>

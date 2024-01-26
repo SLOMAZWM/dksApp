@@ -1,6 +1,8 @@
-﻿namespace dksApp
+﻿using System.ComponentModel;
+
+namespace dksApp
 {
-	public class Product
+	public class Product : INotifyPropertyChanged
 	{
 		public int IdProduct { get; set; }
 		public int NumberOfItems { get; set; }
@@ -14,6 +16,26 @@
 		public decimal VATValue { get; set; }
 		public decimal BruttoValue { get; set; }
 		public bool ShowIt { get; set; } //ADDED TO MAGAZINE!
+		private bool _isSelected;
+		public bool IsSelected
+		{
+			get => _isSelected;
+			set
+			{
+				if (_isSelected != value)
+				{
+					_isSelected = value;
+					OnPropertyChanged(nameof(IsSelected));
+				}
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected virtual void OnPropertyChanged(string propertyName)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 
 		public bool isEmpty()
 		{

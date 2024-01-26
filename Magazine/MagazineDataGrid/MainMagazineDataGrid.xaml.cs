@@ -24,11 +24,14 @@ namespace dksApp.Magazine.MagazineDataGrid
 	public partial class MainMagazineDataGrid : Page
 	{
 		private int CurrentPage;
+		private List<dksApp.Product> products = new List<dksApp.Product>();
 		public MainMagazineDataGrid()
 		{
 			InitializeComponent();
 			InitializeAsync();
 			ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
+
+			DeleteProductsBtn.Visibility = Visibility.Collapsed;
 
 			CurrentPage = 1;
 		}
@@ -167,12 +170,79 @@ namespace dksApp.Magazine.MagazineDataGrid
 			{
 				MessageBox.Show("Wybierz produkt do usunięcia!", "Błąd usuwania", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
+
+			InitializeAsync();
 		}
 
 		private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			var filterText = txtFilter.Text;
 			ProductDataGrid.ItemsSource = ProductServiceDataGrid.FilterProducts(filterText);
+		}
+
+		private void CheckBox_Checked(object sender, RoutedEventArgs e) 
+		{
+			var selectedProduct = ProductDataGrid.SelectedItem;
+			products.Add((dksApp.Product)selectedProduct);
+			UpdateDeleteButtonVisibility();
+		}
+
+		private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+		{
+			var unSelectedProduct = ProductDataGrid.SelectedItem;
+			products.Remove((dksApp.Product)unSelectedProduct);
+			UpdateDeleteButtonVisibility();
+		}
+
+		private void UpdateDeleteButtonVisibility()
+		{
+			DeleteProductsBtn.Visibility = products.Count >= 2 ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void DeleteProducts_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedProducts = ProductDataGrid.Items.Cast<dksApp.Product>().ToList().Where(p => p.IsSelected).ToList();
+
+			foreach(dksApp.Product product in selectedProducts)
+			{
+				MessageBoxResult result = MessageBox.Show($"Czy aby na pewno chcesz usunąć produkt o ID: {product.IdProduct}", "Potwierdzenie usunięcia", MessageBoxButton.YesNo, MessageBoxImage.Question);
+				if (result == MessageBoxResult.Yes) 
+				{
+					ProductServiceDataGrid.DeleteProduct(product.IdProduct);
+				}
+				else
+				{
+					MessageBox.Show($"Anulowano usunięcie produktu o ID: {product.IdProduct}", "Usuwanie nie powiodło się!", MessageBoxButton.OK, MessageBoxImage.Warning);
+				}
+			}
+			UpdateAmountOfItems();
+			InitializeAsync();
+		}
+
+		private void ProductDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			UpdateDeleteButtonVisibility();
+		}
+
+		private void CheckBoxHeader_Click(object sender, RoutedEventArgs e)
+		{
+			if(sender is CheckBox checkBox) 
+			{
+				if(checkBox.IsChecked == true) 
+				{
+					foreach (dksApp.Product product in ProductDataGrid.Items)
+					{
+						product.IsSelected = true;
+					}
+				}
+				else
+				{
+					foreach (dksApp.Product product in ProductDataGrid.Items)
+					{
+						product.IsSelected = false;
+					}
+				}
+			}
 		}
 	}
 }

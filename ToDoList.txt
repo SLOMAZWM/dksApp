@@ -12,8 +12,6 @@
 
 3. ProductWindow
 3.1 Stworzenie logiki do edytowania produktu, zmienna typu bool do odrozniania editProduct = true, wtedy inny konstruktor
-3.2 Podliczanie ilości pozycji w datagrid
-3.3 zaznaczenie header checkbox = all checkbox zaznaczone
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***
