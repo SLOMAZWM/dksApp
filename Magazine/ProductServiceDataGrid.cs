@@ -7,24 +7,68 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System.Windows;
 
-namespace dksApp.Magazine
+namespace dksApp
 {
 	public static class ProductServiceDataGrid
 	{
 		private static string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
-		private static ObservableCollection<Product> products;
+		public static ObservableCollection<Product> Products { get; set; }
+		public static int TotalItemsCount => Products.Count;
 		private static int PageSize = 7;
-		public static void GetAllFromDataBase(ref DataGrid dataGrid)
+		
+		public static void AddProductToDataBase(Product product)
+		{
+				try
+				{
+					using (SqlConnection con = new SqlConnection(connectionString))
+					{
+						string query = @"INSERT INTO Product (NumberOfItems, NameItem, Quantity, QuantityType, PKWiU, NettoPrice, NettoValue, VATPercent, VATValue, BruttoValue, ShowIt)
+                                 VALUES (@NumberOfItems, @NameItem, @Quantity, @QuantityType, @PKWiU, @NettoPrice, @NettoValue, @VATPercent, @VATValue, @BruttoValue, @ShowIt)";
+						try
+						{
+							using (SqlCommand cmd = new SqlCommand(query, con))
+							{
+								cmd.Parameters.AddWithValue("@NumberOfItems", 0);
+								cmd.Parameters.AddWithValue("@NameItem", product.NameItem ?? (object)DBNull.Value);
+								cmd.Parameters.AddWithValue("@Quantity", 0);
+								cmd.Parameters.AddWithValue("@QuantityType", product.QuantityType ?? (object)DBNull.Value);
+								cmd.Parameters.AddWithValue("@PKWiU", product.PKWiU ?? (object)DBNull.Value);
+								cmd.Parameters.AddWithValue("@NettoPrice", product.NettoPrice);
+								cmd.Parameters.AddWithValue("@NettoValue", product.NettoValue);
+								cmd.Parameters.AddWithValue("@VATPercent", product.VATPercent ?? (object)DBNull.Value);
+								cmd.Parameters.AddWithValue("@VATValue", product.VATValue);
+								cmd.Parameters.AddWithValue("@BruttoValue", product.BruttoValue);
+								cmd.Parameters.AddWithValue("@ShowIt", product.ShowIt);
+
+
+								con.Open();
+								cmd.ExecuteNonQuery();
+							}
+						}
+						catch(SqlException ex) 
+						{
+							MessageBox.Show("Błąd dodawania produktu do bazy danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+						}
+					}
+				}
+				catch(SqlException ex) 
+				{
+					MessageBox.Show("Błąd połączenia z bazą danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+		}
+
+		public static async Task GetAllFromDataBaseAsync()
 		{
 			using (SqlConnection con = new SqlConnection(connectionString)) 
 			{
-				products = new ObservableCollection<Product>();
+				Products = new ObservableCollection<Product>();
 				string query = "SELECT * FROM Product WHERE ShowIt = 1";
-				con.Open();
+				await con.OpenAsync();
 				using (SqlCommand cmd = new SqlCommand(query, con)) 
 				{
-					SqlDataReader reader = cmd.ExecuteReader();
+					SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
 					while(reader.Read()) 
 					{
@@ -43,10 +87,8 @@ namespace dksApp.Magazine
 							BruttoValue = Convert.ToDecimal(reader["BruttoValue"]),
 							ShowIt = Convert.ToBoolean(reader["ShowIt"])
 						};
-						products.Add(product);
+						Products.Add(product);
 					}
-
-					dataGrid.ItemsSource = products;
 				}
 			}
 		}
@@ -54,14 +96,14 @@ namespace dksApp.Magazine
 		public static ObservableCollection<Product> GetProductsPage(int currentPage)
 		{
 			int startIndex = (currentPage - 1) * PageSize;
-			int endIndex = Math.Min(startIndex + PageSize, products.Count);
+			int endIndex = Math.Min(startIndex + PageSize, Products.Count);
 			var pageProducts = new ObservableCollection<Product>();
 
 			for (int i = startIndex; i < endIndex; i++)
 			{
-				if (i >= 0 && i < products.Count)
+				if (i >= 0 && i < Products.Count)
 				{
-					pageProducts.Add(products[i]);
+					pageProducts.Add(Products[i]);
 				}
 			}
 
@@ -70,7 +112,48 @@ namespace dksApp.Magazine
 
 		public static int GetTotalPages()
 		{
-			return (int)Math.Ceiling((double)products.Count / PageSize);
+			return (int)Math.Ceiling((double)Products.Count / PageSize);
 		}
+
+		public static void DeleteProduct(int productId)
+		{
+			using (SqlConnection con = new SqlConnection(connectionString))
+			{
+				string query = "DELETE FROM Product WHERE ProductID = @ProductId";
+				con.Open();
+
+				using (SqlCommand cmd = new SqlCommand(query, con))
+				{
+					cmd.Parameters.AddWithValue("@ProductId", productId);
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
+		public static decimal CalculateValueVAT(decimal nettoPrice, decimal vatPercent)
+		{
+			return nettoPrice * (vatPercent / 100);
+		}
+
+		public static decimal CalculateValueBrutto(decimal nettoPrice, decimal vatValue)
+		{
+			return nettoPrice + vatValue;
+		}
+
+		public static ObservableCollection<Product> FilterProducts(string filterText)
+		{
+			var filteredProducts = new ObservableCollection<Product> ();
+			
+			foreach(var product in Products)
+			{
+				if (product.NameItem.Contains(filterText, StringComparison.OrdinalIgnoreCase) || product.NettoPrice.ToString().Contains(filterText, StringComparison.OrdinalIgnoreCase))
+					{
+					filteredProducts.Add (product);
+				}
+			}
+
+			return filteredProducts;
+		}
+
 	}
 }

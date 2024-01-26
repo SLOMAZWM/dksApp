@@ -1,4 +1,6 @@
-﻿1.5 Podmiana inputow na dane z wybranej faktury
+﻿1.Korekta faktury:
+
+1.5 Podmiana inputow na dane z wybranej faktury
 1.6 Stworzenie logiki do nadpisania istniejacej faktury jako korekta faktury
 1.7 walidacja
 1.8 Testy
@@ -8,7 +10,10 @@
 2.2 Podmień wszystkie dane do txtLabel //przeslanie z sql juz jest
 2.3 Sprawdź działanie z drukowaniem
 
-3. Stworzenie magazine Page, datagridow i podzakladek w page, stworzenie okienka createproduct
+3. ProductWindow
+3.1 Stworzenie logiki do edytowania produktu, zmienna typu bool do odrozniania editProduct = true, wtedy inny konstruktor
+3.2 Podliczanie ilości pozycji w datagrid
+3.3 zaznaczenie header checkbox = all checkbox zaznaczone
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***

@@ -33,7 +33,7 @@
 
             <!--Add Button-->
 
-            <Button x:Name="AddBookKeepingBtn" Style="{StaticResource addButton}" Grid.Row="1">
+            <Button x:Name="AddBookKeepingBtn" Style="{StaticResource addButton}" Grid.Row="1" HorizontalAlignment="Left" Margin="650,26,0,7" Click="AddBookKeepingBtn_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                     <TextBlock Text="Dodaj produkt"/>

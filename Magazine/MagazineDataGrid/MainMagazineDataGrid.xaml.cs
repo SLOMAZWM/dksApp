@@ -1,4 +1,5 @@
 ﻿using System;
+using dksApp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace dksApp.Magazine.MagazineDataGrid
 {
 	/// <summary>
@@ -25,12 +27,19 @@ namespace dksApp.Magazine.MagazineDataGrid
 		public MainMagazineDataGrid()
 		{
 			InitializeComponent();
-			ProductServiceDataGrid.GetAllFromDataBase(ref ProductDataGrid);
+			InitializeAsync();
+			ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
 
 			CurrentPage = 1;
+		}
+
+		public async Task InitializeAsync()
+		{
+			await ProductServiceDataGrid.GetAllFromDataBaseAsync();
 			UpdateDisplayedProducts();
 			GeneratePaginationButtons();
 			UpdatePaginationButtonStyles();
+			ProductServiceDataGrid.Products.CollectionChanged += Products_CollectionChanged;
 		}
 
 		private void UpdateDisplayedProducts()
@@ -38,6 +47,17 @@ namespace dksApp.Magazine.MagazineDataGrid
 			var displayedProducts = ProductServiceDataGrid.GetProductsPage(CurrentPage);
 			ProductDataGrid.ItemsSource = displayedProducts;
 			UpdatePaginationButtonStyles();
+			UpdateAmountOfItems();
+		}
+
+		private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			UpdateAmountOfItems();
+		}
+
+		private void UpdateAmountOfItems()
+		{
+			NumberOfItems.Text = $"Liczba produktów: {ProductServiceDataGrid.Products.Count}";
 		}
 
 		private void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -59,7 +79,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 		}
 		private void FirstPageButton_Click(object sender, RoutedEventArgs e)
 		{
-			CurrentPage = 1; 
+			CurrentPage = 1;
 			UpdateDisplayedProducts();
 		}
 
@@ -84,7 +104,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 			int totalPages = ProductServiceDataGrid.GetTotalPages();
 			PaginationItemsControl.Items.Clear();
 
-			for (int i = 1; i<= totalPages; i++) 
+			for (int i = 1; i <= totalPages; i++)
 			{
 				var pageButton = new Button
 				{
@@ -124,5 +144,35 @@ namespace dksApp.Magazine.MagazineDataGrid
 			}
 		}
 
+		private async void GridRemoveButton_Click(object sender, RoutedEventArgs e)
+		{
+			var selectedProduct = (dksApp.Product)ProductDataGrid.SelectedItem;
+
+			if (selectedProduct != null)
+			{
+				MessageBoxResult result = MessageBox.Show($"Czy na pewno chcesz usunąć produkt o id: {selectedProduct.IdProduct}?", "Potwierdź wybór", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+				if (result == MessageBoxResult.Yes)
+				{
+					ProductServiceDataGrid.DeleteProduct(selectedProduct.IdProduct);
+
+					await ProductServiceDataGrid.GetAllFromDataBaseAsync();
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				MessageBox.Show("Wybierz produkt do usunięcia!", "Błąd usuwania", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+
+		private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			var filterText = txtFilter.Text;
+			ProductDataGrid.ItemsSource = ProductServiceDataGrid.FilterProducts(filterText);
+		}
 	}
 }

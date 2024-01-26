@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using dksApp.Magazine.MagazineDataGrid;
 using PdfSharp;
+using dksApp.Magazine.Product;
 
 namespace dksApp.Magazine
 {
@@ -48,12 +49,15 @@ namespace dksApp.Magazine
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
 				{ "Wszystkie", new MainMagazineDataGrid() }
-				//{"Allegro", new AllegroDataGrid() },
-				//{"Własne", new UserDataGrid() }
 			};
 
 			return NewDictionaryOfPages;
 		}
 
-	}
+		private void AddBookKeepingBtn_Click(object sender, RoutedEventArgs e)
+		{
+			ProductWindow productWindow = new ProductWindow();
+			productWindow.ShowDialog();
+        }
+    }
 }
