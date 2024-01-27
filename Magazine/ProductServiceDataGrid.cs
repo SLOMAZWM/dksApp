@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows;
+using dksApp.Magazine.Product;
+using dksApp.Magazine.MagazineDataGrid;
 
 namespace dksApp
 {
@@ -132,12 +134,16 @@ namespace dksApp
 
 		public static decimal CalculateValueVAT(decimal nettoPrice, decimal vatPercent)
 		{
-			return nettoPrice * (vatPercent / 100);
+			decimal ValueVat = nettoPrice * (vatPercent / 100);
+
+			return Math.Round(ValueVat, 2, MidpointRounding.AwayFromZero);
 		}
 
 		public static decimal CalculateValueBrutto(decimal nettoPrice, decimal vatValue)
 		{
-			return nettoPrice + vatValue;
+			decimal ValueBrutto = nettoPrice + vatValue;
+
+			return Math.Round(ValueBrutto, 2, MidpointRounding.AwayFromZero);
 		}
 
 		public static ObservableCollection<Product> FilterProducts(string filterText)
@@ -153,6 +159,60 @@ namespace dksApp
 			}
 
 			return filteredProducts;
+		}
+
+		public static void InitializeEditWindow(ref bool ed, ref dksApp.Product p)
+		{
+			ed = true;
+			ProductWindow editedWindow = new ProductWindow(ref ed, ref p);
+			editedWindow.Show();
+		}
+
+		public static void UpdateProductDataBase(dksApp.Product editedProduct)
+		{
+			try
+			{
+				using (SqlConnection con = new SqlConnection(connectionString))
+				{
+					string query = @"UPDATE Product SET 
+                             NumberOfItems = @NumberOfItems, 
+                             NameItem = @NameItem, 
+                             Quantity = @Quantity, 
+                             QuantityType = @QuantityType, 
+                             PKWiU = @PKWiU, 
+                             NettoPrice = @NettoPrice, 
+                             NettoValue = @NettoValue, 
+                             VATPercent = @VATPercent, 
+                             VATValue = @VATValue, 
+                             BruttoValue = @BruttoValue, 
+                             ShowIt = @ShowIt 
+                             WHERE ProductID = @ProductId";
+
+					using (SqlCommand cmd = new SqlCommand(query, con))
+					{
+					
+						cmd.Parameters.AddWithValue("@ProductId", editedProduct.IdProduct);
+						cmd.Parameters.AddWithValue("@NumberOfItems", editedProduct.NumberOfItems);
+						cmd.Parameters.AddWithValue("@NameItem", editedProduct.NameItem ?? (object)DBNull.Value);
+						cmd.Parameters.AddWithValue("@Quantity", editedProduct.Quantity);
+						cmd.Parameters.AddWithValue("@QuantityType", editedProduct.QuantityType ?? (object)DBNull.Value);
+						cmd.Parameters.AddWithValue("@PKWiU", editedProduct.PKWiU ?? (object)DBNull.Value);
+						cmd.Parameters.AddWithValue("@NettoPrice", editedProduct.NettoPrice);
+						cmd.Parameters.AddWithValue("@NettoValue", editedProduct.NettoValue);
+						cmd.Parameters.AddWithValue("@VATPercent", editedProduct.VATPercent ?? (object)DBNull.Value);
+						cmd.Parameters.AddWithValue("@VATValue", editedProduct.VATValue);
+						cmd.Parameters.AddWithValue("@BruttoValue", editedProduct.BruttoValue);
+						cmd.Parameters.AddWithValue("@ShowIt", editedProduct.ShowIt);
+
+						con.Open();
+						cmd.ExecuteNonQuery();
+					}
+				}
+			}
+			catch (SqlException ex)
+			{
+				MessageBox.Show("Błąd aktualizacji produktu w bazie danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 		}
 
 	}

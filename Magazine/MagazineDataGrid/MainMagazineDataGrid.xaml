@@ -70,7 +70,7 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}">
+                                    <Button Style="{StaticResource gridEditButton}" Click="GridEditButton_Click">
                                         <Icon:PackIconMaterial Kind="PencilOffOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
 

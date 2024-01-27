@@ -11,7 +11,7 @@
 2.3 Sprawdź działanie z drukowaniem
 
 3. ProductWindow
-3.1 Stworzenie logiki do edytowania produktu, zmienna typu bool do odrozniania editProduct = true, wtedy inny konstruktor
+TESTY
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***

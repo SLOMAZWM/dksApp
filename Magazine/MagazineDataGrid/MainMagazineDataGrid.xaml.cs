@@ -25,6 +25,9 @@ namespace dksApp.Magazine.MagazineDataGrid
 	{
 		private int CurrentPage;
 		private List<dksApp.Product> products = new List<dksApp.Product>();
+		public static MainMagazineDataGrid Instance { get; private set; }
+
+
 		public MainMagazineDataGrid()
 		{
 			InitializeComponent();
@@ -33,6 +36,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 
 			DeleteProductsBtn.Visibility = Visibility.Collapsed;
 
+			Instance = this;
 			CurrentPage = 1;
 		}
 
@@ -242,6 +246,20 @@ namespace dksApp.Magazine.MagazineDataGrid
 						product.IsSelected = false;
 					}
 				}
+			}
+		}
+
+		private void GridEditButton_Click(object sender, RoutedEventArgs e) 
+		{
+			if(ProductDataGrid.SelectedItem != null) 
+			{
+				dksApp.Product selectedProduct = (dksApp.Product)ProductDataGrid.SelectedItem;
+				bool edited = false;
+				ProductServiceDataGrid.InitializeEditWindow(ref edited, ref selectedProduct);
+			}
+			else
+			{
+				MessageBox.Show("Wybierz produkt do edycji!", "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dksApp.Magazine.MagazineDataGrid;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,20 +17,43 @@ using System.Windows.Shapes;
 
 namespace dksApp.Magazine.Product
 {
-    /// <summary>
-    /// Interaction logic for ProductWindow.xaml
-    /// </summary>
-    public partial class ProductWindow : Window
-    {
-        public ProductWindow()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// Interaction logic for ProductWindow.xaml
+	/// </summary>
+	public partial class ProductWindow : Window
+	{
+		private dksApp.Product editProduct;
+		private bool editetProduct;
+		public ProductWindow()
+		{
+			InitializeComponent();
+			editetProduct = false;
+		}
 
-        private void ExitBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+		public ProductWindow(ref bool ed, ref dksApp.Product p)
+		{
+			InitializeComponent();
+			editetProduct = ed;
+			editProduct = p;
+			InitializeEditWindow(ref p);
+		}
+
+		private void InitializeEditWindow(ref dksApp.Product product)
+		{
+			ProductNameTxt.Text = product.NameItem;
+			TypeAmountTxt.Text = product.QuantityType;
+			PKWiUTxt.Text = product.PKWiU;
+			NettoOneTxt.Text = product.NettoPrice.ToString();
+			VatTxt.Text = product.VATPercent;
+			decimal ValueVat = ProductServiceDataGrid.CalculateValueVAT(product.NettoPrice, Convert.ToDecimal(product.VATPercent));
+			ValueVatTxt.Text = ValueVat.ToString();
+			ProductServiceDataGrid.CalculateValueBrutto(product.NettoPrice, ValueVat);
+		}
+
+		private void ExitBtn_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
 
 		private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
@@ -70,42 +94,87 @@ namespace dksApp.Magazine.Product
 
 		private void RememberProductBtn_Click(object sender, RoutedEventArgs e)
 		{
-			if (!AreAllInputsValid())
+			if (editetProduct == false)
 			{
-				MessageBox.Show("Wypełnij wszystkie pola!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
-				return;
+				if (!AreAllInputsValid())
+				{
+					MessageBox.Show("Wypełnij wszystkie pola!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+					return;
+				}
+				else
+				{
+					dksApp.Product newProduct = new dksApp.Product();
+					try
+					{
+						newProduct.NameItem = ProductNameTxt.Text;
+						newProduct.QuantityType = TypeAmountTxt.Text;
+						newProduct.PKWiU = PKWiUTxt.Text;
+						newProduct.NettoPrice = decimal.Parse(NettoOneTxt.Text);
+						newProduct.VATPercent = VatTxt.Text;
+						newProduct.VATValue = decimal.Parse(ValueVatTxt.Text);
+						newProduct.BruttoValue = decimal.Parse(ValueBruttoTxt.Text);
+						newProduct.ShowIt = true;
+
+						if (newProduct != null)
+						{
+							ProductServiceDataGrid.AddProductToDataBase(newProduct);
+
+							MessageBox.Show("Poprawnie dodano produkt do magazynu!", "Poprawny zapis produktu", MessageBoxButton.OK, MessageBoxImage.Information);
+						}
+						else
+						{
+							MessageBox.Show("Wypełnij wszystkie pola w produkcie!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+						}
+					}
+					catch (SqlException ex)
+					{
+						MessageBox.Show("Błąd dodawania produktu do bazy danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+					}
+				}
 			}
 			else
 			{
-				dksApp.Product newProduct = new dksApp.Product();
-				try
+				if (!AreAllInputsValid())
 				{
-					newProduct.NameItem = ProductNameTxt.Text;
-					newProduct.QuantityType = TypeAmountTxt.Text;
-					newProduct.PKWiU = PKWiUTxt.Text;
-					newProduct.NettoPrice = decimal.Parse(NettoOneTxt.Text);
-					newProduct.VATPercent = VatTxt.Text;
-					newProduct.VATValue = decimal.Parse(ValueVatTxt.Text);
-					newProduct.BruttoValue = decimal.Parse(ValueBruttoTxt.Text);
-					newProduct.ShowIt = true;
-
-					if (newProduct != null)
-					{
-						ProductServiceDataGrid.AddProductToDataBase(newProduct);
-
-						MessageBox.Show("Poprawnie dodano produkt do magazynu!", "Poprawny zapis produktu", MessageBoxButton.OK, MessageBoxImage.Information);
-					}
-					else
-					{
-						MessageBox.Show("Wypełnij wszystkie pola w produkcie!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
-					}
+					MessageBox.Show("Wypełnij wszystkie pola!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+					return;
 				}
-				catch (SqlException ex)
+				else
 				{
-					MessageBox.Show("Błąd dodawania produktu do bazy danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+					{
+						try
+						{
+							editProduct.NameItem = ProductNameTxt.Text;
+							editProduct.QuantityType = TypeAmountTxt.Text;
+							editProduct.PKWiU = PKWiUTxt.Text;
+							editProduct.NettoPrice = decimal.Parse(NettoOneTxt.Text);
+							editProduct.VATPercent = VatTxt.Text;
+							editProduct.VATValue = decimal.Parse(ValueVatTxt.Text);
+							editProduct.BruttoValue = decimal.Parse(ValueBruttoTxt.Text);
+
+							if (editProduct != null)
+							{
+								ProductServiceDataGrid.UpdateProductDataBase(editProduct);
+
+								MessageBox.Show("Poprawnie zmieniono produkt w magazynie!", "Poprawny zapis produktu", MessageBoxButton.OK, MessageBoxImage.Information);
+
+								MainMagazineDataGrid.Instance.InitializeAsync();
+
+								this.Close();
+							}
+							else
+							{
+								MessageBox.Show("Wypełnij wszystkie pola w produkcie!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+							}
+						}
+						catch (SqlException ex)
+						{
+							MessageBox.Show("Błąd edycji produktu" + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
+						}
+					}
+
 				}
 			}
-			
 		}
 
 		private bool AreAllInputsValid()
