@@ -13,6 +13,11 @@
 3. ProductWindow
 TESTY
 
+4. Kontrahenci
+4.1 Stworzenie paginacji dla datagrida
+4.2 Wyszukiwarka w datagrid
+4.3 Checkboxy w dataGrid
+
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***
 Responsywność* [must have]

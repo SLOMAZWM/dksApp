@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using dksApp.Contractors.Dialog;
 using dksApp.Contractors.AddContractorsW;
 
 namespace dksApp.Contractors
@@ -38,32 +37,17 @@ namespace dksApp.Contractors
 
         private void AddContractor_Click(object sender, RoutedEventArgs e)
         {
-            ContractorsDialog contractorsDialog = new ContractorsDialog(this);
-            contractorsDialog.ShowDialog();
+            AddBuyerW newContractor = new AddBuyerW();
+            newContractor.ShowDialog();
 
-            if(userChoice == 1)
-            {
-                AddSellerW SellerWindow = new AddSellerW();
-                SellerWindow.ShowDialog();
-            }
-            else if(userChoice == 2) 
-            {
-                AddBuyerW BuyerWindow = new AddBuyerW();
-                BuyerWindow.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Błąd dodawania kontrahenta!", "Błąd wyboru!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
         }
 
         private Dictionary<string, Page> InitializeDataGridPages()
         {
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
-                { "Wszyscy", new AllDataGridPage() },
-                {"Sprzedawcy", new SuppliersPage() },
-                {"Nabywcy", new RecipientsPage() }
+                { "Wszyscy", new AllDataGridPage() }
             };
 
             return NewDictionaryOfPages;

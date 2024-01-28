@@ -23,6 +23,14 @@ namespace dksApp.Contractors
         public AllDataGridPage()
         {
             InitializeComponent();
+			AsyncInitialize();
+
+			ContractorsDataGrid.ItemsSource = ContractorsServiceDataGrid.BuyerList;
+        }
+
+        public async Task AsyncInitialize()
+        {
+            await ContractorsServiceDataGrid.GetBuyersFromDataBase();
         }
     }
 }

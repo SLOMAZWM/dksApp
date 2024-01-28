@@ -68,7 +68,7 @@ AllowsTransparency="True" MouseDown="Border_MouseDown">
                     <Button x:Name="SaveBuyerBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="SaveBuyerBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Zapisz Sprzedającego"/>
+                            <TextBlock Text="Zapisz Kontrahenta"/>
                         </StackPanel>
                     </Button>
                     <Button Click="CancelBtn_Click" x:Name="CancelBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Background="#DF0000">
