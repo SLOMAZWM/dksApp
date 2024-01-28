@@ -17,7 +17,6 @@ namespace dksApp
 	{
 		private static string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
 		public static ObservableCollection<Product> Products { get; set; }
-		public static int TotalItemsCount => Products.Count;
 		private static int PageSize = 7;
 		
 		public static void AddProductToDataBase(Product product)

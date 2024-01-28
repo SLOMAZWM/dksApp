@@ -23,7 +23,6 @@ namespace dksApp.Contractors
     public partial class ContractorsPage : Page
     {
 
-        public byte userChoice { get; set; }
         private NavigatorManager navigator;
         private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 

@@ -14,9 +14,16 @@
 TESTY
 
 4. Kontrahenci
-4.1 Stworzenie paginacji dla datagrida
-4.2 Wyszukiwarka w datagrid
-4.3 Checkboxy w dataGrid
+
+4.1 Wyszukiwarka w datagrid
+4.2 Dostosowanie okienka dodawania + zapis do bazy danych
+
+5. Poprawienie Faktury
+5.1 Kod umozliwiajacy odczyt z bazy danych po wybraniu "zapisane" w okienkach dialogowych z bazy
+a) kontahentow
+b) przedmioty
+
+6. Poprawa Frontendu w dodaj Kontrahenta i Dodaj Produkt
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***

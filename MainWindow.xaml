@@ -9,7 +9,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
 
-    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown">
+    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown" BorderThickness="1" BorderBrush="Black">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
