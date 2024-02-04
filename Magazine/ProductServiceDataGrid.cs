@@ -111,7 +111,24 @@ namespace dksApp
 			return pageProducts;
 		}
 
-		public static int GetTotalPages()
+        public static ObservableCollection<Product> GetProductsPage(int currentPage, int PageSize)
+        {
+            int startIndex = (currentPage - 1) * PageSize;
+            int endIndex = Math.Min(startIndex + PageSize, Products.Count);
+            var pageProducts = new ObservableCollection<Product>();
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                if (i >= 0 && i < Products.Count)
+                {
+                    pageProducts.Add(Products[i]);
+                }
+            }
+
+            return pageProducts;
+        }
+
+        public static int GetTotalPages()
 		{
 			return (int)Math.Ceiling((double)Products.Count / PageSize);
 		}

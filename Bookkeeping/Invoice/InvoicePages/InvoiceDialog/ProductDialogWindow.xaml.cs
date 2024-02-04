@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products;
+using dksApp.Bookkeeping.LoadInfoWindow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,20 +21,54 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
     /// </summary>
     public partial class ProductDialogWindow : Window
     {
-        public delegate void NewProductEventHandler();
+        ProductsInvoicePage? NewMotherPage;
+        ProductsEditPage? EditMotherPage;
 
-        public event NewProductEventHandler NewProductRequested;
-
-        public ProductDialogWindow()
+        public ProductDialogWindow(ProductsInvoicePage motherPage)
         {
             InitializeComponent();
+            NewMotherPage = motherPage;
+            EditMotherPage = null;
+        }
+
+        public ProductDialogWindow(ProductsEditPage motherPage)
+        {
+            InitializeComponent();
+            EditMotherPage = motherPage;
+            NewMotherPage = null;
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewCheckBox.IsChecked == true)
+            if(NewMotherPage != null)
             {
-                NewProductRequested?.Invoke();
+                if (NewCheckBox.IsChecked == true)
+                {
+                    NewMotherPage!.isNew = true;
+                    NewMotherPage.isLoad = false;
+                }
+                else if (SavedCheckBox.IsChecked == true)
+                {
+                    NewMotherPage!.isNew = false;
+                    NewMotherPage.isLoad = true;
+                }
+            }
+            else if(EditMotherPage != null)
+            {
+                if (NewCheckBox.IsChecked == true)
+                {
+                    EditMotherPage!.isNew = true;
+                    EditMotherPage.isLoad = false;
+                }
+                else if (SavedCheckBox.IsChecked == true)
+                {
+                    EditMotherPage!.isNew = false;
+                    EditMotherPage.isLoad = true;
+                }
+            }
+            else
+            {
+                return;
             }
 
             this.Close();

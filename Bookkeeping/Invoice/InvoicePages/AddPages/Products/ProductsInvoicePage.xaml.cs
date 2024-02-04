@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products;
 using System.Security.Cryptography.X509Certificates;
+using dksApp.Bookkeeping.LoadInfoWindow;
 
 namespace dksApp.Bookkeeping.Invoice.InvoicePages
 {
@@ -36,14 +37,30 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
         }
 
-		private void AddProductBtn_Click(object sender, RoutedEventArgs e)
+        public bool isNew { get; set; }
+        public bool isLoad { get; set; }
+
+        private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            ProductDialogWindow dialog = new ProductDialogWindow();
+            ProductDialogWindow dialog = new ProductDialogWindow(this);
             dialog.Owner = parentWindow;
-            dialog.NewProductRequested += OnNewProductRequested;
             dialog.ShowDialog();
-            dialog.NewProductRequested -= OnNewProductRequested;
+
+            if(isNew == true)
+            {
+                OnNewProductRequested();
+            }
+            else if(isLoad == true)
+            {
+                LoadWindow loadW = new LoadWindow();
+                loadW.ShowDialog();
+            }
         }
+
+        //private void OnLoadProductRequested()
+        //{
+        //    //logic for take to a load product from list
+        //}
 
         private void OnNewProductRequested()
         {

@@ -6,81 +6,119 @@
         xmlns:local="clr-namespace:dksApp.Contractors.AddContractorsW"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-                                            Title="ContractorsDialog" Height="700" Width="800" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
-AllowsTransparency="True" MouseDown="Border_MouseDown">
+        Title="Okienko Kontrahenta" Height="500" Width="900" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
+AllowsTransparency="True">
 
-    <Border Background="#eff2f7" CornerRadius="30" BorderBrush="#6741d9" BorderThickness="1">
-
+    <Border Background="#eff2f7" CornerRadius="30" MouseLeftButtonDown="Border_MouseDown" BorderThickness="1" BorderBrush="#6741d9">
         <Grid>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Dodaj Kontahenta - Nabywca" Style="{StaticResource TitlePage}" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--Top Buttons-->
 
-            <Separator Height="1" Grid.Row="1" Background="#dae2ea" Margin="0,-1,0,10"/>
-
-            <StackPanel x:Name="InputSP" Grid.Row="2">
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Nabywcy: "/>
-                    <TextBox x:Name="BuyerNameTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Kod Pocztowy: "/>
-                    <TextBox x:Name="BuyerZipCodeTxt" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Miasto: "/>
-                    <TextBox x:Name="BuyerCity" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Ulica: "/>
-                    <TextBox x:Name="BuyerStreet" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="NIP: "/>
-                    <TextBox x:Name="BuyerNIP" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0" />
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Banku: "/>
-                    <TextBox x:Name="BuyerBankName" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Numer Rachunku: "/>
-                    <TextBox x:Name="BuyerBankAccount" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
-                </StackPanel>
-
-                <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBlock Style="{StaticResource TextInput}" Text="Nazwa Zapisu: "/>
-                    <TextBox x:Name="NameToSave" Style="{StaticResource Input}" Width="600" Margin="0,15,0,0"/>
-                </StackPanel>
-
-                <StackPanel Margin="9" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Button x:Name="SaveBuyerBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="SaveBuyerBtn_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Zapisz Kontrahenta"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Click="CancelBtn_Click" x:Name="CancelBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Background="#DF0000">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="CloseCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Anuluj"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                <Button x:Name="ExitBtn" Click="ExitBtn_Click" Style="{StaticResource topButton}">
+                    <Icon:PackIconMaterial Kind="LocationExit"/>
+                </Button>
             </StackPanel>
 
-        </Grid>
+            <!--Page Title-->
 
+            <StackPanel Grid.Row="1">
+
+                <TextBlock x:Name="TitleNameTxt" Margin="0,10,0,0" Text="Zarządzaj Kontrahentem" Style="{StaticResource TitlePage}" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Column Title-->
+
+                <Separator Margin="0,10,0,0" VerticalAlignment="Bottom" Height="0.8" Grid.Column="0" Grid.ColumnSpan="2" Background="#7e5fdc"/>
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock" x:Key="FormsBlock" BasedOn="{StaticResource TextInput}">
+                            <Setter Property="Width" Value="150"/>
+                            <Setter Property="Margin" Value="0,13,0,0"/>
+                        </Style>
+                        <Style TargetType="TextBox" x:Key="FormsBox" BasedOn="{StaticResource Input}">
+                            <Setter Property="Width" Value="500"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,30,0,0">
+                        <TextBlock Text="Nazwa Nabywcy:" Style="{StaticResource FormsBlock}"/>
+                        <TextBox x:Name="BuyerNameTxt" Style="{StaticResource FormsBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="Miasto:" Style="{StaticResource FormsBlock}"/>
+                        <TextBox x:Name="BuyerCity" Style="{StaticResource FormsBox}"/>
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="Adres zamieszkania:" Style="{StaticResource FormsBlock}"/>
+                        <TextBox x:Name="BuyerStreet" Style="{StaticResource FormsBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="Kod Pocztowy:" Style="{StaticResource FormsBlock}"/>
+                        <TextBox x:Name="BuyerZipCodeTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Text="NIP" Style="{StaticResource FormsBlock}"/>
+                        <TextBox x:Name="BuyerNIP" Style="{StaticResource FormsBox}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+
+
+                        <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="SaveBuyerBtn_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ContentSaveCheck" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                                <TextBlock Text="Zapisz Nabywcę"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="ExitProductBtn" Click="ExitBtn_Click" Style="{StaticResource InvoiceDeleteButton}" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="LocationExit" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                                <TextBlock Text="Wyjdź"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+
+            </Grid>
+        </Grid>
     </Border>
 </Window>

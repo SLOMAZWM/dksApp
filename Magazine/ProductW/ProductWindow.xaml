@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:dksApp.Magazine.Product"
                 xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-           Title="Okienko Produktu" Height="700" Width="1080" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
+           Title="Okienko Produktu" Height="550" Width="900" Background="Transparent" WindowStartupLocation="CenterOwner" WindowStyle="None"
 AllowsTransparency="True">
 
     <Border Background="#eff2f7" CornerRadius="30" MouseLeftButtonDown="Border_MouseLeftButtonDown" BorderThickness="1" BorderBrush="#6741d9">

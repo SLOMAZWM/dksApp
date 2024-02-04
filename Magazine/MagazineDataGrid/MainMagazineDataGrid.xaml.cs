@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using dksApp.Contractors;
 
 
 namespace dksApp.Magazine.MagazineDataGrid
@@ -46,7 +47,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 			UpdateDisplayedProducts();
 			GeneratePaginationButtons();
 			UpdatePaginationButtonStyles();
-			ProductServiceDataGrid.Products.CollectionChanged += Products_CollectionChanged;
+            ProductServiceDataGrid.Products.CollectionChanged += Products_CollectionChanged;
 		}
 
 		private void UpdateDisplayedProducts()
@@ -55,6 +56,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 			ProductDataGrid.ItemsSource = displayedProducts;
 			UpdatePaginationButtonStyles();
 			UpdateAmountOfItems();
+			GeneratePaginationButtons();
 		}
 
 		private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -108,21 +110,34 @@ namespace dksApp.Magazine.MagazineDataGrid
 
 		private void GeneratePaginationButtons()
 		{
-			int totalPages = ProductServiceDataGrid.GetTotalPages();
-			PaginationItemsControl.Items.Clear();
+            int totalPages = ProductServiceDataGrid.GetTotalPages();
+            PaginationItemsControl.Items.Clear();
 
-			for (int i = 1; i <= totalPages; i++)
-			{
-				var pageButton = new Button
-				{
-					Content = i.ToString(),
-					Style = this.FindResource("pagingButton") as Style
-				};
-				pageButton.Click += PageButton_Click;
-				PaginationItemsControl.Items.Add(pageButton);
-			};
+            int halfRange = 3;
+            int startPage = Math.Max(1, CurrentPage - halfRange);
+            int endPage = Math.Min(totalPages, CurrentPage + halfRange);
 
-		}
+            if (endPage - startPage < 5)
+            {
+                if (startPage > 1) startPage = Math.Max(1, endPage - 5);
+                else endPage = Math.Min(totalPages, startPage + 5);
+            }
+
+            for (int pageNumber = startPage; pageNumber <= endPage; pageNumber++)
+            {
+                var button = new Button
+                {
+                    Content = pageNumber.ToString(),
+                    Style = FindResource("pagingButton") as Style
+                };
+                button.Click += PageButton_Click;
+
+                PaginationItemsControl.Items.Add(button);
+            }
+
+            UpdatePaginationButtonStyles();
+
+        }
 
 		private void UpdatePaginationButtonStyles()
 		{
@@ -162,8 +177,6 @@ namespace dksApp.Magazine.MagazineDataGrid
 				if (result == MessageBoxResult.Yes)
 				{
 					ProductServiceDataGrid.DeleteProduct(selectedProduct.IdProduct);
-
-					await ProductServiceDataGrid.GetAllFromDataBaseAsync();
 				}
 				else
 				{
@@ -175,13 +188,21 @@ namespace dksApp.Magazine.MagazineDataGrid
 				MessageBox.Show("Wybierz produkt do usunięcia!", "Błąd usuwania", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 
-			InitializeAsync();
+			await InitializeAsync();
 		}
 
 		private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			var filterText = txtFilter.Text;
-			ProductDataGrid.ItemsSource = ProductServiceDataGrid.FilterProducts(filterText);
+
+			if(filterText.Length > 0) 
+			{
+                ProductDataGrid.ItemsSource = ProductServiceDataGrid.FilterProducts(filterText);
+            }
+			else
+			{
+				UpdateDisplayedProducts();
+			}
 		}
 
 		private void CheckBox_Checked(object sender, RoutedEventArgs e) 
@@ -203,7 +224,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 			DeleteProductsBtn.Visibility = products.Count >= 2 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
-		private void DeleteProducts_Click(object sender, RoutedEventArgs e)
+		private async void DeleteProducts_Click(object sender, RoutedEventArgs e)
 		{
 			var selectedProducts = ProductDataGrid.Items.Cast<dksApp.Product>().ToList().Where(p => p.IsSelected).ToList();
 
@@ -219,8 +240,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 					MessageBox.Show($"Anulowano usunięcie produktu o ID: {product.IdProduct}", "Usuwanie nie powiodło się!", MessageBoxButton.OK, MessageBoxImage.Warning);
 				}
 			}
-			UpdateAmountOfItems();
-			InitializeAsync();
+            await InitializeAsync();
 		}
 
 		private void ProductDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

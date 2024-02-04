@@ -1,9 +1,11 @@
 ﻿using dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog;
+using dksApp.Bookkeeping.LoadInfoWindow;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,14 +36,25 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
 			ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
 		}
 
-		private void AddProductBtn_Click(object sender, RoutedEventArgs e)
+        public bool isNew { get; set; }
+        public bool isLoad { get; set; }
+
+        private void AddProductBtn_Click(object sender, RoutedEventArgs e)
 		{
-			ProductDialogWindow dialog = new ProductDialogWindow();
-			dialog.Owner = parentWindow;
-			dialog.NewProductRequested += OnNewProductRequested;
-			dialog.ShowDialog();
-			dialog.NewProductRequested -= OnNewProductRequested;
-		}
+            ProductDialogWindow dialog = new ProductDialogWindow(this);
+            dialog.Owner = parentWindow;
+            dialog.ShowDialog();
+
+            if (isNew == true)
+            {
+                OnNewProductRequested();
+            }
+            else if (isLoad == true)
+            {
+                LoadWindow loadW = new LoadWindow();
+                loadW.ShowDialog();
+            }
+        }
 
 		private void OnNewProductRequested()
 		{

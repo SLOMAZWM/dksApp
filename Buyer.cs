@@ -16,9 +16,7 @@ namespace dksApp
         public string? BuyerCity { get; set; }
         public string? BuyerZipCode { get; set; }
         public string? BuyerNIP { get; set; }
-        public string? BuyerBankName { get; set; }
-        public string? BuyerBankAccount { get; set; }
-        public string? BuyerTitle { get; set; }
+
 		private bool _isSelected;
 		public bool IsSelected
 		{

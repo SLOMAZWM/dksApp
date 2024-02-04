@@ -37,7 +37,7 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                 <TextBlock Margin="15, 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
     Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
-                <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}"/>
+                <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" TextChanged="txtFilter_TextChanged"/>
 
                 <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
             </Grid>
@@ -69,11 +69,11 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}">
+                                    <Button Style="{StaticResource gridEditButton}" Click="EditContractorBtn_Click">
                                         <Icon:PackIconMaterial Kind="PencilOffOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
 
-                                    <Button Style="{StaticResource gridRemoveButton}" Margin="5,0,0,0">
+                                    <Button Style="{StaticResource gridRemoveButton}" Margin="5,0,0,0" Click="DeleteContractorBtn_Click">
                                         <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
                                 </StackPanel>
@@ -125,7 +125,7 @@ Background="White" Margin="0,20,20,20">
 
             </Border>
 
-            <Button x:Name="DeleteContractorBtn" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource InvoiceDeleteButton}" Margin="10,0,0,0">
+            <Button x:Name="DeleteContractorBtn" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource InvoiceDeleteButton}" Margin="10,0,0,0" Click="DeleteContractorsBtn_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="DeleteCircle" Style="{StaticResource gridButtonIcon}" Margin="0,0,5,0"/>
                     <TextBlock Text="Usuń kontrahenta"/>
