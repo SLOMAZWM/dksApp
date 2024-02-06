@@ -40,7 +40,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
         public bool isLoad { get; set; }
 
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
-		{
+        {
             ProductDialogWindow dialog = new ProductDialogWindow(this);
             dialog.Owner = parentWindow;
             dialog.ShowDialog();
@@ -51,31 +51,47 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
             }
             else if (isLoad == true)
             {
-                LoadWindow loadW = new LoadWindow();
+                LoadWindow loadW = new LoadWindow(this);
                 loadW.ShowDialog();
             }
         }
 
-		private void OnNewProductRequested()
-		{
-			Product newProduct = new Product()
-			{
-				NumberOfItems = LP
-			};
-			AddNewProduct newProductWindow = new AddNewProduct(newProduct);
-			newProductWindow.ShowDialog();
-			if (newProductWindow.IsCreated == true)
-			{
-				parentWindow.NewInvoice.Products.Add(newProduct);
-				LP++;
-			}
-			else
-			{
-				return;
-			}
-		}
+        public void OnLoadProductRequested(Product databaseProduct)
+        {
+            databaseProduct.NumberOfItems = LP;
+            AddNewProduct loadedProductW = new AddNewProduct(databaseProduct);
+            loadedProductW.ShowDialog();
+            if (loadedProductW.IsCreated == true)
+            {
+                parentWindow.NewInvoice.Products.Add(databaseProduct);
+                LP++;
+            }
+            else
+            {
+                return;
+            }
+        }
 
-		private bool IsProductsDataGridEmpty()
+        private void OnNewProductRequested()
+        {
+            Product newProduct = new Product()
+            {
+                NumberOfItems = LP
+            };
+            AddNewProduct newProductWindow = new AddNewProduct(newProduct);
+            newProductWindow.ShowDialog();
+            if (newProductWindow.IsCreated == true)
+            {
+                parentWindow.NewInvoice.Products.Add(newProduct);
+                LP++;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private bool IsProductsDataGridEmpty()
 		{
 			if (ProductsDataGrid.Items.IsEmpty)
 			{

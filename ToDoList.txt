@@ -22,13 +22,11 @@ TESTY
 5. Poprawienie Faktury
 5.1 Kod umozliwiajacy odczyt z bazy danych po wybraniu "zapisane" w okienkach dialogowych z bazy
 a) kontahentow
-b) przedmioty
 
-b.1 - mozliwe dodawanie wielu przedmiotow za jednym zamachem
-b.2 - dodanie paginacji
-b.3 - poprawa frontend
+Stworzenie okienka dla a)
+Dodanie logiki do tworzenia nowych faktur, oraz w korekcie faktury dla kontrahentow
 
-Stworzenie nowego okienka, ktory bedzie w zaleznosci od a) lub b), pobieral do swojego datagrida odpowiednie zapytanie sql
+6. Przeniesienie Window do Page, w celu optymalizacji UI
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***

@@ -48,7 +48,8 @@ namespace dksApp.Bookkeeping.Invoice
 				{"Sprzedawca", new SellerEditPage(this)},
 				{"Nabywca", new BuyerEditPage(this) },
 				{"Informacje", new InformationEditPage(this) },
-				{"Produkty", new ProductsEditPage(this) }
+				{"Produkty", new ProductsEditPage(this)
+        }
 			};
 
 			return newPages;

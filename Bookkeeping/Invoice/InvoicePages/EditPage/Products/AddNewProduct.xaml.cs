@@ -27,10 +27,24 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products
 			InitializeComponent();
 			Product = p;
 			IsCreated = false;
+			InitializeProduct(Product);
 		}
 
-		//frontSETTINGS
-		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private void InitializeProduct(Product Product)
+        {
+            ProductNameTxt.Text = Product.NameItem;
+            TypeAmountTxt.Text = Product.QuantityType;
+            AmountTxt.Text = Convert.ToString(Product.Quantity);
+            PKWiUTxt.Text = Product.PKWiU;
+            NettoOneTxt.Text = Convert.ToString(Product.NettoPrice);
+            ValueNettoTxt.Text = Convert.ToString(Product.NettoValue);
+            VatTxt.Text = Product.VATPercent;
+            ValueVatTxt.Text = Convert.ToString(Product.VATValue);
+            ValueBruttoTxt.Text = Convert.ToString(Product.BruttoValue);
+        }
+
+        //frontSETTINGS
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (e.ChangedButton == MouseButton.Left)
 			{

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using dksApp.Bookkeeping.Invoice.InvoicePages;
+using dksApp.Bookkeeping.Invoice.InvoicePages.EditPage.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +21,31 @@ namespace dksApp.Bookkeeping.LoadInfoWindow
     /// </summary>
     public partial class LoadWindow : Window
     {
-        private int CurrentPage = 1;
-        public LoadWindow()
+        ProductsInvoicePage motherPageAddInvoice;
+        ProductsEditPage motherPageEditInvoice;
+        private int CurrentPage;
+        public bool isAddedProduct = false;
+
+        public LoadWindow(ProductsInvoicePage page)
         {
             InitializeComponent();
             ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
             GeneratePaginationButtons();
+            CurrentPage = 1;
+            UpdateDisplayedProducts();
+
+            motherPageAddInvoice = page;
+        }
+
+        public LoadWindow(ProductsEditPage page)
+        {
+            InitializeComponent();
+            ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
+            GeneratePaginationButtons();
+            CurrentPage = 1;
+            UpdateDisplayedProducts();
+
+            motherPageEditInvoice = page;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -56,9 +77,10 @@ namespace dksApp.Bookkeeping.LoadInfoWindow
 
         private void UpdateDisplayedProducts()
         {
-            var displayedProducts = ProductServiceDataGrid.GetProductsPage(CurrentPage, 8);
+            var displayedProducts = ProductServiceDataGrid.GetProductsPage(CurrentPage);
             ProductDataGrid.ItemsSource = displayedProducts;
             UpdatePaginationButtonStyles();
+            GeneratePaginationButtons();
         }
 
         private void NextPageButton_Click(object sender, RoutedEventArgs e)
@@ -105,16 +127,29 @@ namespace dksApp.Bookkeeping.LoadInfoWindow
             int totalPages = ProductServiceDataGrid.GetTotalPages();
             PaginationItemsControl.Items.Clear();
 
-            for (int i = 1; i <= totalPages; i++)
+            int halfRange = 1;
+            int startPage = Math.Max(1, CurrentPage - halfRange);
+            int endPage = Math.Min(totalPages, CurrentPage + halfRange);
+
+            if (endPage - startPage < 2)
             {
-                var pageButton = new Button
+                if (startPage > 1) startPage = Math.Max(1, endPage - 2);
+                else endPage = Math.Min(totalPages, startPage + 2);
+            }
+
+            for (int pageNumber = startPage; pageNumber <= endPage; pageNumber++)
+            {
+                var button = new Button
                 {
-                    Content = i.ToString(),
-                    Style = this.FindResource("pagingButton") as Style
+                    Content = pageNumber.ToString(),
+                    Style = FindResource("pagingButton") as Style
                 };
-                pageButton.Click += PageButton_Click;
-                PaginationItemsControl.Items.Add(pageButton);
-            };
+                button.Click += PageButton_Click;
+
+                PaginationItemsControl.Items.Add(button);
+            }
+
+            UpdatePaginationButtonStyles();
 
         }
 
@@ -142,6 +177,23 @@ namespace dksApp.Bookkeeping.LoadInfoWindow
                         }
                     }
                 }
+            }
+        }
+
+        private void LoadContentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ProductDataGrid.SelectedItem;
+            isAddedProduct = true;
+
+            if (selectedItem != null && motherPageAddInvoice != null) 
+            {
+                motherPageAddInvoice.OnLoadProductRequested((Product)selectedItem);
+                this.Close();
+            }
+            else if(selectedItem != null && motherPageEditInvoice != null) 
+            {
+                motherPageEditInvoice.OnLoadProductRequested((Product)selectedItem);
+                this.Close();
             }
         }
     }

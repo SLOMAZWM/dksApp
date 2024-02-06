@@ -41,7 +41,7 @@ AllowsTransparency="True">
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5,0,5">
                 
-                <Button x:Name="LoadContentBtn" Style="{StaticResource InvoiceRememberButton}" Margin="0">
+                <Button x:Name="LoadContentBtn" Style="{StaticResource InvoiceRememberButton}" Margin="40,0,0,0" Click="LoadContentBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="FolderDownload" Margin="0,5,5,0" Width="10" Height="10"/>
                         <TextBlock x:Name="LoadContentBtnTxt" Text="Wczytaj produkt"/>
@@ -56,7 +56,7 @@ AllowsTransparency="True">
                 </Button>
 
                 <!-- Pagination Section -->
-                <Border HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1" CornerRadius="5" Padding="5" Background="White" Margin="125,20,20,20">
+                <Border HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1" CornerRadius="5" Padding="5" Background="White" Margin="75,20,20,20">
                     <StackPanel Orientation="Horizontal" x:Name="PaginationStackPanel">
                         <Button Style="{StaticResource pagingButton}" Click="FirstPageButton_Click">
                             <Icon:PackIconMaterial Kind="ChevronDoubleLeft" Style="{StaticResource pagingButtonIcon}"/>

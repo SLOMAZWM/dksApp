@@ -52,15 +52,26 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
             else if(isLoad == true)
             {
-                LoadWindow loadW = new LoadWindow();
+                LoadWindow loadW = new LoadWindow(this);
                 loadW.ShowDialog();
             }
         }
 
-        //private void OnLoadProductRequested()
-        //{
-        //    //logic for take to a load product from list
-        //}
+        public void OnLoadProductRequested(Product databaseProduct)
+        {
+            databaseProduct.NumberOfItems = LP;
+            AddNewProduct loadedProductW = new AddNewProduct(databaseProduct);
+            loadedProductW.ShowDialog();
+            if(loadedProductW.IsCreated == true) 
+            {
+                parentWindow.NewInvoice.Products.Add(databaseProduct);
+                LP++;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         private void OnNewProductRequested()
         {

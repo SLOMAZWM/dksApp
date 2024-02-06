@@ -28,6 +28,20 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
             InitializeComponent();
             Product = p;
             IsCreated = false;
+            InitializeProduct(Product);
+        }
+
+        private void InitializeProduct(Product Product)
+        {
+            ProductNameTxt.Text = Product.NameItem;
+            TypeAmountTxt.Text = Product.QuantityType;
+            AmountTxt.Text = Convert.ToString(Product.Quantity);
+            PKWiUTxt.Text = Product.PKWiU;
+            NettoOneTxt.Text = Convert.ToString(Product.NettoPrice);
+            ValueNettoTxt.Text = Convert.ToString(Product.NettoValue);
+            VatTxt.Text = Product.VATPercent;
+            ValueVatTxt.Text = Convert.ToString(Product.VATValue);
+            ValueBruttoTxt.Text = Convert.ToString(Product.BruttoValue);
         }
 
         //frontSETTINGS
