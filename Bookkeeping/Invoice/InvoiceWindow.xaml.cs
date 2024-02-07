@@ -39,19 +39,56 @@ namespace dksApp.Bookkeeping.Invoice
 			InitializeInvoiceData();
 		}
 
-		public InvoiceWindow()
-		{
-			InitializeComponent();
-		}
-
 		private void InitializeInvoiceData()
 		{
-			
+			//Seller Info
+			SellerNameTxt.Text = DetailedInvoice.SellerName;
+			SellerStreetTxt.Text= DetailedInvoice.SellerStreet;
+			SellerZipCodeTxt.Text = DetailedInvoice.SellerZipCode;
+			SellerCityTxt.Text = DetailedInvoice.SellerCity;
+			SellerNIPTxt.Text = DetailedInvoice.SellerNIP;
+			SellerBankNumberTxt.Text = DetailedInvoice.SellerBankAccount;
+
+			//Buyer Info
+			BuyerNameTxt.Text = DetailedInvoice.BuyerName;
+			BuyerStreetTxt.Text = DetailedInvoice.BuyerStreet;
+			BuyerZipCodeTxt.Text = DetailedInvoice.BuyerZipCode;
+			BuyerCityTxt.Text = DetailedInvoice.BuyerCity;
+			BuyerNIPTxt.Text = DetailedInvoice.BuyerNIP;
+
+			//Warning Display
+
+			WarningTxt.Text = DetailedInvoice.Comments;
+
+			//Products
+			InitializeProductList();
+
+			//Information
+
+			PaymentTypeTxt.Text = DetailedInvoice.PaymentType;
+			PaymentDateTxt.Text = DetailedInvoice.PaymentDate;
+			PaidTxt.Text = DetailedInvoice.Paid.ToString();
+			PaidYetTxt.Text = DetailedInvoice.PaidYet.ToString();
+
+			BruttoValueTxt.Text = CalculateBruttoValue();
+		}
+
+		private void InitializeProductList()
+		{
+			productsDataGrid.ItemsSource = DetailedInvoice.Products;
+		}
+
+		private string CalculateBruttoValue()
+		{
+			decimal BruttoValue = DetailedInvoice.Products.Sum(product => product.BruttoValue);
+
+            string CalculatedBruttoValue = BruttoValue.ToString();
+
+			return CalculatedBruttoValue;
 		}
 
 		private void PrintBtn_Click(object sender, RoutedEventArgs e)
 		{
-			
 			var firstRow = MainGrid.Children
 							.Cast<UIElement>()
 							.Where(x => Grid.GetRow(x) == 0);

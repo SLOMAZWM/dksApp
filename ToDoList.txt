@@ -7,8 +7,9 @@
 
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
-2.2 Podmień wszystkie dane do txtLabel //przeslanie z sql juz jest
-2.3 Sprawdź działanie z drukowaniem
+2.2 Stworz Pozostalo do zaplaty - na podstawie wartosci brutto i wartosci zaplaconej
+2.3 Stworz algorytm do Wartosci brutto slownie
+2.4 Sprawdź działanie z drukowaniem
 
 3. ProductWindow
 POPRAWA FRONTEND
@@ -18,16 +19,7 @@ TESTY
 POPRAWA FRONTEND
 TESTY
 
-
-5. Poprawienie Faktury
-5.1 Kod umozliwiajacy odczyt z bazy danych po wybraniu "zapisane" w okienkach dialogowych z bazy
-a) kontahentow
-
-Stworzenie okienka dla a)
-Dodanie logiki do tworzenia nowych faktur, oraz w korekcie faktury dla kontrahentow
-
-6. Przeniesienie Window do Page, w celu optymalizacji UI
-
+Przeniesienie Window do Page, w celu optymalizacji UI* - PRIORYTET?
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***
 Responsywność* [must have]

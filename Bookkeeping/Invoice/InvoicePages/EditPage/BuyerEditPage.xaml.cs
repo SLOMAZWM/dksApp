@@ -29,7 +29,13 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.EditPage
 			createInvoice = editedW;
 		}
 
-		private void NextPageBtn_Click(object sender, RoutedEventArgs e)
+        private void LoadSellerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            dksApp.Bookkeeping.LoadContractorsW.LoadContractorsW loadContractor = new dksApp.Bookkeeping.LoadContractorsW.LoadContractorsW(this);
+            loadContractor.ShowDialog();
+        }
+
+        private void NextPageBtn_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{

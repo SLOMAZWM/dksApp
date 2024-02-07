@@ -67,6 +67,8 @@
                         <TextBlock Text="Zapisz Sprzedającego"/>
                     </StackPanel>
                 </Button>
+
+
                     <Button Click="NextPageBtn_Click" x:Name="NextPageBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Następna strona"/>

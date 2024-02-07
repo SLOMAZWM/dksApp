@@ -108,11 +108,12 @@
             
             <TextBlock Text="Sprzedawca" HorizontalAlignment="Center" Grid.Row="0" FontWeight="SemiBold"/>
             <Separator Grid.Row="1"/>
-            <TextBlock Text="SprzedawcaName" Grid.Row="2" Margin="0,0,0,1"/>
-            <TextBlock Text="SprzedawcaStreet" Grid.Row="3" Margin="0,0,0,1"/>
-            <TextBlock Text="SprzedawcaZipCode i Miasto" Grid.Row="4" Margin="0,0,0,1"/>
-            <TextBlock Text="NIP:" Grid.Row="5" Margin="0,0,0,1"/>
-            <TextBlock Text="Numer Rachunku:" Grid.Row="6" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerNameTxt" Text="SprzedawcaName" Grid.Row="2" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerStreetTxt" Text="SprzedawcaStreet" Grid.Row="3" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerZipCodeTxt" Text="SprzedawcaZipCode" Grid.Row="4" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerCityTxt" Text="SprzedawcaCity" Grid.Row="5" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerNIPTxt" Text="NIP:" Grid.Row="6" Margin="0,0,0,1"/>
+            <TextBlock x:Name="SellerBankNumberTxt" Text="Numer Rachunku:" Grid.Row="7" Margin="0,0,0,1"/>
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="2" Margin="10">
@@ -130,29 +131,31 @@
 
             <TextBlock Text="Nabywca" HorizontalAlignment="Center" Grid.Row="0" FontWeight="SemiBold"/>
             <Separator Grid.Row="1"/>
-            <TextBlock Text="NabywcaName" Grid.Row="2" Margin="0,0,0,1"/>
-            <TextBlock Text="NabywcaStreet" Grid.Row="3" Margin="0,0,0,1"/>
-            <TextBlock Text="NabywcaZipCode i Miasto" Grid.Row="4" Margin="0,0,0,1"/>
-            <TextBlock Text="NIP:" Grid.Row="5" Margin="0,0,0,1"/>
+            <TextBlock x:Name="BuyerNameTxt" Text="NabywcaName" Grid.Row="2" Margin="0,0,0,1"/>
+            <TextBlock x:Name="BuyerStreetTxt" Text="NabywcaStreet" Grid.Row="3" Margin="0,0,0,1"/>
+            <TextBlock x:Name="BuyerZipCodeTxt" Text="NabywcaZipCode" Grid.Row="4" Margin="0,0,0,1"/>
+            <TextBlock x:Name="BuyerCityTxt" Text="NabywcaCity" Grid.Row="5" Margin="0,0,0,1"/>
+            <TextBlock x:Name="BuyerNIPTxt" Text="NIP:" Grid.Row="6" Margin="0,0,0,1"/>
         </Grid>
 
         <Grid Grid.Row="3" Margin="10">
             <TextBlock Text="Uwagi: "/>
+            <TextBlock x:Name="WarningTxt" Text="Test" Margin="45,0,0,0"/>
         </Grid>
 
         <Grid Grid.Row="4" Margin="10" Grid.Column="0" Grid.ColumnSpan="2">
-            <DataGrid x:Name="productsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid x:Name="productsDataGrid" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="L.P." Binding="{Binding Lp}" Width="Auto"/>
-                    <DataGridTextColumn Header="Nazwa Produktu" Binding="{Binding NazwaProduktu}" Width="*"/>
-                    <DataGridTextColumn Header="Ilość" Binding="{Binding Ilosc}" Width="Auto"/>
-                    <DataGridTextColumn Header="J.m." Binding="{Binding Jm}" Width="Auto"/>
+                    <DataGridTextColumn Header="L.P." Binding="{Binding NumberOfItems}" Width="Auto"/>
+                    <DataGridTextColumn Header="Nazwa Produktu" Binding="{Binding NameItem}" Width="*"/>
+                    <DataGridTextColumn Header="Ilość" Binding="{Binding Quantity}" Width="Auto"/>
+                    <DataGridTextColumn Header="J.m." Binding="{Binding QuantityType}" Width="Auto"/>
                     <DataGridTextColumn Header="PKWiU" Binding="{Binding PKWiU}" Width="Auto"/>
-                    <DataGridTextColumn Header="Cena netto [PLN]" Binding="{Binding CenaNetto}" Width="Auto"/>
-                    <DataGridTextColumn Header="Wartość netto [PLN]" Binding="{Binding WartoscNetto}" Width="Auto"/>
-                    <DataGridTextColumn Header="VAT [%]" Binding="{Binding Vat}" Width="Auto"/>
-                    <DataGridTextColumn Header="Wartość VAT [PLN]" Binding="{Binding WartoscVat}" Width="Auto"/>
-                    <DataGridTextColumn Header="Wartość brutto [PLN]" Binding="{Binding WartoscBrutto}" Width="Auto"/>
+                    <DataGridTextColumn Header="Cena netto [PLN]" Binding="{Binding NettoPrice}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość netto [PLN]" Binding="{Binding NettoValue}" Width="Auto"/>
+                    <DataGridTextColumn Header="VAT [%]" Binding="{Binding VATPercent}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość VAT [PLN]" Binding="{Binding VATValue}" Width="Auto"/>
+                    <DataGridTextColumn Header="Wartość brutto [PLN]" Binding="{Binding BruttoValue}" Width="Auto"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -179,32 +182,32 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock Text="Sposób płatności:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="Sposób:" Margin="20,0,0,0"/>
+                <TextBlock x:Name="PaymentTypeTxt" Text="Sposób:" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock Text="Termin Płatności:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="Data terminu" Margin="20,0,0,0"/>
+                <TextBlock x:Name="PaymentDateTxt" Text="Data terminu" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <TextBlock Text="Zapłacono:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="ilość" Margin="20,0,0,0"/>
+                <TextBlock x:Name="PaidTxt" Text="ilość" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <TextBlock Text="Pozostało do zapł.:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="ilość" Margin="20,0,0,0"/>
+                <TextBlock x:Name="PaidYetTxt" Text="ilość" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="4">
                 <TextBlock Text="Wartość brutto:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="ilość PLN" Margin="20,0,0,0"/>
+                <TextBlock x:Name="BruttoValueTxt" Text="ilość PLN" Margin="20,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="5">
                 <TextBlock Text="Słownie:" Style="{StaticResource txtLabel}"/>
-                <TextBlock Text="Słownie PLN" Margin="20,0,0,0"/>
+                <TextBlock x:Name="BruttoValueInWordsTxt" Text="Słownie PLN" Margin="20,0,0,0"/>
             </StackPanel>
 
         </Grid>
