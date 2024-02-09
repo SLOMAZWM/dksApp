@@ -7,9 +7,10 @@
 
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
-2.2 Stworz Pozostalo do zaplaty - na podstawie wartosci brutto i wartosci zaplaconej
 2.3 Stworz algorytm do Wartosci brutto slownie
-2.4 Sprawdź działanie z drukowaniem
+2.4 Stworz przy zapisie BruttoValue, ktore bedzie zliczac wartosci brutto wszystkcih przedmiotow na fakturze, zapis do bazy danych, odczyt w dataGrid
+2.5 Zmień metody w InvoiceWindow, dostosowujac kod do 2.4
+2.5 Sprawdź działanie z drukowaniem
 
 3. ProductWindow
 POPRAWA FRONTEND

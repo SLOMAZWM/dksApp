@@ -68,7 +68,7 @@ namespace dksApp.Bookkeeping.Invoice
 			PaymentTypeTxt.Text = DetailedInvoice.PaymentType;
 			PaymentDateTxt.Text = DetailedInvoice.PaymentDate;
 			PaidTxt.Text = DetailedInvoice.Paid.ToString();
-			PaidYetTxt.Text = DetailedInvoice.PaidYet.ToString();
+			PaidYetTxt.Text = CalculateToPay();
 
 			BruttoValueTxt.Text = CalculateBruttoValue();
 		}
@@ -85,6 +85,15 @@ namespace dksApp.Bookkeeping.Invoice
             string CalculatedBruttoValue = BruttoValue.ToString();
 
 			return CalculatedBruttoValue;
+		}
+
+		private string CalculateToPay()
+		{
+			string BruttoValue = CalculateBruttoValue();
+
+			decimal CalculateToPaidYet = Convert.ToDecimal(BruttoValue) - DetailedInvoice.Paid;
+
+			return CalculateToPaidYet.ToString();
 		}
 
 		private void PrintBtn_Click(object sender, RoutedEventArgs e)

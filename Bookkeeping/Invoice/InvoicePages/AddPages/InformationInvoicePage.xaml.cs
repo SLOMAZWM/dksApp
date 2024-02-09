@@ -91,7 +91,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
         private void PaidYet_TextChanged(object sender, TextChangedEventArgs e)
         {
-            parentWindow.NewInvoice.PaidYet = Convert.ToDecimal(PaidYet.Text);
+            parentWindow.NewInvoice.Paid = Convert.ToDecimal(PaidYet.Text);
         }
 
         private void CommentsTxt_TextChanged(object sender, TextChangedEventArgs e)
@@ -250,6 +250,11 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             Regex regex = new Regex("[^0-9-]");
             return !regex.IsMatch(text);
+        }
+
+        private void PaidYet_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
