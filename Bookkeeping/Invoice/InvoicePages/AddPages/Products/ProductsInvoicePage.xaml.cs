@@ -117,6 +117,11 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             }
         }
 
+        private decimal CalculatePaidYet()
+        {
+            return parentWindow.NewInvoice.Products.Sum(p => p.BruttoValue);
+        }
+
         private void Save_Invoice(object sender, RoutedEventArgs e)
         {
             if(IsProductsDataGridEmpty() == true)
@@ -174,7 +179,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                             command.Parameters.AddWithValue("@PaymentType", parentWindow.NewInvoice.PaymentType);
                             command.Parameters.AddWithValue("@PaymentDate", parentWindow.NewInvoice.PaymentDate);
                             command.Parameters.AddWithValue("@Paid", parentWindow.NewInvoice.Paid);
-                            command.Parameters.AddWithValue("@PaidYet", parentWindow.NewInvoice.PaidYet);
+                            command.Parameters.AddWithValue("@PaidYet", CalculatePaidYet());
                             command.Parameters.AddWithValue("@IdSeller", idSeller);
                             command.Parameters.AddWithValue("@SellerName", parentWindow.NewInvoice.SellerName);
                             command.Parameters.AddWithValue("@SellerStreet", parentWindow.NewInvoice.SellerStreet);

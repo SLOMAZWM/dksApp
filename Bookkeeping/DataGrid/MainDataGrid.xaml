@@ -64,7 +64,7 @@ VerticalAlignment="Center" Margin="0,0,215,0"/>
                     <DataGridTextColumn Header="Kwota" IsReadOnly="True" Width="*">
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{}{0} PLN">
-                                <Binding Path="Paid" />
+                                <Binding Path="PaidYet" />
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>

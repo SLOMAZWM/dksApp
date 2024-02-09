@@ -80,7 +80,7 @@ namespace dksApp.Bookkeeping
 				using (SqlConnection conn = new SqlConnection(connectionString))
 				{
 					conn.Open();
-					string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, Paid, IssueDate FROM Invoice ORDER BY IssueDate DESC";
+					string query = "SELECT InvoiceID, SellerName, BuyerName, PaymentType, PaidYet, IssueDate FROM Invoice ORDER BY IssueDate DESC";
 
 					try
 					{
@@ -96,7 +96,7 @@ namespace dksApp.Bookkeeping
 										SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName")),
 										BuyerName = reader.IsDBNull(reader.GetOrdinal("BuyerName")) ? null : reader.GetString(reader.GetOrdinal("BuyerName")),
 										PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType")),
-										Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid")),
+										PaidYet = reader.IsDBNull(reader.GetOrdinal("PaidYet")) ? 0 : reader.GetDecimal(reader.GetOrdinal("PaidYet")),
 										IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"))
 									};
 									Invoices.Add(invoice);

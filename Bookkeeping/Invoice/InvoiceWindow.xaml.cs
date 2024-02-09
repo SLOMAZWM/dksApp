@@ -69,8 +69,10 @@ namespace dksApp.Bookkeeping.Invoice
 			PaymentDateTxt.Text = DetailedInvoice.PaymentDate;
 			PaidTxt.Text = DetailedInvoice.Paid.ToString();
 			PaidYetTxt.Text = CalculateToPay();
+			DateIssueTxt.Text = DetailedInvoice.IssueDate;
+			DateDeliveryTxt.Text = DetailedInvoice.ExecutionDate;
 
-			BruttoValueTxt.Text = CalculateBruttoValue();
+			BruttoValueTxt.Text = DetailedInvoice.PaidYet.ToString();
 		}
 
 		private void InitializeProductList()
