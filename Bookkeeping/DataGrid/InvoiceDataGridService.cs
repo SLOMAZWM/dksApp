@@ -111,13 +111,13 @@ namespace dksApp.Services
 						if (reader.Read())
 						{
 							invoice.IDInvoice = (uint)reader.GetInt32(reader.GetOrdinal("InvoiceID"));
-							invoice.IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"));
+                            invoice.InvoiceNumber = reader.GetString(reader.GetOrdinal("InvoiceNumber"));
+                            invoice.IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? null : reader.GetString(reader.GetOrdinal("IssueDate"));
 							invoice.ExecutionDate = reader.IsDBNull(reader.GetOrdinal("ExecutionDate")) ? null : reader.GetString(reader.GetOrdinal("ExecutionDate"));
 							invoice.PaymentType = reader.IsDBNull(reader.GetOrdinal("PaymentType")) ? null : reader.GetString(reader.GetOrdinal("PaymentType"));
 							invoice.PaymentDate = reader.IsDBNull(reader.GetOrdinal("PaymentDate")) ? null : reader.GetString(reader.GetOrdinal("PaymentDate"));
 							invoice.Paid = reader.IsDBNull(reader.GetOrdinal("Paid")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Paid"));
 							invoice.PaidYet = reader.IsDBNull(reader.GetOrdinal("PaidYet")) ? 0 : reader.GetDecimal(reader.GetOrdinal("PaidYet"));
-							invoice.IdSeller = reader.IsDBNull(reader.GetOrdinal("IdSeller")) ? 0 : (uint)reader.GetInt32(reader.GetOrdinal("IdSeller"));
 							invoice.SellerName = reader.IsDBNull(reader.GetOrdinal("SellerName")) ? null : reader.GetString(reader.GetOrdinal("SellerName"));
 							invoice.SellerStreet = reader.IsDBNull(reader.GetOrdinal("SellerStreet")) ? null : reader.GetString(reader.GetOrdinal("SellerStreet"));
 							invoice.SellerCity = reader.IsDBNull(reader.GetOrdinal("SellerCity")) ? null : reader.GetString(reader.GetOrdinal("SellerCity"));

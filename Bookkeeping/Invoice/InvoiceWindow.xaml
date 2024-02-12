@@ -77,7 +77,8 @@
             </Grid.RowDefinitions>
             
             <TextBlock Text="Faktura" FontSize="42" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Grid.Row="0"/>
-            <TextBlock Text="nr: F/00/11/23" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold" Grid.Row="1"/>
+            <TextBlock Text="nr: " HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold" Grid.Row="1" Margin="0,0,90,0"/>
+            <TextBlock x:Name="InvoiceNumberTxt" Text="F/00/11/23" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold" Grid.Row="1" Margin="25,0,0,0"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">

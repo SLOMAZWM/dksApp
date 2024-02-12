@@ -7,8 +7,8 @@
 
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
-2.3 Stworz algorytm do Wartosci brutto slownie
-2.4 Stworz numer faktury i przypisz ja do InvoiceWindow
+2.3 Popraw algorytm do Wartosci brutto slownie
+2.4 Stworz przycisk plus i minus przy ilosci (tak by inkrementowac/dekrementowac ilosc)
 2.5 Dodaj PLN do kwot na fakturze
 2.6 Sprawdź działanie z drukowaniem
 
@@ -19,6 +19,8 @@ TESTY
 4. Kontrahenci
 POPRAWA FRONTEND
 TESTY
+
+5.Optymalizacja zapisu do bazy danych z wczesniej wczytanych produktow, usun ponowne zapisywanie
 
 Przeniesienie Window do Page, w celu optymalizacji UI* - PRIORYTET?
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa

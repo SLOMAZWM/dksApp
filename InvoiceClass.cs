@@ -37,6 +37,7 @@ namespace dksApp
         //INVOICE FROM?
 
         public string ? From { get; set; }
+        public string ? InvoiceNumber { get; set; }
 
         //Invoice Info
         public uint IDInvoice { get; set; }
@@ -46,7 +47,6 @@ namespace dksApp
         public string? PaymentDate { get; set; }
         public decimal Paid { get; set; }
         public decimal PaidYet { get; set; }
-        public string? BruttoValueInWords { get; set; }
         public string? Comments { get; set; }
 
         //SELLER INFO

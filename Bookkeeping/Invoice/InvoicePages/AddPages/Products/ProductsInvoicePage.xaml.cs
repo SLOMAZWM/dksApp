@@ -122,6 +122,49 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             return parentWindow.NewInvoice.Products.Sum(p => p.BruttoValue);
         }
 
+        private string GenerateNumberInvoice()
+        {
+            var currentDate = DateTime.Now;
+            var year = currentDate.Year.ToString();
+            var month = currentDate.Month.ToString("D2");
+
+            int lastInvoiceSequence = GetLastInvoiceSequence(year, month);
+            int newInvoiceSequence = lastInvoiceSequence + 1;
+
+            var newInvoiceNumber = $"{year}/{month}/{newInvoiceSequence:D3}";
+
+            return newInvoiceNumber;
+        }
+
+        private int GetLastInvoiceSequence(string year, string month)
+        {
+            int lastSequence = 0;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+
+            using(SqlConnection connection = new SqlConnection(connectionString)) 
+            {
+                string query = @"
+            SELECT TOP 1 InvoiceNumber 
+            FROM Invoice 
+            WHERE InvoiceNumber LIKE @YearMonthPattern 
+            ORDER BY InvoiceNumber DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@YearMonthPattern", $"{year}/{month}/%");
+                    connection.Open();
+                    var result = command.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        var lastInvoiceNumber = result.ToString();
+                        lastSequence = int.Parse(lastInvoiceNumber.Split('/').Last());
+                    }
+                }
+            }
+            return lastSequence;
+        }
+
         private void Save_Invoice(object sender, RoutedEventArgs e)
         {
             if(IsProductsDataGridEmpty() == true)
@@ -137,6 +180,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                 else
                 {
                     string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+                    string invoiceNumber = GenerateNumberInvoice();
 
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
@@ -169,18 +213,16 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
                         int invoiceId;
 
-                        string invoiceQuery = "INSERT INTO Invoice (IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, IdSeller, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @IdSeller, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @InvoiceFrom)";
+                        string invoiceQuery = "INSERT INTO Invoice (InvoiceNumber, IssueDate, ExecutionDate, PaymentType, PaymentDate, Paid, PaidYet, SellerName, SellerStreet, SellerCity, SellerZipCode, SellerNIP, SellerBankName, SellerBankAccount, Comments, BuyerName, BuyerStreet, BuyerCity, BuyerZipCode, BuyerNIP, InvoiceFrom) OUTPUT INSERTED.InvoiceID VALUES (@InvoiceNumber, @IssueDate, @ExecutionDate, @PaymentType, @PaymentDate, @Paid, @PaidYet, @SellerName, @SellerStreet, @SellerCity, @SellerZipCode, @SellerNIP, @SellerBankName, @SellerBankAccount, @Comments, @BuyerName, @BuyerStreet, @BuyerCity, @BuyerZipCode, @BuyerNIP, @InvoiceFrom)";
                         using (SqlCommand command = new SqlCommand(invoiceQuery, connection))
                         {
-                            long idSeller = Convert.ToInt64(parentWindow.NewInvoice.IdSeller);
-
+                            command.Parameters.AddWithValue("@InvoiceNumber", invoiceNumber);
                             command.Parameters.AddWithValue("@IssueDate", parentWindow.NewInvoice.IssueDate);
                             command.Parameters.AddWithValue("@ExecutionDate", parentWindow.NewInvoice.ExecutionDate);
                             command.Parameters.AddWithValue("@PaymentType", parentWindow.NewInvoice.PaymentType);
                             command.Parameters.AddWithValue("@PaymentDate", parentWindow.NewInvoice.PaymentDate);
                             command.Parameters.AddWithValue("@Paid", parentWindow.NewInvoice.Paid);
                             command.Parameters.AddWithValue("@PaidYet", CalculatePaidYet());
-                            command.Parameters.AddWithValue("@IdSeller", idSeller);
                             command.Parameters.AddWithValue("@SellerName", parentWindow.NewInvoice.SellerName);
                             command.Parameters.AddWithValue("@SellerStreet", parentWindow.NewInvoice.SellerStreet);
                             command.Parameters.AddWithValue("@SellerCity", parentWindow.NewInvoice.SellerCity);
