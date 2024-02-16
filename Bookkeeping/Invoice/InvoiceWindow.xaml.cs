@@ -67,14 +67,13 @@ namespace dksApp.Bookkeeping.Invoice
 
             PaymentTypeTxt.Text = DetailedInvoice.PaymentType;
             PaymentDateTxt.Text = DetailedInvoice.PaymentDate;
-            PaidTxt.Text = DetailedInvoice.Paid.ToString();
-            PaidYetTxt.Text = CalculateToPay();
+            PaidTxt.Text = $"{DetailedInvoice.Paid.ToString()} PLN";
+            PaidYetTxt.Text = $"{CalculateToPay()} PLN";
             DateIssueTxt.Text = DetailedInvoice.IssueDate;
             DateDeliveryTxt.Text = DetailedInvoice.ExecutionDate;
             InvoiceNumberTxt.Text = DetailedInvoice.InvoiceNumber;
-            BruttoValueTxt.Text = DetailedInvoice.PaidYet.ToString();
+            BruttoValueTxt.Text = $"{DetailedInvoice.PaidYet.ToString()} PLN";
             BruttoValueInWordsTxt.Text = NumberToWord(DetailedInvoice.PaidYet);
-
         }
 
         private string NumberToWord(decimal number)
@@ -86,16 +85,18 @@ namespace dksApp.Bookkeeping.Invoice
             var grosze = (int)((number - zlotowki) * 100);
 
             words.Append(NumberToWordsInternal(zlotowki));
-            words.Append(zlotowki == 1 ? " złoty" : (zlotowki % 10 >= 2 && zlotowki % 10 <= 4 && (zlotowki % 100 < 10 || zlotowki % 100 >= 20)) ? " złote" : " złotych");
+            words.Append(" ");
+            words.Append(ChooseCorrectForm(zlotowki, "złoty", "złote", "złotych"));
 
             if (grosze > 0)
             {
                 words.Append(" i ");
                 words.Append(NumberToWordsInternal(grosze));
-                words.Append(grosze == 1 ? " grosz" : (grosze % 10 >= 2 && grosze % 10 <= 4 && (grosze % 100 < 10 || grosze % 100 >= 20)) ? " grosze" : " groszy");
+                words.Append(" ");
+                words.Append(ChooseCorrectForm(grosze, "grosz", "grosze", "groszy"));
             }
 
-            return words.ToString();
+            return words.ToString().Trim();
         }
 
         private string NumberToWordsInternal(int number)
@@ -108,64 +109,93 @@ namespace dksApp.Bookkeeping.Invoice
             var setki = new[] { "", "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset" };
             var grupy = new[,]
             {
-        {"", "", "" },
-        { "tysiąc", "tysiące", "tysięcy" },
-        { "milion", "miliony", "milionów" },
-    };
+            {"", "", "" },
+            { "tysiąc", "tysiące", "tysięcy" },
+            { "milion", "miliony", "milionów" },
+            { "miliard", "miliardy", "miliardów" }
+        };
 
             var words = new List<string>();
-            for (var i = 0; number > 0; i++)
+            int groupNumber = 0;
+
+            while (number > 0)
             {
                 var temp = number % 1000;
+                number /= 1000;
+
                 if (temp > 0)
                 {
+                    var groupWords = new List<string>();
+
                     var hundreds = temp / 100;
                     var tens = (temp % 100) / 10;
                     var units = temp % 10;
 
                     if (hundreds > 0)
                     {
-                        words.Add(setki[hundreds]);
+                        groupWords.Add(setki[hundreds]);
                     }
 
                     if (tens >= 2)
                     {
-                        words.Add(dziesiatki[tens]);
+                        groupWords.Add(dziesiatki[tens]);
                         if (units > 0)
                         {
-                            words.Add(jednosci[units]);
+                            groupWords.Add(jednosci[units]);
                         }
                     }
                     else if (temp % 100 >= 10)
                     {
-                        words.Add(nascie[temp % 10]);
+                        groupWords.Add(nascie[temp % 10]);
                     }
                     else if (units > 0)
                     {
-                        words.Add(jednosci[units]);
+                        groupWords.Add(jednosci[units]);
                     }
 
-                    if (i > 0)
+                    if (groupNumber > 0)
                     {
-                        var grupa = grupy[Math.Min(i, grupy.GetLength(0) - 1), GetGroupIndex(units, temp)];
+                        var grupa = grupy[Math.Min(groupNumber, grupy.GetLength(0) - 1), GetGroupIndex(units, tens, hundreds)];
                         if (!string.IsNullOrEmpty(grupa))
                         {
-                            words.Add(grupa);
+                            groupWords.Add(grupa);
                         }
                     }
+
+                    words.InsertRange(0, groupWords);
                 }
-                number /= 1000;
+
+                groupNumber++;
             }
 
-            words.Reverse();
             return string.Join(" ", words);
         }
 
-        private int GetGroupIndex(int units, int number)
+        private int GetGroupIndex(int units, int tens, int hundreds)
         {
-            if (units == 1 && number % 100 != 11) return 0;
-            if (units >= 2 && units <= 4 && (number % 100 < 10 || number % 100 >= 20)) return 1;
+            if (units == 1 && tens != 1 && hundreds != 1) return 0;
+            if (units >= 2 && units <= 4 && tens != 1) return 1;
             return 2;
+        }
+
+        private string ChooseCorrectForm(int number, string form1, string form2, string form3)
+        {
+            if (number % 100 >= 12 && number % 100 <= 14)
+            {
+                return form3;
+            }
+
+            switch (number % 10)
+            {
+                case 1:
+                    return form1;
+                case 2:
+                case 3:
+                case 4:
+                    return form2;
+                default:
+                    return form3;
+            }
         }
 
 

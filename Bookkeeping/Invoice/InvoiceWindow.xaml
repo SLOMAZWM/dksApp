@@ -208,7 +208,7 @@
                 <TextBlock x:Name="BruttoValueTxt" Text="ilość PLN" Margin="20,0,0,0"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="5">
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0,0,-396,0">
                 <TextBlock Text="Słownie:" Style="{StaticResource txtLabel}"/>
                 <TextBlock x:Name="BruttoValueInWordsTxt" Text="Słownie PLN" Margin="20,0,0,0"/>
             </StackPanel>

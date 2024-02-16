@@ -7,10 +7,8 @@
 
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
-2.3 Popraw algorytm do Wartosci brutto slownie
 2.4 Stworz przycisk plus i minus przy ilosci (tak by inkrementowac/dekrementowac ilosc)
-2.5 Dodaj PLN do kwot na fakturze
-2.6 Sprawdź działanie z drukowaniem
+2.5 Sprawdź działanie z drukowaniem
 
 3. ProductWindow
 POPRAWA FRONTEND
