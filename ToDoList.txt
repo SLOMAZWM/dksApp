@@ -9,6 +9,10 @@
 
 2.4 Stworz przycisk plus i minus przy ilosci (tak by inkrementowac/dekrementowac ilosc)
 2.5 Sprawdź działanie z drukowaniem
+2.6 Dodanie obliczania wartosci brutto, wartosci netto, wartosci vat - na podstawie ilosci i ceny = prawidłowa obsługa przy np. 1. kg 1.5 kg itd.
+2.7 Sprawdzenie braków, dopisanie ich do ToDoList
+
+
 
 3. ProductWindow
 POPRAWA FRONTEND

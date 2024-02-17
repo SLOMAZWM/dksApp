@@ -26,26 +26,26 @@ namespace dksApp.Bookkeeping.Invoice
         private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
         private string selectedGrid;
         private bool isSelected;
-        public InvoiceClass NewInvoice {  get; set; }
+        public InvoiceClass NewInvoice { get; set; }
 
-		public string SelectedGrid 
+        public string SelectedGrid
         {
-            get 
-            { 
+            get
+            {
                 return selectedGrid;
-            } 
-            set 
-            { 
-                selectedGrid = value; 
-            } 
+            }
+            set
+            {
+                selectedGrid = value;
+            }
         }
         public bool IsSelected { get { return isSelected; } set { isSelected = value; } }
 
-        public NavigatorManager Navigator 
-        { 
-            get 
-            { 
-                return navigator; 
+        public NavigatorManager Navigator
+        {
+            get
+            {
+                return navigator;
             }
             set { navigator = value; }
         }
@@ -57,9 +57,8 @@ namespace dksApp.Bookkeeping.Invoice
             NewInvoice = new InvoiceClass();
             GridPage = InitializeGridPages();
             navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
-	}
+        }
 
-        //Function's
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,7 +101,7 @@ namespace dksApp.Bookkeeping.Invoice
             return NewDictionaryOfPages;
         }
 
-        public void WhichBuyer_Click(object sender, RoutedEventArgs e) 
+        public void WhichBuyer_Click(object sender, RoutedEventArgs e)
         {
             if (isSelected == false)
             {
@@ -117,11 +116,11 @@ namespace dksApp.Bookkeeping.Invoice
                     choiceBuyerType.ShowDialog();
                 }
             }
-            else if(isSelected == true && sender is Button button)
+            else if (isSelected == true && sender is Button button)
             {
                 navigator.ChangeInvoiceTabButton(button);
-				navigator.NavigateToGrid(selectedGrid);
-			}
+                navigator.NavigateToGrid(selectedGrid);
+            }
         }
 
         private void BuyerTypeSelected(string buyerType)
