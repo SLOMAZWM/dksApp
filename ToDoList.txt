@@ -21,6 +21,8 @@ TESTY
 
 5.Optymalizacja zapisu do bazy danych z wczesniej wczytanych produktow, usun ponowne zapisywanie
 
+6.Usuniecie wymogu PKWiU (wpisywania do textboxow w przypadku produktow na fakturze)
+
 Przeniesienie Window do Page, w celu optymalizacji UI* - PRIORYTET?
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej (walidacja)***
