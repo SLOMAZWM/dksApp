@@ -151,5 +151,33 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
                 MessageBox.Show("Wypełnij wszystkie pola!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void PlusAmountBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(AmountTxt.Text != string.Empty)
+            {
+                decimal amount = Convert.ToDecimal(AmountTxt.Text);
+                amount++;
+                AmountTxt.Text = amount.ToString();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void MinusAmountBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(AmountTxt.Text != string.Empty)
+            {
+                decimal amount = Convert.ToDecimal(AmountTxt.Text);
+                amount--;
+                AmountTxt.Text = amount.ToString();
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 }
