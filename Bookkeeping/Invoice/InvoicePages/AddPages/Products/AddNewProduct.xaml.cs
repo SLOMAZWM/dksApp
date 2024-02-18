@@ -179,5 +179,57 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
                 return;
             }
         }
+
+        private void TypeAmountChb_UnChecked(object sender, RoutedEventArgs e)
+        {
+            TypeAmountTxt.Text = "";
+            TypeAmountTxt.IsEnabled = true;
+            TypeAmountTxt.Background = new SolidColorBrush(Colors.White);
+            TypeAmountTxt.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void TypeAmountChb_Checked(object sender, RoutedEventArgs e)
+        {
+            TypeAmountTxt.Text = "Szt.";
+            TypeAmountTxt.IsEnabled = false;
+            TypeAmountTxt.Background = new SolidColorBrush(Colors.Gray);
+            TypeAmountTxt.Foreground = new SolidColorBrush(Colors.White);
+        }
+
+        private string CalculateValueNetto(string Amount, string Price)
+        {
+            decimal amount = Convert.ToDecimal(Amount);
+            decimal price = Convert.ToDecimal(Price);
+
+            decimal valueNetto = price * amount;
+            string ValueNetto = valueNetto.ToString();
+            return ValueNetto;
+        }
+
+        private string CalculateValueVat(string Vat, string Price, string Amount)
+        {
+            decimal vat = Convert.ToDecimal(Vat) / 100;
+            decimal price = Convert.ToDecimal(Price);
+            decimal amount = Convert.ToDecimal(Amount);
+
+            decimal valueVat = price * amount * vat;
+            string ValueVat = valueVat.ToString();
+
+            return ValueVat;
+        }
+
+        private void CalculateAmountFromTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (AmountTxt.Text != string.Empty && NettoOneTxt.Text != string.Empty && VatTxt.Text != string.Empty)
+            {
+                ValueNettoTxt.Text = CalculateValueNetto(AmountTxt.Text, NettoOneTxt.Text);
+                ValueVatTxt.Text = CalculateValueVat(VatTxt.Text, NettoOneTxt.Text, AmountTxt.Text);
+                ValueBruttoTxt.Text = (Convert.ToDecimal(ValueVatTxt.Text) + Convert.ToDecimal(ValueNettoTxt.Text)).ToString();
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 }
