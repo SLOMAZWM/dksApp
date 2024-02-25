@@ -181,7 +181,6 @@ namespace dksApp.Magazine.Product
 		{
 			return !string.IsNullOrWhiteSpace(ProductNameTxt.Text) &&
 						   !string.IsNullOrWhiteSpace(TypeAmountTxt.Text) &&
-						   !string.IsNullOrWhiteSpace(PKWiUTxt.Text) &&
 						   !string.IsNullOrWhiteSpace(NettoOneTxt.Text) &&
 						   !string.IsNullOrWhiteSpace(VatTxt.Text) &&
 						   !string.IsNullOrWhiteSpace(ValueVatTxt.Text) &&
@@ -214,7 +213,20 @@ namespace dksApp.Magazine.Product
 			}
 		}
 
+        private void TypeAmountChb_UnChecked(object sender, RoutedEventArgs e)
+        {
+            TypeAmountTxt.Text = "";
+            TypeAmountTxt.IsEnabled = true;
+            TypeAmountTxt.Background = new SolidColorBrush(Colors.White);
+            TypeAmountTxt.Foreground = new SolidColorBrush(Colors.Black);
+        }
 
-
-	}
+        private void TypeAmountChb_Checked(object sender, RoutedEventArgs e)
+        {
+            TypeAmountTxt.Text = "Szt.";
+            TypeAmountTxt.IsEnabled = false;
+            TypeAmountTxt.Background = new SolidColorBrush(Colors.Gray);
+            TypeAmountTxt.Foreground = new SolidColorBrush(Colors.White);
+        }
+    }
 }

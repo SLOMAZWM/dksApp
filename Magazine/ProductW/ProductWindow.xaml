@@ -82,6 +82,11 @@ AllowsTransparency="True">
                         <TextBox x:Name="TypeAmountTxt" Style="{StaticResource FormsBox}"/>
                     </StackPanel>
 
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="804,0,0,0" Width="94">
+                        <CheckBox Style="{StaticResource CheckBoxStyle1}" Margin="0,16,0,0" Checked="TypeAmountChb_Checked" Unchecked="TypeAmountChb_UnChecked"/>
+                        <TextBlock Text="szt." Style="{StaticResource FormsBlock}" Width="auto" Margin="5,16,140,0" FontSize="12"/>
+                    </StackPanel>
+
 
                     <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
                         <TextBlock Text="PKWiU: " Style="{StaticResource FormsBlock}"/>
@@ -109,7 +114,7 @@ AllowsTransparency="True">
                     </StackPanel>
 
                     <StackPanel Grid.Row="8" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
-                        
+
 
                         <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="RememberProductBtn_Click">
                             <StackPanel Orientation="Horizontal">
