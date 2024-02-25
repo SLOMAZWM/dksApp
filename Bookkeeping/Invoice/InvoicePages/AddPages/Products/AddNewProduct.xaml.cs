@@ -128,7 +128,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
 
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(AreTextBoxesEmpty(InputGrid) == false) 
+            if(Product.isEmpty() == true)
             {
                 Product.NameItem = ProductNameTxt.Text;
                 Product.QuantityType = TypeAmountTxt.Text;
@@ -140,10 +140,14 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
                 Product.VATValue = Convert.ToDecimal(ValueVatTxt.Text);
                 Product.BruttoValue = Convert.ToDecimal(ValueBruttoTxt.Text);
 
-                if (Product.isEmpty() == false && Product.isZero() == false)
+                if (Product.isZero() == false)
                 {
                     IsCreated = true;
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Wypełnij wszystkie pola poprawnie (liczby)!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

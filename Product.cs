@@ -41,7 +41,6 @@ namespace dksApp
 		{
 			return string.IsNullOrEmpty(NameItem)
 				|| string.IsNullOrEmpty(QuantityType)
-				|| string.IsNullOrEmpty(PKWiU)
 				|| string.IsNullOrEmpty(VATPercent);
 		}
 
