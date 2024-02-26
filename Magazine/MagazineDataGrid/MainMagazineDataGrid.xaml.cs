@@ -282,5 +282,5 @@ namespace dksApp.Magazine.MagazineDataGrid
 				MessageBox.Show("Wybierz produkt do edycji!", "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
-	}
+    }
 }

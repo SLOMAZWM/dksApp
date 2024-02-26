@@ -8,24 +8,19 @@
 //KOREKTA FAKTUR PO STWORZENIU MOZLIWOSCI PODGLĄDU I WYDRUKU FAKTURY
 
 2. Faktury:
-Dodanie funkcjonalności do zapisywania produktow/nabywcow z punktu tworzenia faktur - zrob do 28.02.2024
 Sprawdzenie braków, dopisanie ich do ToDoList
 Po testach: Sprawdź działanie z drukowaniem
 
 
 3. ProductWindow
 POPRAWA FRONTEND
-Popraw napis "zarządzanie" w zaleznosci od edycji, lub dodawania - zrob do 26.02.2024
-Usun potrzebe wpisywania PKWiU - zrob do 26.02.2024
-Dodaj Szt. jako checkbox w rodzaj ilosci - zrob do 26.02.2024
-Dodaj doubleclick do datagrida w celu edycji produktu - zrob do 26.02.2024
 TESTY
 
 4. Kontrahenci
 POPRAWA FRONTEND
-Popraw napis "zarządzanie" w zaleznosci od edycji, lub dodawania - zrob do 26.02.2024
-Dodaj doubleclick do datagrida w celu edycji kontrahenta - zrob do 26.02.2024
 TESTY
+
+NIP - minimum okreslona ilosc znakow
 
 5.Optymalizacja zapisu do bazy danych z wczesniej wczytanych produktow, usun ponowne zapisywanie - zrob do 29.02.2024
 

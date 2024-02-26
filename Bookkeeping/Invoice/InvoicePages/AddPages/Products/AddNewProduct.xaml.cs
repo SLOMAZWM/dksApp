@@ -235,5 +235,32 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
                 return;
             }
         }
+
+        private void RememberProductBtn_Click(object sender, RoutedEventArgs e)
+        {
+            dksApp.Product rememberProduct = new dksApp.Product();
+            rememberProduct.ShowIt = true;
+
+            rememberProduct.NameItem = ProductNameTxt.Text;
+            rememberProduct.QuantityType = TypeAmountTxt.Text;
+            rememberProduct.Quantity = Convert.ToDouble(AmountTxt.Text);
+            rememberProduct.PKWiU = PKWiUTxt.Text;
+            rememberProduct.NettoPrice = Convert.ToDecimal(NettoOneTxt.Text);
+            rememberProduct.NettoValue = Convert.ToDecimal(ValueNettoTxt.Text);
+            rememberProduct.VATPercent = VatTxt.Text;
+            rememberProduct.VATValue = Convert.ToDecimal(ValueVatTxt.Text);
+            rememberProduct.BruttoValue = Convert.ToDecimal(ValueBruttoTxt.Text);
+            rememberProduct.NumberOfItems = 1;
+
+            if(rememberProduct.isEmpty() == false && rememberProduct.isZero() == false)
+            {
+                ProductServiceDataGrid.AddProductToDataBase(rememberProduct);
+                MessageBox.Show("Poprawnie zapisano produkt do bazy danych!", "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Uzupełnij wszystkie pola!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

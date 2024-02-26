@@ -24,21 +24,25 @@ namespace dksApp.Magazine.Product
 	{
 		private dksApp.Product editProduct;
 		private bool editetProduct;
-		public ProductWindow()
+		public ProductWindow() //Create New Product
 		{
 			InitializeComponent();
 			editetProduct = false;
-		}
+			TitleNameTxt.Text = "Dodawanie Produktu";
+			ConfirmBtnTxt.Text = "Zapisz Produkt";
+        }
 
-		public ProductWindow(ref bool ed, ref dksApp.Product p)
+		public ProductWindow(ref bool ed, ref dksApp.Product p) //Edit Product
 		{
 			InitializeComponent();
 			editetProduct = ed;
 			editProduct = p;
 			InitializeEditWindow(ref p);
-		}
+            TitleNameTxt.Text = "Edytowanie Produktu";
+            ConfirmBtnTxt.Text = "Edytuj Produkt";
+        }
 
-		private void InitializeEditWindow(ref dksApp.Product product)
+        private void InitializeEditWindow(ref dksApp.Product product)
 		{
 			ProductNameTxt.Text = product.NameItem;
 			TypeAmountTxt.Text = product.QuantityType;

@@ -24,18 +24,20 @@ namespace dksApp.Contractors.AddContractorsW
     {
         private Buyer editBuyer = new Buyer();
         private bool editetBuyer;
-        public AddBuyerW()
+        public AddBuyerW() //Add Contractor
         {
             InitializeComponent();
             editetBuyer = false;
+            TitleNameTxt.Text = "Dodawanie Kontrahenta";
         }
 
-        public AddBuyerW(Buyer buyer)
+        public AddBuyerW(Buyer buyer) //Edit Contractor
         {
             InitializeComponent();
             editBuyer = buyer;
             editetBuyer = true;
             InitializeEditWindow();
+            TitleNameTxt.Text = "Edytowanie Kontrahenta";
         }
 
         private void InitializeEditWindow()

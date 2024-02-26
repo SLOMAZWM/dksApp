@@ -37,5 +37,33 @@ namespace dksApp
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		public bool IsEmpty()
+		{
+			if(string.IsNullOrEmpty(BuyerName))
+			{
+				return true;
+			}
+			else if(string.IsNullOrEmpty(BuyerStreet))
+			{
+				return true;
+			}
+            else if (string.IsNullOrEmpty(BuyerCity))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerZipCode))
+            {
+                return true;
+            }
+            else if (string.IsNullOrEmpty(BuyerNIP))
+            {
+                return true;
+            }
+            else
+			{
+                return false;
+            }
+		}
 	}
 }

@@ -141,7 +141,7 @@ AllowsTransparency="True" Background="Transparent">
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10">
+                    <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Click="RememberProductBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="ContentSaveCheck" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
                             <TextBlock Text="Zapisz Produkt"/>

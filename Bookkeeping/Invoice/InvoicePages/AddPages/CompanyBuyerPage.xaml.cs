@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dksApp.Contractors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -141,6 +142,27 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
         {
             Regex regex = new Regex("[^a-z, A-Z]+$");
             return !regex.IsMatch(text);
+        }
+
+        private void SaveSellerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Buyer savedBuyer = new Buyer();
+
+            savedBuyer.BuyerName = BuyerName.Text;
+            savedBuyer.BuyerZipCode = BuyerZipCode.Text;
+            savedBuyer.BuyerCity = BuyerCity.Text;
+            savedBuyer.BuyerStreet = BuyerStreet.Text;
+            savedBuyer.BuyerNIP = "Brak NIP";
+
+            if (savedBuyer.IsEmpty() == false)
+            {
+                ContractorsServiceDataGrid.AddBuyerToDataBase(savedBuyer);
+                MessageBox.Show("Poprawnie dodano kontrahenta: " + savedBuyer.BuyerName, "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Wypełnij wszystkie pola!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -10,8 +10,8 @@ namespace dksApp
 		public double Quantity { get; set; }
 		public string? QuantityType { get; set; }
 		public string? PKWiU { get; set; }
-		public decimal NettoPrice { get; set; }
-		public decimal NettoValue { get; set; }
+		public decimal NettoPrice { get; set; } // 1 Item
+		public decimal NettoValue { get; set; } // All Items
 		public string? VATPercent { get; set; }
 		public decimal VATValue { get; set; }
 		public decimal BruttoValue { get; set; }
