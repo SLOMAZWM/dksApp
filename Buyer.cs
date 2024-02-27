@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace dksApp
 {
@@ -65,5 +66,18 @@ namespace dksApp
                 return false;
             }
 		}
-	}
+
+        public bool MinimalLettersNip(string NIP)
+        {
+            if (NIP.Length < 10)
+            {
+                MessageBox.Show("Użyto mniej niż 10 znaków w NIP!", "Błąd uzupełnienia NIP", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 }

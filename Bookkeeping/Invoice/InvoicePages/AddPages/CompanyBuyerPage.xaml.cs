@@ -153,15 +153,21 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             savedBuyer.BuyerCity = BuyerCity.Text;
             savedBuyer.BuyerStreet = BuyerStreet.Text;
             savedBuyer.BuyerNIP = "Brak NIP";
-
-            if (savedBuyer.IsEmpty() == false)
+            if(savedBuyer.MinimalLettersNip(savedBuyer.BuyerNIP) == false)
             {
-                ContractorsServiceDataGrid.AddBuyerToDataBase(savedBuyer);
-                MessageBox.Show("Poprawnie dodano kontrahenta: " + savedBuyer.BuyerName, "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             else
             {
-                MessageBox.Show("Wypełnij wszystkie pola!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (savedBuyer.IsEmpty() == false)
+                {
+                    ContractorsServiceDataGrid.AddBuyerToDataBase(savedBuyer);
+                    MessageBox.Show("Poprawnie dodano kontrahenta: " + savedBuyer.BuyerName, "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Wypełnij wszystkie pola!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

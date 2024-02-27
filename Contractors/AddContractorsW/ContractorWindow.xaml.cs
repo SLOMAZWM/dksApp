@@ -96,18 +96,24 @@ namespace dksApp.Contractors.AddContractorsW
                         newBuyer.BuyerCity = BuyerCity.Text;
                         newBuyer.BuyerZipCode = BuyerZipCodeTxt.Text;
                         newBuyer.BuyerNIP = BuyerNIP.Text;
-
-                        if (newBuyer != null)
+                        if(newBuyer.MinimalLettersNip(newBuyer.BuyerNIP) == false)
                         {
-                            ContractorsServiceDataGrid.AddBuyerToDataBase(newBuyer);
-
-                            MessageBox.Show("Poprawnie dodano kupującego do kontrahentów!", "Poprawny zapis kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            this.Close();
+                            return;
                         }
                         else
                         {
-                            MessageBox.Show("Wypełnij wszystkie pola w okienku!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+                            if (newBuyer != null)
+                            {
+                                ContractorsServiceDataGrid.AddBuyerToDataBase(newBuyer);
+
+                                MessageBox.Show("Poprawnie dodano kupującego do kontrahentów!", "Poprawny zapis kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wypełnij wszystkie pola w okienku!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                     }
                     catch (SqlException ex)
