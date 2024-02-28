@@ -29,12 +29,21 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     {
         private int LP = 1;
         private readonly CreateInvoiceWindow parentWindow;
+        private readonly CreateInvoiceFrame parentFrame;
         public ProductsInvoicePage(CreateInvoiceWindow InvoiceWindow)
         {
             parentWindow = InvoiceWindow;
             InitializeComponent();
 
             ProductsDataGrid.ItemsSource = parentWindow.NewInvoice.Products;
+        }
+
+        public ProductsInvoicePage(CreateInvoiceFrame InvoiceFrame)
+        {
+            InitializeComponent();
+            parentFrame = InvoiceFrame;
+
+            ProductsDataGrid.ItemsSource = parentFrame.NewInvoice.Products;
         }
 
         public bool isNew { get; set; }

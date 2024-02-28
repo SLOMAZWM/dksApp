@@ -22,11 +22,18 @@ namespace dksApp.Bookkeeping.Invoice
     public partial class SellerInvoicePage : Page
     {
         private CreateInvoiceWindow ? createInvoice;
+        private CreateInvoiceFrame? createInvoiceF;
 
         public SellerInvoicePage(CreateInvoiceWindow createInvoiceW)
         {
             InitializeComponent();
             createInvoice = createInvoiceW;
+        }
+
+        public SellerInvoicePage(CreateInvoiceFrame createInvoiceFrame)
+        {
+            InitializeComponent();
+            createInvoiceF = createInvoiceFrame;
         }
 
         public void NextPageBtn_Click(object sender, RoutedEventArgs e)
