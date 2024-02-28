@@ -7,6 +7,7 @@ using dksApp.Bookkeeping;
 using dksApp.Orders;
 using dksApp.Contractors;
 using System.Xml;
+using dksApp.Bookkeeping.Invoice;
 
 namespace dksApp
 {
@@ -15,15 +16,14 @@ namespace dksApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private NavigatorManager navigator;
-
+        public NavigatorManager Navigator { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            navigator = new NavigatorManager(MainContentFrame, InitializeButtonList());
+            Navigator = new NavigatorManager(MainContentFrame, InitializeButtonList(), this);
         }
 
-private List<Button> InitializeButtonList()
+        private List<Button> InitializeButtonList()
         {
             List<Button> newButtonList = new List<Button>
             {
@@ -36,14 +36,13 @@ private List<Button> InitializeButtonList()
             return newButtonList;
         }
 
-
         //#Navigation
         private void NavigationButton_Click(object sender, RoutedEventArgs e) 
         {
             if (sender is Button button && button.Tag is string pageName)
             {
-                navigator.ChangeMenuButtonColor(button);
-                navigator.NavigateToPage(pageName);
+                Navigator.ChangeMenuButtonColor(button);
+                Navigator.NavigateToPage(pageName);
             }
         }
 

@@ -23,10 +23,18 @@ namespace dksApp.Bookkeeping.Invoice
     public partial class CreateInvoiceFrame : Page
     {
         private NavigatorManager navigator;
-        private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
+        public Dictionary<string, Page> GridPage;
         private string selectedGrid;
         private bool isSelected;
         public InvoiceClass NewInvoice { get; set; }
+
+        public CreateInvoiceFrame()
+        {
+            InitializeComponent();
+            NewInvoice = new InvoiceClass();
+            GridPage = InitializeGridPages();
+            navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
+        }
 
         public string SelectedGrid
         {
@@ -49,16 +57,6 @@ namespace dksApp.Bookkeeping.Invoice
             }
             set { navigator = value; }
         }
-
-
-        public CreateInvoiceFrame()
-        {
-            InitializeComponent();
-            NewInvoice = new InvoiceClass();
-            GridPage = InitializeGridPages();
-            navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
-        }
-
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {

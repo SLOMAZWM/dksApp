@@ -23,10 +23,12 @@ namespace dksApp
 		List<Button> ButtonListMenu = new List<Button>();
 		private StackPanel tabButtonStackPanel;
 		private StackPanel invoiceTabButton;
+		private MainWindow _mainWindow;
 
 		//MainWindow Navigation
-		public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu)
+		public NavigatorManager(Frame frame, List<Button> ListOfButtonsMenu, MainWindow mainWindow)
 		{
+			_mainWindow = mainWindow;
 			Pages = InitializePages();
 			ActuallyContentFrame = frame;
 			ButtonListMenu = ListOfButtonsMenu;
@@ -47,6 +49,7 @@ namespace dksApp
 			invoiceTabButton = SP;
 			GridPage = GridPages;
 		}
+
 
 		public void NavigateToDataGrid(string dataGridName)
 		{
@@ -76,7 +79,7 @@ namespace dksApp
 		{
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
-				{ "MainBook", new MainBookPage() },
+				{ "MainBook", new MainBookPage(_mainWindow) },
 				{"Contractors", new ContractorsPage() },
 				{"Orders", new OrdersPage() },
 				{"Magazine", new MagazinePage() }

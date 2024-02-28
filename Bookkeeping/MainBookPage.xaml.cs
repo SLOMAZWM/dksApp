@@ -22,16 +22,17 @@ namespace dksApp.Bookkeeping
     /// </summary>
     public partial class MainBookPage : Page
     {
-
-        //private NavigatorManager navigator;
+        private MainWindow _mainWindow;
+        private NavigatorManager navigatorDataGrid;
         private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 
-        public MainBookPage()
+        public MainBookPage(MainWindow mainWindow)
         {
             InitializeComponent();
 
             DataGridPage = InitializeDataGridPages();
-            NavigationBookKeeping.Initialize(DataGridPage, tabButtonSP, DataGridSelectedFrame);
+            navigatorDataGrid = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
+            _mainWindow = mainWindow;
         }
 
         private Dictionary<string, Page> InitializeDataGridPages()
@@ -41,7 +42,6 @@ namespace dksApp.Bookkeeping
                 { "Wszystkie", new MainDataGrid() },
                 {"Allegro", new AllegroDataGrid() },
                 {"Własne", new UserDataGrid() },
-                {"DodajKsiegowosc", new CreateInvoiceFrame()}
             };
 
             return NewDictionaryOfPages;
@@ -49,24 +49,17 @@ namespace dksApp.Bookkeeping
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (sender is Button button && button.Tag is string dataGridName)
-            //{
-            //    navigator.ChangeTabButton(button);
-            //    navigator.NavigateToDataGrid(dataGridName);
-            //}
-
-            if(sender is Button button && button.Tag is string dataGridName)
+            if (sender is Button button && button.Tag is string dataGridName)
             {
-                NavigationBookKeeping.ChangeInvoiceTabButton(button);
-                NavigationBookKeeping.NavigateToDataGrid(dataGridName);
+                navigatorDataGrid.ChangeTabButton(button);
+                navigatorDataGrid.NavigateToDataGrid(dataGridName);
             }
-
         }
 
-        //private void AddBookKeepingBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CreateInvoiceWindow CreateInvoice = new CreateInvoiceWindow();
-        //    CreateInvoice.ShowDialog();
-        //}
+        private void NavigationToCreateInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            CreateInvoiceFrame createInvoiceFrame = new CreateInvoiceFrame();
+            _mainWindow.MainContentFrame.NavigationService.Navigate(createInvoiceFrame);
+        }
     }
 }

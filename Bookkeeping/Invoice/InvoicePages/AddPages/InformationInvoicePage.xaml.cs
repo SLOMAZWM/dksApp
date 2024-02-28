@@ -21,19 +21,13 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     /// </summary>
     public partial class InformationInvoicePage : Page
     {
-        private readonly CreateInvoiceFrame? parentWindow;
-        private readonly CreateInvoiceWindow? parentWindow2;
+        private CreateInvoiceFrame? parentWindow;
 
-        public InformationInvoicePage(CreateInvoiceFrame? parentF)
+        public InformationInvoicePage(CreateInvoiceFrame parentF)
         {
-            InitializeComponent();
             parentWindow = parentF;
+            InitializeComponent();
             CommentsTxt.Text = "Brak";
-        }
-
-        public InformationInvoicePage(CreateInvoiceWindow parentW)
-        {
-            parentWindow2 = parentW;
         }
 
         private void TodayCHB_Checked(object sender, RoutedEventArgs e)
