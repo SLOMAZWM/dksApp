@@ -38,8 +38,6 @@ namespace dksApp.Contractors
         {
             AddBuyerW newContractor = new AddBuyerW();
             newContractor.ShowDialog();
-
-
         }
 
         private Dictionary<string, Page> InitializeDataGridPages()

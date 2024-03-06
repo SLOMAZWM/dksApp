@@ -140,7 +140,10 @@ namespace dksApp.Bookkeeping.Invoice
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.Close();
+            if(NavigationService.CanGoBack)
+            {
+                this.NavigationService.GoBack();
+            }
         }
     }
 }

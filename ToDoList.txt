@@ -26,7 +26,7 @@ NIP - minimum okreslona ilosc znakow (metoda w Buyer)
 
 DODAC ODSWIEZANIE PO DODANIU DO BAZY DANYCH
 
-Przeniesienie Window do Page (pozostale niz faktury)
+Przeniesienie Window do Page (pozostale niz faktury) - stworz nawigacje, na podstawie faktury
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej w tworzeniu faktury (walidacja)***
 Stworzenie własnych okienek z błędami**

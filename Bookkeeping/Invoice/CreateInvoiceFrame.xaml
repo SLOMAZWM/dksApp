@@ -9,7 +9,7 @@
       d:DesignHeight="700" d:DesignWidth="1080"
       Title="CreateInvoiceFrame">
 
-    <Border Background="#eff2f7" CornerRadius="30" BorderThickness="1" BorderBrush="#6741d9">
+    <Border Background="#eff2f7" CornerRadius="30">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -27,9 +27,9 @@
 
             <!--Page Title-->
 
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="0">
 
-                <TextBlock Margin="0,10,0,0" Text="Dodaj Księgowość" Style="{StaticResource TitlePage}" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <TextBlock Margin="0,0,0,0" Text="Dodaj Księgowość" Style="{StaticResource TitlePage}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             </StackPanel>
 
@@ -48,7 +48,7 @@
 
                 <Separator Margin="0,10,0,0" VerticalAlignment="Bottom" Height="0.8" Grid.Column="0" Grid.ColumnSpan="2" Background="#7e5fdc"/>
 
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="tabButtonSP" Grid.Row="0" Orientation="Horizontal" Margin="0,5,0,0" Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="tabButtonSP" Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
                     <Button x:Name="SellerBtn" Content="Sprzedawca" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Sprzedawca" Width="130"/>
                     <Button x:Name="BuyerBtn" Content="Nabywca" Style="{StaticResource tabButton}" Click="WhichBuyer_Click" Tag="Nabywca" Width="130"/>
                     <Button x:Name="InformationBtn" Content="Informacje" Style="{StaticResource tabButton}" Click="NavigationButton_Click" Tag="Informacje" Width="130"/>

@@ -24,7 +24,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
+            <StackPanel Margin="10,0,10,10" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="700">
                 <TextBlock Style="{StaticResource TextInput}" Width="250" Text="Pochodzenie Faktury: " HorizontalAlignment="Left"/>
                 <ComboBox x:Name="InvoiceFromCB" Width="200" Height="25" Margin="0,17,0,0" Cursor="Hand" SelectedIndex="0" HorizontalContentAlignment="Center" SelectionChanged="InvoiceFromCB_SelectionChanged">
                     <ComboBoxItem Content="WŁASNE"/>

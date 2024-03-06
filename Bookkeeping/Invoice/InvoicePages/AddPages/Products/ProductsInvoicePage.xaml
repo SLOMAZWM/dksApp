@@ -27,11 +27,10 @@
 
                     <DataGridTextColumn Header="L.p." IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding NumberOfItems}"/>
 
-                    <DataGridTextColumn Header="Nazwa Produktu/Usługi" IsReadOnly="True" Width="auto" Binding="{Binding NameItem}"/>
+                    <DataGridTextColumn Header="Nazwa" IsReadOnly="True" Width="auto" Binding="{Binding NameItem}"/>
                     <DataGridTextColumn Header="Ilość" IsReadOnly="True" Width="auto" Binding="{Binding Quantity}"/>
                     <DataGridTextColumn Header="J.m." IsReadOnly="True" Width="auto" Binding="{Binding QuantityType}"/>
                     <DataGridTextColumn Header="PKWiU" IsReadOnly="True" Width="auto" Binding="{Binding PKWiU}"/>
-                    <DataGridTextColumn Header="Cena netto [PLN] (1)" IsReadOnly="True" Width="auto" Binding="{Binding NettoPrice}"/>
                     <DataGridTextColumn Header="Wartość netto [PLN]" IsReadOnly="True" Width="auto" Binding="{Binding NettoValue}"/>
                     <DataGridTextColumn Header="Vat [%]" IsReadOnly="True" Width="auto" Binding="{Binding VATPercent}"/>
                     <DataGridTextColumn Header="Wartość VAT [PLN]" IsReadOnly="True" Width="auto" Binding="{Binding VATValue}"/>
