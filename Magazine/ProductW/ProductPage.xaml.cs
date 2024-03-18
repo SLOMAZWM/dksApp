@@ -23,17 +23,19 @@ namespace dksApp.Magazine.ProductW
     /// </summary>
     public partial class ProductPage : Page
     {
+        private MainWindow _mainWindow;
         private dksApp.Product editProduct;
         private bool editetProduct;
-        public ProductPage() //Create New Product
+        public ProductPage(MainWindow mainWindow) //Create New Product
         {
             InitializeComponent();
             editetProduct = false;
             TitleNameTxt.Text = "Dodawanie Produktu";
             ConfirmBtnTxt.Text = "Zapisz Produkt";
+            _mainWindow = mainWindow;
         }
 
-        public ProductPage(ref bool ed, ref dksApp.Product p) //Edit Product
+        public ProductPage(ref bool ed, ref dksApp.Product p, MainWindow mainWindow) //Edit Product
         {
             InitializeComponent();
             editetProduct = ed;
@@ -41,6 +43,7 @@ namespace dksApp.Magazine.ProductW
             InitializeEditWindow(ref p);
             TitleNameTxt.Text = "Edytowanie Produktu";
             ConfirmBtnTxt.Text = "Edytuj Produkt";
+            _mainWindow = mainWindow;
         }
 
         private void InitializeEditWindow(ref dksApp.Product product)

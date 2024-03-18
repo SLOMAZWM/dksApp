@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using dksApp.Bookkeeping.Invoice;
 
 namespace dksApp.Contractors
 {
@@ -274,8 +275,8 @@ namespace dksApp.Contractors
 
             if(selectedContractor != null) 
             {
-                AddBuyerW editContractor = new AddBuyerW(selectedContractor);
-                editContractor.ShowDialog();
+                //CreateInvoiceFrame createInvoiceFrame = new CreateInvoiceFrame(selectedContractor);
+                //_mainWindow.MainContentFrame.NavigationService.Navigate(createInvoiceFrame);
             }
             else
             {

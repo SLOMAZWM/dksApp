@@ -80,9 +80,9 @@ namespace dksApp
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
 				{ "MainBook", new MainBookPage(_mainWindow) },
-				{"Contractors", new ContractorsPage() },
+				{"Contractors", new ContractorsPage(_mainWindow) },
 				{"Orders", new OrdersPage() },
-				{"Magazine", new MagazinePage() }
+				{"Magazine", new MagazinePage(_mainWindow) }
 			};
 
 			return NewDictionaryOfPages;

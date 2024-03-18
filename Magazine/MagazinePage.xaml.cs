@@ -15,7 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using dksApp.Magazine.MagazineDataGrid;
 using PdfSharp;
-using dksApp.Magazine.Product;
+using dksApp.Magazine.ProductW;
+using dksApp.Bookkeeping.Invoice;
 
 namespace dksApp.Magazine
 {
@@ -24,18 +25,19 @@ namespace dksApp.Magazine
 	/// </summary>
 	public partial class MagazinePage : Page
 	{
-
+		private MainWindow _mainWindow;
 		private NavigatorManager navigator;
 		private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 
-		public MagazinePage()
+		public MagazinePage(MainWindow mainWindow)
 		{
 			InitializeComponent();
 			DataGridPage = InitializeDataGridPages();
 			navigator = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
-		}
+            _mainWindow = mainWindow;
+        }
 
-		private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (sender is Button button && button.Tag is string dataGridName)
 			{
@@ -48,7 +50,7 @@ namespace dksApp.Magazine
 		{
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
-				{ "Wszystkie", new MainMagazineDataGrid() }
+				{ "Wszystkie", new MainMagazineDataGrid(_mainWindow) }
 			};
 
 			return NewDictionaryOfPages;
@@ -56,8 +58,8 @@ namespace dksApp.Magazine
 
 		private void AddBookKeepingBtn_Click(object sender, RoutedEventArgs e)
 		{
-			ProductWindow productWindow = new ProductWindow();
-			productWindow.ShowDialog();
+            ProductPage createNewProduct = new ProductPage(_mainWindow);
+            _mainWindow.MainContentFrame.NavigationService.Navigate(createNewProduct);
         }
     }
 }

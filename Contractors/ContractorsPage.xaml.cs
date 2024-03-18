@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using dksApp.Contractors.AddContractorsW;
+using dksApp.Bookkeeping.Invoice;
 
 namespace dksApp.Contractors
 {
@@ -22,22 +23,23 @@ namespace dksApp.Contractors
     /// </summary>
     public partial class ContractorsPage : Page
     {
-
+        private MainWindow _mainWindow;
         private NavigatorManager navigator;
         private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 
-        public ContractorsPage()
+        public ContractorsPage(MainWindow mainWindow)
         {
             InitializeComponent();
 
             DataGridPage = InitializeDataGridPages();
             navigator = new NavigatorManager(tabButtonSP, DataGridSelectedFrame, DataGridPage);
+            _mainWindow = mainWindow;
         }
 
         private void AddContractor_Click(object sender, RoutedEventArgs e)
         {
-            AddBuyerW newContractor = new AddBuyerW();
-            newContractor.ShowDialog();
+            ContractorPage createNewContractor = new ContractorPage(_mainWindow);  
+                _mainWindow.MainContentFrame.NavigationService.Navigate(createNewContractor);
         }
 
         private Dictionary<string, Page> InitializeDataGridPages()

@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows;
-using dksApp.Magazine.Product;
+using dksApp.Magazine.ProductW;
 using dksApp.Magazine.MagazineDataGrid;
 
 namespace dksApp
@@ -177,11 +177,11 @@ namespace dksApp
 			return filteredProducts;
 		}
 
-		public static void InitializeEditWindow(ref bool ed, ref dksApp.Product p)
+		public static void InitializeEditWindow(ref bool ed, ref dksApp.Product p, MainWindow mainW)
 		{
 			ed = true;
-			ProductWindow editedWindow = new ProductWindow(ref ed, ref p);
-			editedWindow.Show();
+			ProductPage editetProduct = new ProductPage(ref ed, ref p, mainW);
+			mainW.MainContentFrame.Navigate(editetProduct);
 		}
 
 		public static void UpdateProductDataBase(dksApp.Product editedProduct)

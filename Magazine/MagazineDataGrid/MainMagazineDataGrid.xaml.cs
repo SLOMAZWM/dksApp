@@ -24,12 +24,13 @@ namespace dksApp.Magazine.MagazineDataGrid
 	/// </summary>
 	public partial class MainMagazineDataGrid : Page
 	{
+		private MainWindow _mainWindow;
 		private int CurrentPage;
 		private List<dksApp.Product> products = new List<dksApp.Product>();
 		public static MainMagazineDataGrid Instance { get; private set; }
 
 
-		public MainMagazineDataGrid()
+		public MainMagazineDataGrid(MainWindow mainWindow)
 		{
 			InitializeComponent();
 			InitializeAsync();
@@ -39,6 +40,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 
 			Instance = this;
 			CurrentPage = 1;
+			_mainWindow = mainWindow;
 		}
 
 		public async Task InitializeAsync()
@@ -275,7 +277,7 @@ namespace dksApp.Magazine.MagazineDataGrid
 			{
 				dksApp.Product selectedProduct = (dksApp.Product)ProductDataGrid.SelectedItem;
 				bool edited = false;
-				ProductServiceDataGrid.InitializeEditWindow(ref edited, ref selectedProduct);
+				ProductServiceDataGrid.InitializeEditWindow(ref edited, ref selectedProduct, _mainWindow);
 			}
 			else
 			{

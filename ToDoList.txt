@@ -15,10 +15,12 @@ Po testach: Sprawdź działanie z drukowaniem
 
 
 3. ProductWindow
+EDYTOWANIE - NAPRAW NAWIGACJIA PAGE
 POPRAWA FRONTEND
 TESTY
 
 4. Kontrahenci
+EDYTOWANIE - NAPRAW NAWIGACJIA PAGE
 POPRAWA FRONTEND
 TESTY
 

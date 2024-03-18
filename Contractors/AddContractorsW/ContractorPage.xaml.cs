@@ -22,13 +22,15 @@ namespace dksApp.Contractors.AddContractorsW
     /// </summary>
     public partial class ContractorPage : Page
     {
+        private MainWindow _mainWindow;
         private Buyer editBuyer = new Buyer();
         private bool editetBuyer;
-        public ContractorPage() //Add Contractor
+        public ContractorPage(MainWindow mainWindow) //Add Contractor
         {
             InitializeComponent();
             editetBuyer = false;
             TitleNameTxt.Text = "Dodawanie Kontrahenta";
+            _mainWindow = mainWindow;
         }
 
         public ContractorPage(Buyer buyer) //Edit Contractor
