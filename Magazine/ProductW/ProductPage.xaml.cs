@@ -60,7 +60,7 @@ namespace dksApp.Magazine.ProductW
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.Close();
+            NavigationService.GoBack();
         }
 
         private void TextOnlyNumber_Check(object sender, TextCompositionEventArgs e)
