@@ -14,6 +14,8 @@ namespace dksApp.Contractors
     {
         private static string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
 
+        public static event Action BuyersUpdated;
+
         public static ObservableCollection<Buyer> BuyerList { get; set; }
 
         public static int TotalItemsCount => BuyerList.Count;
@@ -56,6 +58,7 @@ namespace dksApp.Contractors
                         cmd.ExecuteNonQuery();
                     }
                 }
+                BuyersUpdated?.Invoke();
             }
             catch (SqlException ex)
             {

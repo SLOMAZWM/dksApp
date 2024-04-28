@@ -107,10 +107,10 @@ namespace dksApp.Contractors.AddContractorsW
                             if (newBuyer != null)
                             {
                                 ContractorsServiceDataGrid.AddBuyerToDataBase(newBuyer);
+                                NavigationService.GoBack();
 
                                 MessageBox.Show("Poprawnie dodano kupującego do kontrahentów!", "Poprawny zapis kontrahenta", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                                //this.Close();
                             }
                             else
                             {
@@ -145,7 +145,8 @@ namespace dksApp.Contractors.AddContractorsW
                         {
                             ContractorsServiceDataGrid.UpdateBuyerInDatabase(editBuyer);
 
-                            //this.Close();
+                            _mainWindow.Navigator.Pages = _mainWindow.Navigator.InitializePages();
+                            NavigationService.GoBack();
                         }
                         else
                         {
@@ -154,7 +155,7 @@ namespace dksApp.Contractors.AddContractorsW
                     }
                     catch (SqlException ex)
                     {
-                        //MessageBox.Sh
+                        MessageBox.Show("Błąd bazy danych - skontaktuj się z administratorem!" + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
 

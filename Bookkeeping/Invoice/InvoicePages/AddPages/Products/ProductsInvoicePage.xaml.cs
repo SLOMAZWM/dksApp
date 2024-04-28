@@ -29,6 +29,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
     {
         private int LP = 1;
         private readonly CreateInvoiceFrame parentWindow;
+        public event Action InvoiceAdded;
 
         public ProductsInvoicePage(CreateInvoiceFrame InvoiceFrame)
         {
@@ -256,9 +257,8 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
 
                         MessageBox.Show("Poprawnie dodano fakturę!", "Operacja wykonana pomyślnie!", MessageBoxButton.OK, MessageBoxImage.Information);
                         connection.Close();
-                    
                     }
-
+                    InvoiceAdded?.Invoke();
                 }
             }
             

@@ -34,34 +34,46 @@ namespace dksApp.Magazine.MagazineDataGrid
 		{
 			InitializeComponent();
 			InitializeAsync();
-			ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
 
 			DeleteProductsBtn.Visibility = Visibility.Collapsed;
 
 			Instance = this;
 			CurrentPage = 1;
 			_mainWindow = mainWindow;
-		}
 
-		public async Task InitializeAsync()
-		{
-			await ProductServiceDataGrid.GetAllFromDataBaseAsync();
-			UpdateDisplayedProducts();
-			GeneratePaginationButtons();
-			UpdatePaginationButtonStyles();
-            ProductServiceDataGrid.Products.CollectionChanged += Products_CollectionChanged;
-		}
+            ProductServiceDataGrid.ProductsUpdated += OnProductsUpdated;
+        }
 
-		private void UpdateDisplayedProducts()
-		{
-			var displayedProducts = ProductServiceDataGrid.GetProductsPage(CurrentPage);
-			ProductDataGrid.ItemsSource = displayedProducts;
-			UpdatePaginationButtonStyles();
-			UpdateAmountOfItems();
-			GeneratePaginationButtons();
-		}
+        private void MainMagazineDataGrid_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ProductServiceDataGrid.ProductsUpdated -= OnProductsUpdated;
+        }
 
-		private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private async void OnProductsUpdated()
+        {
+            await InitializeAsync();
+        }
+
+        public async Task InitializeAsync()
+        {
+            await ProductServiceDataGrid.GetAllFromDataBaseAsync();
+            ProductDataGrid.ItemsSource = ProductServiceDataGrid.Products;
+            UpdateDisplayedProducts();
+            GeneratePaginationButtons();
+            UpdatePaginationButtonStyles();
+        }
+
+        private void UpdateDisplayedProducts()
+        {
+            var displayedProducts = ProductServiceDataGrid.GetProductsPage(CurrentPage);
+            ProductDataGrid.ItemsSource = displayedProducts;
+            UpdatePaginationButtonStyles();
+            UpdateAmountOfItems();
+            GeneratePaginationButtons();
+        }
+
+
+        private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
 			UpdateAmountOfItems();
 		}

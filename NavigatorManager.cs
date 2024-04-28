@@ -16,7 +16,7 @@ namespace dksApp
 {
 	public class NavigatorManager
 	{
-		private Dictionary<string, Page> Pages = new Dictionary<string, Page>();
+		public Dictionary<string, Page> Pages = new Dictionary<string, Page>();
 		private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 		private Dictionary<string, Page> GridPage = new Dictionary<string, Page>();
 		private Frame ActuallyContentFrame;
@@ -75,8 +75,9 @@ namespace dksApp
 			}
 		}
 
-		private Dictionary<string, Page> InitializePages()
+		public Dictionary<string, Page> InitializePages()
 		{
+			Pages.Clear();
 			Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
 			{
 				{ "MainBook", new MainBookPage(_mainWindow) },

@@ -31,18 +31,22 @@ namespace dksApp.Contractors
             DeleteContractorBtn.Visibility = Visibility.Collapsed;
             AsyncInitialize();
 
-            ContractorsDataGrid.ItemsSource = ContractorsServiceDataGrid.BuyerList;
-
             CurrentPage = 1;
+            ContractorsServiceDataGrid.BuyersUpdated += OnBuyersUpdated;
+        }
+
+        private void OnBuyersUpdated()
+        {
+            AsyncInitialize();
         }
 
         public async Task AsyncInitialize()
         {
             await ContractorsServiceDataGrid.GetBuyersFromDataBase();
+            ContractorsDataGrid.ItemsSource = ContractorsServiceDataGrid.BuyerList;
             UpdateDisplayedBuyers();
             GeneratePaginationButtons();
             UpdatePaginationButtonStyles();
-
         }
 
         private void Contractors_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

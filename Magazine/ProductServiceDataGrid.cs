@@ -17,9 +17,15 @@ namespace dksApp
 	{
 		private static string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
 		public static ObservableCollection<Product> Products { get; set; }
-		private static int PageSize = 7;
-		
-		public static void AddProductToDataBase(Product product)
+        public static event Action ProductsUpdated;
+        private static int PageSize = 7;
+
+        public static void NotifyProductsUpdated()
+        {
+            ProductsUpdated?.Invoke();
+        }
+
+        public static void AddProductToDataBase(Product product)
 		{
 				try
 				{
@@ -46,8 +52,9 @@ namespace dksApp
 
 								con.Open();
 								cmd.ExecuteNonQuery();
-							}
-						}
+								NotifyProductsUpdated();
+                        }
+                    }
 						catch(SqlException ex) 
 						{
 							MessageBox.Show("Błąd dodawania produktu do bazy danych: " + ex.Message, "Błąd bazy danych", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -144,8 +151,9 @@ namespace dksApp
 				{
 					cmd.Parameters.AddWithValue("@ProductId", productId);
 					cmd.ExecuteNonQuery();
-				}
-			}
+                    NotifyProductsUpdated();
+                }
+            }
 		}
 
 		public static decimal CalculateValueVAT(decimal nettoPrice, decimal vatPercent)
@@ -222,8 +230,9 @@ namespace dksApp
 
 						con.Open();
 						cmd.ExecuteNonQuery();
-					}
-				}
+                        NotifyProductsUpdated();
+                    }
+                }
 			}
 			catch (SqlException ex)
 			{

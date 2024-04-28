@@ -37,21 +37,6 @@ AllowsTransparency="True" Background="Transparent">
 
             <Grid x:Name="InputGrid" Grid.Row="3">
 
-                <Grid.Resources>
-                    <Style TargetType="TextBlock" x:Key="FormsBlock" BasedOn="{StaticResource TextInput}">
-                        <Setter Property="Width" Value="200"/>
-                        <Setter Property="Margin" Value="0,14,0,0"/>
-                    </Style>
-                    <Style TargetType="TextBox" x:Key="FormsBox" BasedOn="{StaticResource Input}">
-                        <Setter Property="Width" Value="500"/>
-                    </Style>
-                    <Style TargetType="TextBox" x:Key="FormsBoxBlock" BasedOn="{StaticResource FormsBox}">
-                        <Setter Property="IsEnabled" Value="False"/>
-                        <Setter Property="Background" Value="Gray"/>
-                        <Setter Property="Foreground" Value="White"/>
-                    </Style>
-                </Grid.Resources>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>

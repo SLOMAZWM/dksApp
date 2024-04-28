@@ -25,7 +25,7 @@ namespace dksApp.Contractors
     {
         private MainWindow _mainWindow;
         private NavigatorManager navigator;
-        private Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
+        public Dictionary<string, Page> DataGridPage = new Dictionary<string, Page>();
 
         public ContractorsPage(MainWindow mainWindow)
         {
@@ -38,12 +38,13 @@ namespace dksApp.Contractors
 
         private void AddContractor_Click(object sender, RoutedEventArgs e)
         {
-            ContractorPage createNewContractor = new ContractorPage(_mainWindow);  
+            ContractorPage createNewContractor = new ContractorPage(_mainWindow);
                 _mainWindow.MainContentFrame.NavigationService.Navigate(createNewContractor);
         }
 
-        private Dictionary<string, Page> InitializeDataGridPages()
-        {
+        public Dictionary<string, Page> InitializeDataGridPages()
+        { 
+            DataGridPage.Clear();
             Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
             {
                 { "Wszyscy", new AllDataGridPage() }

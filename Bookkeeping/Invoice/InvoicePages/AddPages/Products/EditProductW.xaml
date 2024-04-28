@@ -31,7 +31,7 @@ AllowsTransparency="True" Background="Transparent">
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Grid.Row="1">
-                <TextBlock Text="DODAWANIE PRODUKTU/USŁUGI" Style="{StaticResource TitlePage}"/>
+                <TextBlock Text="EDYTOWANIE PRODUKTU/USŁUGI" Style="{StaticResource TitlePage}"/>
             </StackPanel>
 
             <Separator Grid.Row="2" Margin="0,10,0,0" VerticalAlignment="Bottom" Height="0.8" Background="DarkGray"/>
@@ -71,10 +71,32 @@ AllowsTransparency="True" Background="Transparent">
                     <TextBox x:Name="TypeAmountTxt" Style="{StaticResource FormsBox}"/>
                 </StackPanel>
 
+                <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,2,0,0">
+                    <CheckBox Style="{StaticResource CheckBoxStyle1}" Margin="0,14,0,0" Checked="TypeAmountChb_Checked" Unchecked="TypeAmountChb_UnChecked"/>
+                    <TextBlock Text="szt." Style="{StaticResource FormsBlock}" Width="auto" Margin="5,14,140,0" FontSize="12"/>
+                </StackPanel>
+
+
                 <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Ilość: " Style="{StaticResource FormsBlock}"/>
-                    <TextBox x:Name="AmountTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBox x:Name="AmountTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste" TextChanged="CalculateAmountFromTextBox_TextChanged"/>
                 </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,200,0">
+                    <Button Style="{StaticResource gridEditButton}" Width="23" Height="auto" Background="#00AA33" Margin="37,0,0,0" Click="PlusAmountBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="PlusBox" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource gridEditButton}" Width="23" Height="auto" Background="#EC1515" Margin="10,0,0,0" Click="MinusAmountBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="MinusBox" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
 
                 <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="PKWiU: " Style="{StaticResource FormsBlock}"/>
@@ -83,34 +105,41 @@ AllowsTransparency="True" Background="Transparent">
 
                 <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Cena za sztukę NETTO:" Style="{StaticResource FormsBlock}"/>
-                    <TextBox x:Name="NettoOneTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBox x:Name="NettoOneTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste" TextChanged="CalculateAmountFromTextBox_TextChanged"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="5" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="Wartość NETTO:" Style="{StaticResource FormsBlock}"/>
-                    <TextBox x:Name="ValueNettoTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBlock Text="VAT [%]:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="VatTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste" TextChanged="CalculateAmountFromTextBox_TextChanged"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="6" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="VAT [%]:" Style="{StaticResource FormsBlock}"/>
-                    <TextBox x:Name="VatTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBlock Text="Wartość NETTO:" Style="{StaticResource FormsBlock}"/>
+                    <TextBox x:Name="ValueNettoTxt" Style="{StaticResource FormsBoxBlock}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="7" HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Wartość VAT:" Style="{StaticResource FormsBlock}"/>
-                    <TextBox x:Name="ValueVatTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBox x:Name="ValueVatTxt" Style="{StaticResource FormsBoxBlock}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="8" HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Wartość BRUTTO:" Style="{StaticResource FormsBlock}" />
-                    <TextBox x:Name="ValueBruttoTxt" Style="{StaticResource FormsBox}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
+                    <TextBox x:Name="ValueBruttoTxt" Style="{StaticResource FormsBoxBlock}" PreviewTextInput="TextOnlyNumber_Check" DataObject.Pasting="TextOnlyNumber_CheckPaste"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="9" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
                     <Button x:Name="EditProductBtn" Style="{StaticResource InvoiceRememberButton}" Margin="10" Click="EditProductBtn_Click">
                         <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="PlusCircle" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
-                            <TextBlock Text="Zatwierdź Produkt"/>
+                            <Icon:PackIconMaterial Kind="BookEdit" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                            <TextBlock Text="Edytuj Produkt"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="RememberProductBtn" Style="{StaticResource InvoiceNavigationtButton}" Margin="10" Click="RememberProductBtn_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ContentSaveCheck" VerticalAlignment="Center" Width="11" Height="11" Margin="0,1,8,0"/>
+                            <TextBlock Text="Zapisz Produkt"/>
                         </StackPanel>
                     </Button>
 

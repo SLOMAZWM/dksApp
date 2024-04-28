@@ -385,5 +385,11 @@ namespace dksApp.Bookkeeping
 				invoiceWindow.ShowDialog();
 			}
 		}
-	}
+
+		public void RefreshData()
+		{
+			InitializeAllInvoices();
+		}
+
+    }
 }

@@ -59,7 +59,28 @@ namespace dksApp.Bookkeeping
         private void NavigationToCreateInvoice_Click(object sender, RoutedEventArgs e)
         {
             CreateInvoiceFrame createInvoiceFrame = new CreateInvoiceFrame();
+            createInvoiceFrame.InvoiceAdded += RefreshDataGrids;
             _mainWindow.MainContentFrame.NavigationService.Navigate(createInvoiceFrame);
         }
+
+        private void RefreshDataGrids()
+        {
+            DataGridPage["Wszystkie"] = new MainDataGrid();
+            SimulateButtonClick("Wszystkie");
+        }
+
+        private void SimulateButtonClick(string dataGridName)
+        {
+            Button button = tabButtonSP.Children
+                .OfType<Button>()
+                .FirstOrDefault(b => b.Tag as string == dataGridName);
+
+            if (button != null)
+            {
+                navigatorDataGrid.ChangeTabButton(button);
+                navigatorDataGrid.NavigateToDataGrid(dataGridName);
+            }
+        }
+
     }
 }

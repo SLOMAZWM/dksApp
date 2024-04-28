@@ -220,6 +220,15 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.AddPages.Products
 
         private void CalculateAmountFromTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(!string.IsNullOrEmpty(AmountTxt.Text))
+            {
+                decimal amount = Convert.ToDecimal(AmountTxt.Text);
+                if(amount < 0)
+                {
+                    amount = 0;
+                    AmountTxt.Text = amount.ToString();
+                }
+            }
             if(!string.IsNullOrEmpty(VatTxt.Text)) 
             {
                 decimal vatAmount = Convert.ToDecimal(VatTxt.Text);

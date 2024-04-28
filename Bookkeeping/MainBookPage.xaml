@@ -52,7 +52,7 @@
 
             <!--BookKeeping DataGrid-->
 
-            <Frame x:Name="DataGridSelectedFrame" Grid.Row="5"/>
+            <Frame x:Name="DataGridSelectedFrame" Grid.Row="5" NavigationUIVisibility="Hidden"/>
 
 
         </Grid>

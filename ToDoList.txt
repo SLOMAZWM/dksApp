@@ -9,7 +9,6 @@
 
 2. Faktury:
 Ustal jednego sprzedawce (darkas), usun mozliwosc zmiany, dostosuj baze danych.
-Popraw edytowanie produktu z datagrida w dodawaniu faktury - by wygladalo tak samo jak dodawanie
 
 WALIDACJA:
 
@@ -32,9 +31,6 @@ EDYTOWANIE - NAPRAW NAWIGACJIA PAGE
 POPRAWA FRONTEND
 TESTY
 
-NIP - minimum okreslona ilosc znakow (metoda w Buyer)
-
-DODAC ODSWIEZANIE PO DODANIU DO BAZY DANYCH
 
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej w tworzeniu faktury (walidacja)***

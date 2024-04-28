@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using dksApp.Magazine.ProductW;
 
 namespace dksApp.Bookkeeping.Invoice
 {
@@ -26,6 +27,8 @@ namespace dksApp.Bookkeeping.Invoice
         public Dictionary<string, Page> GridPage;
         private string selectedGrid;
         private bool isSelected;
+        public event Action InvoiceAdded;
+        private ProductsInvoicePage productsPage;
         public InvoiceClass NewInvoice { get; set; }
 
         public CreateInvoiceFrame()
@@ -33,6 +36,7 @@ namespace dksApp.Bookkeeping.Invoice
             InitializeComponent();
             NewInvoice = new InvoiceClass();
             GridPage = InitializeGridPages();
+            productsPage.InvoiceAdded += OnInvoiceAdded;
             navigator = new NavigatorManager(GridPage, tabButtonSP, GridFrame);
         }
 
@@ -87,17 +91,28 @@ namespace dksApp.Bookkeeping.Invoice
             navigator.ChangeInvoiceTabButton(SellerBtn);
         }
 
+        public void OnInvoiceAdded()
+        {
+            InvoiceAdded?.Invoke();
+        }
+
         private Dictionary<string, Page> InitializeGridPages()
         {
-            Dictionary<string, Page> NewDictionaryOfPages = new Dictionary<string, Page>
-            {
-                { "Sprzedawca", new SellerInvoicePage(this) },
-                { "Produkty", new ProductsInvoicePage(this) },
-                { "Informacje", new InformationInvoicePage(this) }
-            };
+            var sellerPage = new SellerInvoicePage(this);
+            productsPage = new ProductsInvoicePage(this);
+            productsPage.InvoiceAdded += () => InvoiceAdded?.Invoke();
+            var informationPage = new InformationInvoicePage(this);
 
-            return NewDictionaryOfPages;
+            var newDictionaryOfPages = new Dictionary<string, Page>
+    {
+        { "Sprzedawca", sellerPage },
+        { "Produkty", productsPage },
+        { "Informacje", informationPage }
+    };
+
+            return newDictionaryOfPages;
         }
+
 
         public void WhichBuyer_Click(object sender, RoutedEventArgs e)
         {
@@ -140,7 +155,7 @@ namespace dksApp.Bookkeeping.Invoice
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(NavigationService.CanGoBack)
+            if (NavigationService.CanGoBack)
             {
                 this.NavigationService.GoBack();
             }
