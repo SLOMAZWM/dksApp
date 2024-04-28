@@ -153,9 +153,9 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
             savedBuyer.BuyerZipCode = BuyerZipCode.Text;
             savedBuyer.BuyerCity = BuyerCity.Text;
             savedBuyer.BuyerStreet = BuyerStreet.Text;
-            savedBuyer.BuyerNIP = "Brak NIP";
+            savedBuyer.BuyerNIP = "Brak NIP - prywatny kupujący";
 
-            if(savedBuyer.MinimalLettersNip(savedBuyer.BuyerNIP) == false)
+            if(savedBuyer.IsMinimalLettersNip(savedBuyer.BuyerNIP) == false)
             {
                 return;
             }

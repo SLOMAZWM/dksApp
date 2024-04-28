@@ -98,7 +98,7 @@ namespace dksApp.Contractors.AddContractorsW
                         newBuyer.BuyerCity = BuyerCity.Text;
                         newBuyer.BuyerZipCode = BuyerZipCodeTxt.Text;
                         newBuyer.BuyerNIP = BuyerNIP.Text;
-                        if (newBuyer.MinimalLettersNip(newBuyer.BuyerNIP) == false)
+                        if (newBuyer.IsMinimalLettersNip(newBuyer.BuyerNIP) == false)
                         {
                             return;
                         }

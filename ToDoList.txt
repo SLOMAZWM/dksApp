@@ -9,10 +9,7 @@
 
 2. Faktury:
 Ustal jednego sprzedawce (darkas), usun mozliwosc zmiany, dostosuj baze danych.
-Ustaw Vat na max 100% w produktach i fakturach
-Dodaj nabywce z poziomu faktury - blad z NIP
-Usun mozliwosc zaznaczenia wczytanego i nowego produktu
-Popraw edytowanie produktu z datagrida w fakturze - by wygladalo tak samo jak dodawanie
+Popraw edytowanie produktu z datagrida w dodawaniu faktury - by wygladalo tak samo jak dodawanie
 
 WALIDACJA:
 

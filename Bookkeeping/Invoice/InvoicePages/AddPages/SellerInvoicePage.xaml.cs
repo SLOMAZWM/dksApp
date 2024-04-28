@@ -179,5 +179,6 @@ namespace dksApp.Bookkeeping.Invoice
             Regex regex = new Regex("[^a-z, A-Z]+$");
             return !regex.IsMatch(text);
         }
+
     }
 }

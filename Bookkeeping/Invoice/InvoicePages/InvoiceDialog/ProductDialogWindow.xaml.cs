@@ -86,5 +86,15 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages.InvoiceDialog
         {
             this.Close();
         }
+
+        private void NewCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            SavedCheckBox.IsChecked = false;
+        }
+
+        private void SavedCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            NewCheckBox.IsChecked = false;
+        }
     }
 }

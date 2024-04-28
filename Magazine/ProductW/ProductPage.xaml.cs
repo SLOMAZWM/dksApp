@@ -196,7 +196,7 @@ namespace dksApp.Magazine.ProductW
                     if (vatPercent > 100)
                     {
                         vatPercent = 100;
-                        VatTxt.Text = "100";
+                        VatTxt.Text = vatPercent.ToString();
                     }
 
                     decimal vatValue = ProductServiceDataGrid.CalculateValueVAT(nettoPrice, vatPercent);

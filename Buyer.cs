@@ -67,9 +67,9 @@ namespace dksApp
             }
 		}
 
-        public bool MinimalLettersNip(string NIP)
+        public bool IsMinimalLettersNip(string NIP)
         {
-            if (NIP.Length < 10)
+            if (NIP.Length <= 10)
             {
                 MessageBox.Show("Użyto mniej niż 10 znaków w NIP!", "Błąd uzupełnienia NIP", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
