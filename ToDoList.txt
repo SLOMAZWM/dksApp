@@ -9,8 +9,19 @@
 
 2. Faktury:
 Ustal jednego sprzedawce (darkas), usun mozliwosc zmiany, dostosuj baze danych.
+Ustaw Vat na max 100% w produktach i fakturach
+Dodaj nabywce z poziomu faktury - blad z NIP
+Usun mozliwosc zaznaczenia wczytanego i nowego produktu
+Popraw edytowanie produktu z datagrida w fakturze - by wygladalo tak samo jak dodawanie
+
+WALIDACJA:
+
+w przypadku braku wypelnienia pola - czerwone obramowanie, powiadomienie uzytkownika -> jaki naglowek, jakie pole
+
 FRONTEND
 Sprawdzenie braków, dopisanie ich do ToDoList
+Popraw button powrotu
+usun dodaj sprzedajacego/wczytaj
 Po testach: Sprawdź działanie z drukowaniem
 
 
@@ -28,7 +39,6 @@ NIP - minimum okreslona ilosc znakow (metoda w Buyer)
 
 DODAC ODSWIEZANIE PO DODANIU DO BAZY DANYCH
 
-Przeniesienie Window do Page (pozostale niz faktury) - stworz nawigacje, na podstawie faktury
 Poprawienie wydajnosci (nawigacja)* - statyczna klasa
 Przechodzenie dalej w tworzeniu faktury (walidacja)***
 Stworzenie własnych okienek z błędami**

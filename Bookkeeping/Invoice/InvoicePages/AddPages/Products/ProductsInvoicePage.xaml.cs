@@ -241,7 +241,6 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                             invoiceId = (int)command.ExecuteScalar();
                         }
 
-                        // Dodawanie powiązań w InvoiceProducts
                         foreach (int productId in productIds)
                         {
                             string invoiceProductQuery = "INSERT INTO InvoiceProducts (InvoiceID, ProductID) VALUES (@InvoiceID, @ProductID)";
@@ -283,7 +282,7 @@ namespace dksApp.Bookkeeping.Invoice.InvoicePages
                     return;
                 }
 			}
-            catch(Exception ex) //test
+            catch(Exception ex)
             {
                 MessageBox.Show("Błąd wybierania produktu do edycji: " + ex.Message, "Błąd edycji", MessageBoxButton.OK, MessageBoxImage.Error);
                 

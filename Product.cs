@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 
 namespace dksApp
@@ -38,47 +39,80 @@ namespace dksApp
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		public bool isEmpty()
-		{
-			return string.IsNullOrEmpty(NameItem)
-				|| string.IsNullOrEmpty(QuantityType)
-				|| string.IsNullOrEmpty(VATPercent);
-		}
+        public bool isEmpty()
+        {
+            bool hasError = false;
+            StringBuilder errorMessage = new StringBuilder("Proszę uzupełnić następujące pola:\n");
 
-		public bool isZero()
-		{
-			if (NumberOfItems == 0)
-			{
-				return true;
-			}
-			else if (Quantity == 0)
-			{
-				return true;
-			}
-			else if (NettoPrice == 0)
-			{
-				return true;
-			}
-			else if (NettoValue == 0)
-			{
-				return true;
-			}
-			else if (NettoPrice == 0)
-			{
-				return true;
-			}
-			else if (VATValue == 0)
-			{
-				return true;
-			}
-			else if (BruttoValue == 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
+            if (string.IsNullOrEmpty(NameItem))
+            {
+                errorMessage.AppendLine("- Nazwa Produktu/Usługi");
+                hasError = true;
+            }
+            if (string.IsNullOrEmpty(QuantityType))
+            {
+                errorMessage.AppendLine("- Miara ilości");
+                hasError = true;
+            }
+            if (string.IsNullOrEmpty(VATPercent))
+            {
+                errorMessage.AppendLine("- VAT [%]");
+                hasError = true;
+            }
+
+            if (hasError)
+            {
+                MessageBox.Show(errorMessage.ToString(), "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return hasError;
+        }
+
+
+        public bool isZero()
+        {
+            bool hasError = false;
+            StringBuilder errorMessage = new StringBuilder("Następujące pola liczbowe nie mogą być zerowe:\n");
+
+            if (NumberOfItems == 0)
+            {
+                errorMessage.AppendLine("- Numer pozycji");
+                hasError = true;
+            }
+            if (Quantity == 0)
+            {
+                errorMessage.AppendLine("- Ilość");
+                hasError = true;
+            }
+            if (NettoPrice == 0)
+            {
+                errorMessage.AppendLine("- Cena Netto za jednostkę");
+                hasError = true;
+            }
+            if (NettoValue == 0)
+            {
+                errorMessage.AppendLine("- Wartość Netto");
+                hasError = true;
+            }
+            if (VATValue == 0)
+            {
+                errorMessage.AppendLine("- Wartość VAT");
+                hasError = true;
+            }
+            if (BruttoValue == 0)
+            {
+                errorMessage.AppendLine("- Wartość Brutto");
+                hasError = true;
+            }
+
+            if (hasError)
+            {
+                MessageBox.Show(errorMessage.ToString(), "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return hasError;
+        }
+
+
+    }
 }
